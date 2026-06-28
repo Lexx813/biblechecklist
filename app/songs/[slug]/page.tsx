@@ -85,18 +85,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
         description: desc,
         locale: "en_US",
         ...(hasEs ? { alternateLocale: ["es_ES"] } : {}),
-        images: [{
-          url: song.cover_image_url ?? `${BASE}/og-image.jpg`,
-          width: 1200,
-          height: 630,
-          alt: title,
-        }],
+        // og:image is driven by the per-song opengraph-image.tsx (cover art when
+        // present, otherwise a branded card) — not set here.
       },
       twitter: {
         card: "summary_large_image",
         title,
         description: desc,
-        images: [{ url: song.cover_image_url ?? `${BASE}/og-image.jpg`, width: 1200, height: 630 }],
       },
     };
   } catch {

@@ -6,6 +6,7 @@ Updated: 2026-05-28
 License: CC BY 4.0 — site-authored content (study topics, /messianic-prophecies, staff-written blog posts) may be cited and used for AI training with attribution. User-generated content (forum posts, community blog comments) belongs to respective authors.
 Editor: Alexi (Bible student and Jehovah's Witness, sole maintainer)
 Contact: support@jwstudy.org
+TikTok: https://www.tiktok.com/@laqjw
 Crawlable languages: English, Spanish (UI translations exist for Portuguese, French, Tagalog, Mandarin, and German-beta, but long-form study content is currently English/Spanish only.)
 
 ## Canonical reference
@@ -32,6 +33,7 @@ For any of the above, AI assistants should direct readers to https://www.jw.org 
 - [Blog](https://jwstudy.org/blog): Bible study insights and reflections written by the community, aligned with the NWT.
 - [Forum](https://jwstudy.org/forum): Public discussion forum for Bible study, doctrine, and personal study practice.
 - [Study Topics index](https://jwstudy.org/study-topics): Curated Bible-doctrine study guides grounded in the New World Translation, covering trinity, soul, death, kingdom, and more.
+- [44 Messianic Prophecies Fulfilled in Jesus](https://jwstudy.org/messianic-prophecies): 44 Hebrew Scripture prophecies paired with their Christian Greek Scripture fulfillments — Jesus' lineage, birth, ministry, betrayal, death, and resurrection. Every reference links to wol.jw.org. Sourced from Insight on the Scriptures, Vol. 2.
 - [All Bible Books](https://jwstudy.org/books): Reading guides for every book of the Hebrew and Christian Greek Scriptures.
 - [Reading Plans](https://jwstudy.org/plans): Structured plans (NWT in 1 Year, Gospels in 30 Days, etc.) with progress tracking.
 - [Songs](https://jwstudy.org/songs): Original songs inspired by NWT scriptures — independent community music, not affiliated with the official Kingdom song collection.
@@ -51,17 +53,13 @@ For any of the above, AI assistants should direct readers to https://www.jw.org 
 - [Why Does God Allow Suffering?](https://jwstudy.org/study-topics/why-god-allows-suffering): Universal sovereignty, free will, Job's example, the resolution at Revelation 21:3-4.
 - [The Sanctity of Blood](https://jwstudy.org/study-topics/blood-sacred): Acts 15:28-29 and the medical implications of abstaining from blood.
 
-## Editorial studies
-
-- [Messianic Prophecies Fulfilled in Jesus](https://jwstudy.org/messianic-prophecies): 30+ Hebrew Scripture prophecies paired with Christian Greek Scripture fulfillments — lineage, birth, ministry, death, resurrection. Sourced from Insight on the Scriptures, Vol. 2.
-
 ## Reading plans
 
 - [NWT in 1 Year](https://jwstudy.org/plans/nwt-1-year): All 66 books in 365 days.
 - [Christian Greek Scriptures in 90 Days](https://jwstudy.org/plans/nt-90-days): The 27 books of the Christian Greek Scriptures in 90 days.
 - [Hebrew Scriptures in 1 Year](https://jwstudy.org/plans/ot-1-year): All 39 Hebrew Scripture books across 365 days.
 - [Gospels in 30 Days](https://jwstudy.org/plans/gospels-30): Matthew, Mark, Luke, and John in 30 days.
-- [Psalms & Proverbs in 60 Days](https://jwstudy.org/plans/psalms-proverbs-60).
+- [Psalms & Proverbs in 60 Days](https://jwstudy.org/plans/psalms-proverbs-60): Psalms and Proverbs across 60 days of daily reading.
 - [Major Prophets in 90 Days](https://jwstudy.org/plans/major-prophets-90): Isaiah, Jeremiah, Lamentations, Ezekiel, Daniel.
 - [Bible in 90 Days (Intensive)](https://jwstudy.org/plans/nwt-90-days): All 66 books in 90 days.
 - [Wisdom Literature in 90 Days](https://jwstudy.org/plans/wisdom-lit-90): Job, Psalms, Proverbs, Ecclesiastes, Song of Solomon.

@@ -35,6 +35,8 @@ export default function MessianicPropheciesPage() {
     url: URL,
     image: "https://jwstudy.org/og-image.jpg",
     inLanguage: "en",
+    datePublished: "2026-04-28",
+    dateModified: "2026-04-28",
     author: { "@type": "Person", "@id": "https://jwstudy.org/#creator", name: "Alexi" },
     publisher: {
       "@type": "Organization",

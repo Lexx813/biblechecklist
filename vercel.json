@@ -12,7 +12,7 @@
       "source": "/:path*",
       "has": [{ "type": "host", "value": "www.jwstudy.org" }],
       "destination": "https://jwstudy.org/:path*",
-      "permanent": true
+      "statusCode": 308
     }
   ],
   "headers": [

@@ -11,6 +11,9 @@ function bookToSlug(name: string) {
 }
 
 export const revalidate = false;
+// Reading plans are a fixed, code-defined set — unknown slugs return a real 404
+// instead of a soft-200 from on-demand rendering.
+export const dynamicParams = false;
 
 const BASE = "https://jwstudy.org";
 

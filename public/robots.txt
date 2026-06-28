@@ -99,6 +99,12 @@ Allow: /
 User-agent: CCBot
 Allow: /
 
+User-agent: YouBot
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
 User-agent: Googlebot
 Allow: /
 

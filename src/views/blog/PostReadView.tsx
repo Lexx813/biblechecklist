@@ -7,7 +7,26 @@ import { blogApi } from "../../api/blog";
 import { formatDate, authorName as authorNameUtil } from "../../utils/formatters";
 import VerseTooltip from "../../components/blog/VerseTooltip";
 import BookmarkButton from "../../components/bookmarks/BookmarkButton";
+import { createActiveTimer, newMilestones } from "../../lib/readTracking";
+import { trackBlogView, trackBlogScroll, trackBlogReadEnd } from "../../lib/analytics";
 import "../../styles/post-read.css";
+
+// Stable per-tab id so a single read session upserts into one blog_reads row.
+function getReadSessionId(): string {
+  try {
+    const KEY = "nwt_read_sid";
+    let id = sessionStorage.getItem(KEY);
+    if (!id) {
+      id = typeof crypto !== "undefined" && crypto.randomUUID
+        ? crypto.randomUUID()
+        : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+      sessionStorage.setItem(KEY, id);
+    }
+    return id;
+  } catch {
+    return "anon";
+  }
+}
 
 function renderContent(raw: string): string {
   if (!raw) return "";
@@ -61,6 +80,8 @@ export default function PostReadView({ post, user, navigate, children }: Props) 
   const [scrollPct, setScrollPct] = useState(0);
   const [activeSection, setActiveSection] = useState("");
   const articleRef = useRef<HTMLDivElement>(null);
+  const maxScrollRef = useRef(0);
+  const firedMilestonesRef = useRef<Set<number>>(new Set());
   const { data: relatedPosts = [] } = useRelatedPosts(post.id, post.tags ?? []);
   const { data: likedIds = [] } = useUserBlogLikes(user?.id);
   const toggleLike = useToggleBlogLike(user?.id);
@@ -72,6 +93,43 @@ export default function PostReadView({ post, user, navigate, children }: Props) 
   useEffect(() => {
     blogApi.incrementViewCount(post.id);
   }, [post.id]);
+
+  // ── Read tracking: measure an actual read, not just an open ────────────────
+  // Fires GA4 events (blog_view / blog_read_end) and records a blog_reads row
+  // carrying the running max scroll % + active (visible-tab) seconds. Reuses the
+  // scroll-tracked maxScrollRef; the timer pauses while the tab is hidden.
+  useEffect(() => {
+    const sessionId = getReadSessionId();
+    const timer = createActiveTimer(
+      typeof document !== "undefined" ? document.visibilityState === "visible" : true,
+      Date.now(),
+    );
+    trackBlogView(post.slug, post.title);
+
+    const sendRead = () => {
+      const maxScroll = maxScrollRef.current;
+      const seconds = timer.seconds(Date.now());
+      trackBlogReadEnd(post.slug, maxScroll, seconds);
+      blogApi.recordBlogRead(post.id, maxScroll, seconds, sessionId);
+    };
+    const onVisibility = () => {
+      if (document.visibilityState === "visible") {
+        timer.resume(Date.now());
+      } else {
+        timer.pause(Date.now());
+        sendRead();
+      }
+    };
+
+    document.addEventListener("visibilitychange", onVisibility);
+    window.addEventListener("pagehide", sendRead);
+    return () => {
+      document.removeEventListener("visibilitychange", onVisibility);
+      window.removeEventListener("pagehide", sendRead);
+      timer.pause(Date.now());
+      sendRead();
+    };
+  }, [post.id, post.slug, post.title]);
 
   useEffect(() => {
     const scroller = document.querySelector<HTMLElement>(".home-feed, .al-content") ?? window;
@@ -86,6 +144,11 @@ export default function PostReadView({ post, user, navigate, children }: Props) 
         const viewH = window.innerHeight;
         const pct = Math.min(100, Math.max(0, Math.round(((viewH - top) / (height + viewH)) * 100)));
         setScrollPct(pct);
+        if (pct > maxScrollRef.current) maxScrollRef.current = pct;
+        for (const m of newMilestones(firedMilestonesRef.current, pct)) {
+          firedMilestonesRef.current.add(m);
+          trackBlogScroll(post.slug, m);
+        }
         for (const { id } of headings) {
           const headingEl = document.getElementById(id);
           if (headingEl && headingEl.getBoundingClientRect().top <= 120) {
@@ -100,7 +163,7 @@ export default function PostReadView({ post, user, navigate, children }: Props) 
       scroller.removeEventListener("scroll", onScroll);
       if (rafId !== null) cancelAnimationFrame(rafId);
     };
-  }, [headings]);
+  }, [headings, post.slug]);
 
   const [showShare, setShowShare] = useState(false);
 

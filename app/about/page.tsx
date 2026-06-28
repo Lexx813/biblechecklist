@@ -39,7 +39,7 @@ const FAQ_ITEMS = [
 export const metadata = {
   title: "About JW Study | Bible Reading Tracker for Jehovah's Witnesses",
   description:
-    "JW Study is an independent Bible reading tracker built for Jehovah's Witnesses and Bible students. Track all 66 books of the New World Translation. Built by a Bible student for the community.",
+    "JW Study is an independent Bible reading tracker for Jehovah's Witnesses — track all 66 NWT books, take study notes, and follow reading plans. Free, no ads.",
   alternates: {
     canonical: "https://jwstudy.org/about",
     languages: { en: "https://jwstudy.org/about", "x-default": "https://jwstudy.org/about" },

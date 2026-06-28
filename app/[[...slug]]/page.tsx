@@ -66,6 +66,16 @@ const FAQ_ITEMS = [
 // 24h means every CDN-cache hit between deploys serves at ~50ms TTFB.
 export const revalidate = 86400;
 
+// Without this, an optional catch-all can't be prerendered, so Next serves the
+// root (and every SPA shell route) dynamically with `cache-control: no-store` —
+// every visitor and crawler pays a cold function instead of a CDN edge hit.
+// Enumerating the root + known SPA routes lets them be ISR-cached (revalidate
+// above). `dynamicParams` stays at its default (true) so deep/unknown SPA paths
+// (e.g. /messages/<id>) still render on-demand — those are noindex anyway.
+export async function generateStaticParams() {
+  return [{ slug: [] }, ...[...KNOWN_SPA_ROUTES].map((r) => ({ slug: [r] }))];
+}
+
 export async function generateMetadata({ params }) {
   const { slug } = await params;
   const isRoot = !slug || slug.length === 0;

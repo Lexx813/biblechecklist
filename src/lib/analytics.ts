@@ -7,6 +7,7 @@
  */
 
 import { detectPII } from "./pii";
+import { isQualifiedRead } from "./readTracking";
 
 declare global {
   interface Window {
@@ -59,6 +60,27 @@ export function trackUpgradePromptView(feature: string): void {
 
 export function trackUpgradePromptClick(feature: string): void {
   gtag("event", "upgrade_prompt_click", { feature });
+}
+
+// ── Blog reading engagement ──────────────────────────────────────────────────
+// A page_view fires on open; these distinguish an actual read. blog_read_end
+// carries the running max scroll + active (visible-tab) seconds and a derived
+// `qualified` flag so GA4 can report reads-vs-opens without post-processing.
+export function trackBlogView(slug: string, title: string): void {
+  gtag("event", "blog_view", { slug, title });
+}
+
+export function trackBlogScroll(slug: string, percent: number): void {
+  gtag("event", "blog_scroll", { slug, percent });
+}
+
+export function trackBlogReadEnd(slug: string, maxScrollPct: number, activeSeconds: number): void {
+  gtag("event", "blog_read_end", {
+    slug,
+    max_scroll_pct: maxScrollPct,
+    active_seconds: activeSeconds,
+    qualified: isQualifiedRead(maxScrollPct, activeSeconds),
+  });
 }
 
 // ── UTM parameter capture ────────────────────────────────────────────────────

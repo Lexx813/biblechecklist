@@ -10,6 +10,9 @@ import { STUDY_TOPICS } from "../../../src/data/studyTopics";
 import { safeJsonLd } from "../../../src/lib/safeJsonLd";
 
 export const revalidate = false;
+// The 66 Bible books are a fixed, code-defined set — unknown slugs return a
+// real 404 instead of a soft-200 from on-demand rendering.
+export const dynamicParams = false;
 
 const BASE = "https://jwstudy.org";
 // Set once at build time. The route's revalidate is `false` (build-only),
@@ -171,11 +174,9 @@ export default async function BookPage({ params }) {
       name: "New World Translation of the Holy Scriptures",
       url: "https://www.jw.org/en/library/bible/study-bible/books/",
     },
-    publisher: {
-      "@type": "Organization",
-      "@id": `${BASE}/#organization`,
-      name: "JW Study",
-    },
+    // No `publisher` here — JW Study did not publish the Bible. The study-guide
+    // Article block above carries the JW Study publisher; this Book entity is
+    // the scripture itself.
   };
 
   return (

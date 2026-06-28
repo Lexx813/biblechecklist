@@ -356,6 +356,15 @@ export function useGrowthSeries(metric: "signups" | "dau", bucket: GrowthBucket,
   });
 }
 
+export function useBlogAnalytics(days = 30) {
+  return useQuery({
+    queryKey: ["admin", "blogAnalytics", days],
+    queryFn: () => analyticsApi.getBlogAnalytics(days),
+    staleTime: 5 * 60 * 1000,
+    placeholderData: (prev) => prev,
+  });
+}
+
 export function useAnalytics() {
   return useQuery({
     queryKey: ["admin", "analytics"],

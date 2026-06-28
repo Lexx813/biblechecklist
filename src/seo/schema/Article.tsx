@@ -20,7 +20,7 @@ export function ArticleSchema(props: ArticleSchemaProps) {
     mainEntityOfPage: { '@type': 'WebPage', '@id': url },
     datePublished,
     ...(dateModified ? { dateModified } : {}),
-    author: { '@type': 'Person', name: author },
+    author: { '@type': 'Person', '@id': `${SITE_ORIGIN}/#creator`, name: author, url: `${SITE_ORIGIN}/about` },
     publisher: { '@type': 'Organization', '@id': `${SITE_ORIGIN}/#organization` },
     ...(image ? { image } : {}),
     ...(description ? { description } : {}),
