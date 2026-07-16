@@ -135,6 +135,17 @@ function SideEffects() {
     }
 
     whenIdle(async () => {
+      try {
+        // Accessing window.localStorage can itself throw SecurityError
+        // (e.g. Safari "Block All Cookies", privacy extensions, storage
+        // policies) — probe it before wiring up the persister.
+        const testKey = "__nwt_storage_test__";
+        window.localStorage.setItem(testKey, "1");
+        window.localStorage.removeItem(testKey);
+      } catch {
+        return;
+      }
+
       const [{ persistQueryClient }, { createSyncStoragePersister }] = await Promise.all([
         import("@tanstack/react-query-persist-client"),
         import("@tanstack/query-sync-storage-persister"),
