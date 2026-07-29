@@ -21,7 +21,7 @@ function ensureClient(): SupabaseClient {
       "Missing NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_ANON_KEY — add them to your .env file.",
     );
   }
-  _client = createClient(url, key, { auth: { flowType: "implicit" } });
+  _client = createClient(url, key, { auth: { flowType: "pkce" } });
   return _client;
 }
 

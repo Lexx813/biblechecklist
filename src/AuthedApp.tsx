@@ -600,13 +600,18 @@ export default function AuthedApp({ onShowLanding, i18n }) {
   const user = session?.user ?? null;
   const { t } = useTranslation();
   const { maintenanceMode, aiEnabled } = useFeatureFlags();
-  // Detect the recovery hash synchronously, before useSession() triggers the
+  // Detect the recovery link synchronously, before useSession() triggers the
   // Supabase client to parse and strip the URL. The onAuthStateChange listener
   // below runs in a useEffect — too late to catch PASSWORD_RECOVERY, which
-  // fires during createClient's detectSessionInUrl pass.
+  // fires during createClient's detectSessionInUrl pass. PKCE flow puts
+  // type=recovery in the query string (?code=...&type=recovery); implicit
+  // flow put it in the hash (#access_token=...&type=recovery) — check both.
   const [passwordRecovery, setPasswordRecovery] = useState(() => {
     if (typeof window === "undefined") return false;
-    return window.location.hash.includes("type=recovery");
+    return (
+      window.location.hash.includes("type=recovery") ||
+      new URLSearchParams(window.location.search).get("type") === "recovery"
+    );
   });
   const [registeredEmail, setRegisteredEmail] = useState(null);
 
