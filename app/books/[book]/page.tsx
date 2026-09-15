@@ -262,8 +262,8 @@ export default async function BookPage({ params }) {
           <>
             <h2>Reading Plans That Include {book.name}</h2>
             <p>
-              The book of {book.name} is covered in the following structured reading plans on NWT
-              Progress. Each plan divides the reading evenly across a set number of days to help
+              The book of {book.name} is covered in the following structured reading plans on JW
+              Study. Each plan divides the reading evenly across a set number of days to help
               you stay consistent.
             </p>
             <ul>

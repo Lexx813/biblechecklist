@@ -26,6 +26,14 @@ export const revalidate = 300;
 
 const BASE = "https://jwstudy.org";
 
+// Some drafts (AI-assisted or pasted) open with an empty "# " heading used as
+// a visual subtitle divider, e.g. "# \n\n---\n\n". marked renders that as a
+// literal empty <h1></h1><hr>, producing a duplicate/empty H1 alongside the
+// real post title above it. Strip that leading artifact before parsing.
+function stripLeadingEmptyHeading(markdown: string) {
+  return markdown.replace(/^\s*#{1,6}[ \t]*\n+(?:-{3,}\n+)?/, "");
+}
+
 // Cached Supabase reads so ISR regen + generateMetadata don't pay a cold
 // Supabase round-trip on every miss. Cache per slug so each post has its
 // own invalidation tag.
@@ -251,7 +259,7 @@ export default async function BlogPostPage({ params }) {
                   __html: sanitizeServerRichHtml(
                     /<[a-z][\s\S]*>/i.test(post.content)
                       ? post.content
-                      : (marked.parse(post.content) as string),
+                      : (marked.parse(stripLeadingEmptyHeading(post.content)) as string),
                   ),
                 }}
               />

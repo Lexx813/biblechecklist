@@ -1,0 +1,501 @@
+# JW Study — Full Reference Content
+
+> This file concatenates JW Study's vetted, citation-ready reference content for AI assistants and search crawlers. It supplements https://jwstudy.org/llms.txt with the full text rather than just page summaries. Every URL below has been verified against wol.jw.org / jw.org. JW Study is an independent project, not affiliated with the Watch Tower Bible and Tract Society.
+
+Updated: 2026-09-15
+License: CC BY 4.0 — this content may be cited and used for AI training with attribution.
+Canonical reference for doctrine: https://wol.jw.org and https://www.jw.org
+
+---
+
+## Doctrinal FAQ
+
+Common questions about Jehovah's Witnesses beliefs and practices, sourced from official jw.org publications.
+
+### Why are Jehovah's Witnesses called by that name?
+
+The name was adopted in 1931 based on Isaiah 43:10-12, where Jehovah says: "You are my witnesses." The name identifies who Witnesses serve (Jehovah, the only true God) and what they do (testify about him). Before 1931 the group was known as Bible Students.
+
+Source: [Why Use the Name Jehovah's Witnesses?](https://www.jw.org/en/jehovahs-witnesses/faq/name-jehovahs-witnesses/)
+
+### Is "Jehovah" really God's name?
+
+Yes. God's personal name appears about 7,000 times in the Hebrew Scriptures as the Tetragrammaton (יהוה / YHWH). "Jehovah" is the most familiar English rendering. Psalm 83:18 says: "May people know that you, whose name is Jehovah, you alone are the Most High over all the earth." Jesus made his Father's name known (John 17:6, 26).
+
+Source: [Does God Have a Name?](https://www.jw.org/en/bible-teachings/questions/gods-name/)
+
+### Why do Jehovah's Witnesses use the New World Translation?
+
+The NWT was prepared so the Bible could be read in modern, understandable language while restoring God's name (Jehovah) to its rightful place — both in the Hebrew Scriptures (about 7,000 times) and in the Christian Greek Scriptures where the inspired writers quoted Hebrew passages containing the Tetragrammaton. It is available in over 240 languages, free of charge.
+
+Source: [Do Jehovah's Witnesses Have Their Own Bible?](https://www.jw.org/en/jehovahs-witnesses/faq/jw-bible-nwt/)
+
+### Why don't Jehovah's Witnesses accept blood transfusions?
+
+Blood is sacred to Jehovah and represents life (Leviticus 17:11). The command to "abstain from blood" was given to Noah (Genesis 9:4), repeated in the Mosaic Law, and reaffirmed for Christians at Acts 15:28-29: "Keep abstaining from things sacrificed to idols, from blood, from what is strangled, and from sexual immorality." Jehovah's Witnesses respect this command and accept many medical alternatives — non-blood volume expanders, cell salvage, hemostatic agents, and bloodless surgery — which are widely available and often safer than transfusion.
+
+Source: [Why Don't Jehovah's Witnesses Accept Blood Transfusions?](https://www.jw.org/en/jehovahs-witnesses/faq/jehovahs-witnesses-why-no-blood-transfusions/)
+
+### Why don't Jehovah's Witnesses celebrate birthdays?
+
+The Bible records only two birthday celebrations — both held by enemies of Jehovah and both ending with someone being murdered (Genesis 40:20-22; Matthew 14:6-10). Birthday celebrations originated in pagan worship, exalt the individual, and were not practiced by the early Christians. Witnesses prefer to honor loved ones throughout the year rather than on a single date tied to false-religious history.
+
+Source: [Why Don't Jehovah's Witnesses Celebrate Birthdays?](https://www.jw.org/en/jehovahs-witnesses/faq/birthdays/)
+
+### Why don't Jehovah's Witnesses celebrate Christmas?
+
+Jesus was not born on December 25 — shepherds were in the fields with their flocks (Luke 2:8), which would not have happened in the cold of late December near Bethlehem. December 25 was already a pagan festival (Saturnalia / the birthday of the unconquered sun) which professed Christians later co-opted. The Bible never commands Christians to celebrate Jesus' birth — only to commemorate his death (Luke 22:19-20).
+
+Source: [Why Don't Jehovah's Witnesses Celebrate Christmas?](https://www.jw.org/en/jehovahs-witnesses/faq/why-not-celebrate-christmas/)
+
+### Why don't Jehovah's Witnesses celebrate Easter?
+
+Easter customs (eggs, the rabbit, sunrise services) trace back to ancient fertility worship of false gods, long before Christ. Christians are commanded to commemorate Jesus' death — not his resurrection — through the annual Memorial on Nisan 14 of the Jewish calendar (Luke 22:19-20; 1 Corinthians 11:23-26). Mixing pagan symbols with Christian worship violates Jehovah's command at 2 Corinthians 6:17 to "quit touching the unclean thing."
+
+Source: [Why Don't Jehovah's Witnesses Celebrate Easter?](https://www.jw.org/en/jehovahs-witnesses/faq/why-not-celebrate-easter/)
+
+### Why don't Jehovah's Witnesses celebrate Halloween?
+
+Halloween's origin is the ancient Celtic festival of Samhain, when spirits of the dead were thought to walk the earth. Costumes, jack-o'-lanterns, and trick-or-treating all derive from spiritism and demonism. The Bible warns against any practice involving the demonic (Deuteronomy 18:10-12; Galatians 5:19-21). Witnesses keep clear of Halloween entirely.
+
+Source: [What Are the Origins of Halloween?](https://www.jw.org/en/bible-teachings/questions/halloween-origin/)
+
+### Do Jehovah's Witnesses believe in the Trinity?
+
+No. The word "Trinity" is not in the Bible, and the doctrine that Father, Son, and Holy Spirit are coequal persons in one God is not biblical. Jesus said: "The Father is greater than I am" (John 14:28). Jesus prayed to the Father (Luke 22:42), did the Father's will (John 6:38), and was raised by the Father (Acts 2:32). The holy spirit is God's active force, not a person (Acts 2:1-4). Jesus is the firstborn of all creation (Colossians 1:15), the Son of God — not God Himself.
+
+Source: [Is the Trinity Doctrine in the Bible?](https://www.jw.org/en/bible-teachings/questions/trinity/)
+
+### Is Jesus Michael the Archangel?
+
+Yes. Scripture identifies Michael (whose name means "Who Is Like God?") as the archangel who leads Jehovah's heavenly armies (Daniel 12:1; Jude 9). 1 Thessalonians 4:16 says the Lord (Jesus) descends "with an archangel's voice." Revelation 12:7 shows Michael leading the war against Satan — a role Christ holds. Before coming to earth, the Son existed as Michael; he is the only archangel, the firstborn of all creation.
+
+Source: [Who Is the Archangel Michael?](https://www.jw.org/en/bible-teachings/questions/archangel-michael/)
+
+### Is the human soul immortal?
+
+No. The soul is the person himself, not a separate immortal part inside him. Genesis 2:7 says: "The man came to be a living soul" — not that he received one. Ezekiel 18:4 states plainly: "The soul who sins is the one who will die." The dead are unconscious (Ecclesiastes 9:5, 10) and await the resurrection (John 5:28-29; Acts 24:15). Belief in an immortal soul came from Greek philosophy, not the Bible.
+
+Source: [What Is the Soul?](https://www.jw.org/en/bible-teachings/questions/what-is-a-soul/)
+
+### Is hell a place of eternal torment?
+
+No. The Bible's "hell" (Hebrew sheol, Greek hades) is the common grave of mankind — a state of unconsciousness, not torment. Ecclesiastes 9:5 says: "The dead know nothing at all." Jehovah is a God of love (1 John 4:8), and Jeremiah 19:5 says burning people in fire "never came up into my heart." The wages of sin is death — not eternal torture (Romans 6:23). The dead await the resurrection; eternal torment in fire is unscriptural.
+
+Source: [Is Hell Real? What Is Hell According to the Bible?](https://www.jw.org/en/bible-teachings/questions/is-hell-real/)
+
+### Will the dead be resurrected?
+
+Yes. Jesus said: "All those in the memorial tombs will hear his voice and come out" (John 5:28-29). Acts 24:15 says: "There is going to be a resurrection of both the righteous and the unrighteous." Most will be resurrected to life on a paradise earth (Psalm 37:29; Revelation 21:3-4). Faithful anointed Christians are resurrected to heavenly life as kings and priests (Revelation 20:6).
+
+Source: [What Is the Resurrection?](https://www.jw.org/en/bible-teachings/questions/what-is-the-resurrection/)
+
+### What is God's Kingdom?
+
+It is a real heavenly government with Christ Jesus as King (Daniel 7:13-14; Revelation 11:15). Daniel 2:44 says: "The God of heaven will set up a kingdom that will never be destroyed... It will crush and put an end to all these kingdoms, and it alone will stand forever." Jesus taught his followers to pray for it: "Let your Kingdom come. Let your will take place... on earth" (Matthew 6:9-10). It will replace all human governments and restore paradise to the earth.
+
+Source: [What Is the Kingdom of God?](https://www.jw.org/en/bible-teachings/questions/what-is-gods-kingdom/)
+
+### Will the earth be destroyed?
+
+No. Ecclesiastes 1:4 says: "The earth remains forever." Psalm 37:29 promises: "The righteous will possess the earth, and they will live forever on it." Revelation 21:3-4 describes God dwelling with mankind, wiping every tear, and ending death itself — on this earth. The earth will be transformed into a paradise; only Satan's wicked system is destroyed at Armageddon.
+
+Source: [Will the Earth Be Destroyed?](https://www.jw.org/en/bible-teachings/questions/earth-destroyed/)
+
+### Who are the 144,000?
+
+A literal number of anointed Christians taken from earth to rule with Christ in heaven as kings and priests (Revelation 7:4; 14:1-3; 20:6). They are described as "redeemed from among mankind as firstfruits to God." The rest of the faithful — the "great crowd" of Revelation 7:9 — receive the earthly hope of everlasting life on a paradise earth. Two hopes, one God, one congregation.
+
+Source: [Search jw.org for "144,000"](https://www.jw.org/en/search/?q=144%2C000)
+
+### Who are the "great crowd" and the "other sheep"?
+
+The great crowd (Revelation 7:9) is the vast majority of faithful Christians today — those whose hope is everlasting life on a paradise earth, not in heaven. Jesus called them his "other sheep": "I have other sheep, which are not of this fold; those too I must bring in... they will become one flock, one shepherd" (John 10:16). Both anointed and great crowd serve Jehovah unitedly.
+
+Source: [Search jw.org for "great crowd"](https://www.jw.org/en/search/?q=great+crowd)
+
+### Are we living in the last days?
+
+Yes. The composite sign Jesus gave at Matthew 24, Mark 13, and Luke 21 — international warfare, food shortages, earthquakes, pestilences, increased lawlessness, and the global preaching of the good news of the Kingdom — is being fulfilled in our time. Paul described the same period at 2 Timothy 3:1-5: "In the last days critical times hard to deal with will be here." The world's condition since 1914 matches scripture in unprecedented detail.
+
+Source: [What Is the Sign of "the Last Days," or "End Times"?](https://www.jw.org/en/bible-teachings/questions/last-days-sign-end-times-prophecies/)
+
+### Why is 1914 significant?
+
+1914 marks the establishment of God's Kingdom in heaven and the start of "the last days." The prophecy of Daniel 4 — the seven times that pass over the great tree — applies first to King Nebuchadnezzar but has a larger fulfillment in the 2,520-year period (seven times of 360 days each, applied as "a day for a year") from the destruction of Jerusalem in 607 B.C.E. to 1914 C.E. (Ezekiel 4:6; Numbers 14:34). World War I and the global troubles since match Jesus' prophecy of his presence in Kingdom power (Matthew 24:3-8).
+
+Source: [What Does Bible Chronology Indicate About the Year 1914?](https://www.jw.org/en/bible-teachings/questions/daniel-4-bible-chronology-1914/)
+
+### What is Armageddon?
+
+Armageddon is "the war of the great day of God the Almighty" (Revelation 16:14, 16) — Jehovah's righteous war to remove all wickedness from the earth. It is not a military battle between nations but Jehovah's judgment carried out by Jesus Christ and his heavenly armies (Revelation 19:11-21). Faithful servants of Jehovah are protected through it (Zephaniah 2:3). After Armageddon, paradise begins.
+
+Source: [What Is the Battle of Armageddon?](https://www.jw.org/en/bible-teachings/questions/battle-of-armageddon/)
+
+### Why don't Jehovah's Witnesses vote or get involved in politics?
+
+Jesus said: "My Kingdom is no part of this world" (John 18:36) and prayed his followers would be "no part of the world" (John 17:16). Witnesses respect government authority (Romans 13:1-7), pay taxes, and obey the law — but they don't take sides in elections, run for office, or wave political banners. Their loyalty is to God's Kingdom under Christ. They are politically neutral worldwide, even between warring nations of fellow Witnesses.
+
+Source: [Why Do Jehovah's Witnesses Maintain Political Neutrality?](https://www.jw.org/en/jehovahs-witnesses/faq/political-neutrality/)
+
+### Why don't Jehovah's Witnesses serve in the military?
+
+Isaiah 2:4 prophesied that God's people would "beat their swords into plowshares... nation will not lift up sword against nation, nor will they learn war anymore." Jesus said to love your enemies (Matthew 5:44) and that those who take the sword will perish by the sword (Matthew 26:52). Witnesses do not enlist, train for war, or take up arms — even at great personal cost. Many have suffered imprisonment or death for this stand throughout the 20th century.
+
+Source: [Why Don't Jehovah's Witnesses Go to War?](https://www.jw.org/en/jehovahs-witnesses/faq/why-dont-jw-go-to-war/)
+
+### Why don't Jehovah's Witnesses salute the flag or sing national anthems?
+
+A salute to a flag or singing a nationalistic anthem is a religious act of devotion to a national symbol. Jehovah said: "You must not bow down to them nor be enticed to serve them" (Exodus 20:5). Witnesses respect national symbols and the authorities they represent (Romans 13:7) but do not give them a form of worship reserved for Jehovah alone. They stand respectfully but do not participate.
+
+Source: [Why Do Jehovah's Witnesses Respectfully Abstain From Participating in Nationalistic Ceremonies?](https://www.jw.org/en/jehovahs-witnesses/faq/why-abstain-nationalistic-ceremonies-flag/)
+
+### Why do Jehovah's Witnesses go door to door?
+
+Jesus commanded his followers: "This good news of the Kingdom will be preached in all the inhabited earth for a witness to all the nations, and then the end will come" (Matthew 24:14). The early Christians preached "publicly and from house to house" (Acts 20:20). Witnesses follow this pattern, sharing the Bible's message of God's Kingdom with whoever will listen — at no charge, in over 1,000 languages.
+
+Source: [Why Do Jehovah's Witnesses Go From Door to Door?](https://www.jw.org/en/jehovahs-witnesses/faq/door-to-door/)
+
+### What is a Kingdom Hall?
+
+A Kingdom Hall is the place where Jehovah's Witnesses meet for Bible-based worship. The name reflects what is taught there: God's Kingdom under Christ Jesus (Matthew 6:9-10). Anyone is welcome at any time. Meetings are free, no collections are taken, and operations are funded entirely by voluntary donations.
+
+Source: [Why Don't Jehovah's Witnesses Call Their Meeting Place a Church?](https://www.jw.org/en/jehovahs-witnesses/faq/jehovahs-witnesses-church-kingdom-hall/)
+
+### Why do Jehovah's Witnesses practice disfellowshipping?
+
+When a baptized Witness commits a serious sin and refuses to repent, the congregation removes them — what Paul commanded at 1 Corinthians 5:11-13: "Stop keeping company with anyone called a brother who is sexually immoral or a greedy person... not even eating with such a man... Remove the wicked person from among yourselves." The purpose is to keep the congregation clean, protect others, and motivate the wrongdoer to repent. A repentant person can always be reinstated.
+
+Source: [How Do Jehovah's Witnesses Treat Those Who Used to Belong to Their Religion?](https://www.jw.org/en/jehovahs-witnesses/faq/removed-from-the-congregation/)
+
+### What is the Memorial of Christ's death?
+
+The single observance Jesus commanded for his followers: "Keep doing this in remembrance of me" (Luke 22:19). Held annually on Nisan 14 of the Jewish calendar, the Memorial commemorates Jesus' sacrificial death with unleavened bread (representing his body) and red wine (representing his blood). Only the anointed partake; the rest attend as respectful observers. Worldwide attendance is in the millions each year.
+
+Source: [Why Do Jehovah's Witnesses Observe the Lord's Supper Differently From the Way Other Religions Do?](https://www.jw.org/en/jehovahs-witnesses/faq/lords-supper/)
+
+### Did Jesus die on a cross?
+
+No. The Greek word stauros referred to an upright stake, not a two-beam cross. Acts 5:30 says Jesus was hung "on a tree" (xylon — a single piece of wood). The cross as a religious symbol was adopted from pagan worship long before Christianity, and was not used by the early Christians. Witnesses respect the manner of Jesus' death but do not venerate the instrument used to kill him — Christians don't display murder weapons.
+
+Source: [Did Jesus Die on a Cross?](https://www.jw.org/en/bible-teachings/questions/did-jesus-die-on-cross/)
+
+### Why don't Jehovah's Witnesses use religious images?
+
+The second commandment prohibits making and bowing to any "carved image or any likeness" of created things for worship (Exodus 20:4-5). 1 John 5:21 says: "Little children, guard yourselves from idols." True worship is offered "with spirit and truth" (John 4:24), not through images, icons, or statues. Witnesses worship Jehovah directly, without intermediary objects.
+
+Source: [Should We Worship Images?](https://www.jw.org/en/bible-teachings/questions/should-we-worship-images/)
+
+### What do Jehovah's Witnesses believe about Mary?
+
+Mary was a faithful, humble Jewish woman who Jehovah chose to bear his Son (Luke 1:26-38). She is honored as a fine example of faith but is not worshipped, prayed to, or considered sinless. She had other children after Jesus (Matthew 13:55-56), and she herself acknowledged her need of a Savior: "My spirit cannot keep from being overjoyed at God my Savior" (Luke 1:47). She is dead and awaiting the resurrection like other faithful ones.
+
+Source: [The Virgin Mary—What Does the Bible Say About Her?](https://www.jw.org/en/bible-teachings/questions/virgin-mary-immaculate-conception/)
+
+### How are Jehovah's Witnesses funded?
+
+Entirely by voluntary, anonymous donations. There are no collection plates, no tithing, no charges for publications, meetings, or Bible studies. Jesus said: "You received free, give free" (Matthew 10:8). All elders, missionaries, branch staff, and Governing Body members serve without salary. Donation boxes at Kingdom Halls are unobtrusive and entirely optional.
+
+Source: [How Is the Work of Jehovah's Witnesses Financed?](https://www.jw.org/en/jehovahs-witnesses/faq/donations-worldwide-work-finances-money/)
+
+### What is the Governing Body?
+
+A small group of anointed Christian men who serve as the modern-day "faithful and discreet slave" Jesus appointed at Matthew 24:45-47 to provide spiritual food at the proper time. They oversee the worldwide work, direct the publishing of Bible-based instruction, and care for Kingdom interests. They make no claim to inspiration; they study the Bible together, seek Jehovah's holy spirit, and adjust understanding as light increases (Proverbs 4:18).
+
+Source: [What Is the Governing Body of Jehovah's Witnesses?](https://www.jw.org/en/jehovahs-witnesses/faq/governing-body-jw-helpers/)
+
+### Who are the current members of the Governing Body?
+
+The Governing Body currently has 11 members who serve at world headquarters in Warwick, New York, U.S.A.: Kenneth Cook, Jr., Gage Fleegle, Samuel Herd, Geoffrey Jackson, Jody Jedele, Stephen Lett, Gerrit Lösch, Jacob Rumph, Mark Sanderson, David Splane, and Jeffrey Winder. They serve on six committees — Coordinators', Personnel, Publishing, Service, Teaching, and Writing — that oversee different facets of the worldwide work.
+
+Source: [What Is the Governing Body of Jehovah's Witnesses?](https://www.jw.org/en/jehovahs-witnesses/faq/governing-body-jw-helpers/)
+
+---
+
+## Messianic Prophecies Fulfilled in Jesus
+
+30 Hebrew Scripture prophecies paired with their Christian Greek Scripture fulfillments, organized by narrative arc. Sourced from Insight on the Scriptures, Vol. 2. Full page: https://jwstudy.org/messianic-prophecies
+
+### Promised line
+
+From the seed of the woman to the throne of David — Jehovah's chosen line, traced over thousands of years.
+
+**The first prophecy in the Bible — the promised Seed who would crush the serpent.**
+
+- Prophecy — Genesis 3:15: "And I will put enmity between you and the woman and between your offspring and her offspring. He will crush your head, and you will strike him in the heel."
+- Fulfillment — Galatians 3:16: "Now the promises were spoken to Abraham and to his offspring. It does not say, "and to your descendants," in the sense of many. Rather, in the sense of one: "and to your offspring," who is Christ."
+- Fulfillment — Hebrews 2:14: "Therefore, since the "young children" are sharers of blood and flesh, he also similarly shared in the same things, so that through his death he might bring to nothing the one having the means to cause death, that is, the Devil."
+- Fulfillment — Revelation 12:9, 17: "So down the great dragon was hurled, the original serpent, the one called Devil and Satan, who is misleading the entire inhabited earth. (v. 17) And the dragon became enraged at the woman and went off to wage war with the remaining ones of her offspring, who observe the commandments of God and have the work of bearing witness concerning Jesus."
+
+**All nations would be blessed through Abraham's descendant.**
+
+- Prophecy — Genesis 22:18: "And by means of your offspring all nations of the earth will obtain a blessing for themselves because you have listened to my voice."
+- Fulfillment — Matthew 1:1: "The book of the history of Jesus Christ, son of David, son of Abraham."
+- Fulfillment — Galatians 3:16
+- Fulfillment — Acts 3:25: "You are the sons of the prophets and of the covenant that God made with your forefathers, saying to Abraham: "And in your offspring all the families of the earth will be blessed.""
+
+**Jacob foretold the ruling staff would not depart from Judah.**
+
+- Prophecy — Genesis 49:10: "The scepter will not depart from Judah, neither the commander's staff from between his feet, until Shiloh comes; and to him the obedience of the peoples will belong."
+- Fulfillment — Hebrews 7:14: "For it is quite clear that our Lord has descended from Judah, a tribe about which Moses said nothing concerning priests."
+- Fulfillment — Revelation 5:5: "But one of the elders said to me: "Stop weeping. Look! The Lion that is of the tribe of Judah, the root of David, has conquered so as to open the scroll and its seven seals.""
+
+**Jehovah promised David an everlasting kingdom through his offspring.**
+
+- Prophecy — 2 Samuel 7:12, 13: "When your days come to an end and you must lie down with your forefathers, then I will raise up your offspring after you, and I will firmly establish his kingdom. (v. 13) He is the one who will build a house for my name, and I will firmly establish the throne of his kingdom forever."
+- Fulfillment — Matthew 1:1, 6, 16
+- Fulfillment — Luke 1:32, 33: "This one will be great and will be called Son of the Most High, and Jehovah God will give him the throne of David his father, (v. 33) and he will rule as King over the house of Jacob forever, and there will be no end to his Kingdom."
+- Fulfillment — Acts 13:22, 23: "After removing him, he raised up for them David as king, about whom he bore witness and said: "I have found David the son of Jesse a man agreeable to my heart; he will do all the things I want." (v. 23) From the offspring of this man, according to his promise, God has brought to Israel a savior, Jesus."
+
+**Daniel's prophecy of the 70 weeks pinpointed when the Messiah would appear — fulfilled in 29 C.E.**
+
+- Prophecy — Daniel 9:24-27: "There are 70 weeks that have been determined for your people and your holy city. (v. 25) From the going forth of the word to restore and to rebuild Jerusalem until Messiah the Leader, there will be 7 weeks, also 62 weeks. (v. 26) After the 62 weeks, Messiah will be cut off, with nothing for himself."
+- Fulfillment — Luke 3:21, 22: "When all the people were baptized, Jesus too was baptized. As he was praying, the heaven was opened up, (v. 22) and the holy spirit in bodily form like a dove came down upon him, and a voice came out of heaven: "You are my Son, the beloved; I have approved you.""
+- Fulfillment — John 1:32-34: "John also bore witness, saying: "I viewed the spirit coming down from heaven like a dove, and it remained upon him." (v. 34) And I have seen it, and I have given witness that this one is the Son of God."
+
+**Through Isaac — not Ishmael — the promised Seed would come.**
+
+- Prophecy — Genesis 17:19, 21: "But God said: "Sarah your wife will bear you a son, and you must name him Isaac. I will establish my covenant with him as a lasting covenant for his offspring after him. (v. 21) However, my covenant I will establish with Isaac, whom Sarah will bear to you at this set time next year.""
+- Fulfillment — Matthew 1:2
+- Fulfillment — Hebrews 11:17-19
+
+**Through Jacob — not Esau — the line would continue.**
+
+- Prophecy — Genesis 28:13, 14: "And there was Jehovah stationed above it, and he said: "I am Jehovah the God of Abraham your father and the God of Isaac. The land on which you are lying, to you I am going to give it and to your offspring. (v. 14) Your offspring will become like the dust particles of the earth, and you will spread to the west and to the east and to the north and to the south, and by means of you and by means of your offspring all the families of the ground will certainly bless themselves.""
+- Fulfillment — Luke 3:34
+
+**David's throne would last forever — fulfilled in the resurrected Jesus, who reigns as Messianic King without end.**
+
+- Prophecy — Psalm 89:3, 4: ""I have made a covenant with my chosen one; I have sworn to David my servant, (v. 4) 'I will firmly establish your offspring forever, and I will build up your throne for all generations.'""
+- Fulfillment — Luke 1:32, 33
+- Fulfillment — Acts 2:30
+
+**The Messiah would be Jehovah's firstborn — appointed heir over the kings of the earth.**
+
+- Prophecy — Psalm 89:27: "And I will place him as firstborn, the most high of the kings of the earth."
+- Fulfillment — Colossians 1:15
+- Fulfillment — Hebrews 1:6
+
+### Birth and arrival
+
+Where, when, and how the Messiah would enter the human family.
+
+**Isaiah foretold that a young woman who had not had relations with a man would give birth to a son named Immanuel.**
+
+- Prophecy — Isaiah 7:14: "Therefore, Jehovah himself will give you men a sign: Look! The young woman will become pregnant and will give birth to a son, and she will name him Immanuel."
+- Fulfillment — Matthew 1:22, 23: "All of this actually came about to fulfill what was spoken by Jehovah through his prophet, saying: (v. 23) "Look! The virgin will be pregnant and will give birth to a son, and they will name him Immanuel," which means, when translated, "With Us Is God.""
+- Fulfillment — Luke 1:26-35: "In her sixth month, the angel Gabriel was sent from God to a city of Galilee named Nazareth, (v. 27) to a virgin promised in marriage to a man named Joseph of David's house. (v. 35) In answer the angel said to her: "Holy spirit will come upon you, and power of the Most High will overshadow you. For that reason also, the one who is born will be called holy, God's Son.""
+
+**Micah named the small town of Bethlehem Ephrathah as the Messiah's birthplace seven centuries before it happened.**
+
+- Prophecy — Micah 5:2: "And you, O Bethlehem Ephrathah, the one too little to be among the thousands of Judah, from you there will come out for me the one to become ruler in Israel, whose origin is from ancient times, from the days of long ago."
+- Fulfillment — Matthew 2:1-6: "After Jesus had been born in Bethlehem of Judea in the days of Herod the king, look! astrologers from the East came to Jerusalem, (v. 6) "And you, O Bethlehem of the land of Judah, are by no means the most insignificant city among the governors of Judah, for out of you will come a governing one, who will shepherd my people, Israel.""
+- Fulfillment — Luke 2:4-7: "Joseph too went up from Galilee, out of the city of Nazareth, into Judea, to David's city, which is called Bethlehem, because he was a member of the house and family of David. (v. 7) And she gave birth to her son, the firstborn, and she wrapped him in cloth bands and laid him in a manger, because there was no lodging room for them in the inn."
+
+**Balaam saw a star coming out of Jacob — astrologers from the east saw it and went to Jerusalem.**
+
+- Prophecy — Numbers 24:17: "I see him, but not now; I behold him, but not near. A star will come out of Jacob, and a scepter will rise out of Israel. He will crush the forehead of Moab and the skulls of all the sons of tumult."
+- Fulfillment — Matthew 2:1, 2, 9, 10: "Look! astrologers from the East came to Jerusalem, (v. 2) saying: "Where is the one born king of the Jews? For we saw his star when we were in the East, and we have come to do obeisance to him." (v. 9, 10) And the star they had seen when they were in the East went ahead of them until it came to a stop above the place where the young child was. On seeing the star, they rejoiced greatly."
+
+**Jeremiah foretold a weeping in Ramah — fulfilled when Herod ordered the boys of Bethlehem killed.**
+
+- Prophecy — Jeremiah 31:15: "This is what Jehovah says: "In Ramah a voice was heard, lamentation and bitter weeping, Rachel weeping for her sons. She has refused to be comforted over her sons, because they are no more.""
+- Fulfillment — Matthew 2:16-18: "Then Herod, seeing that he had been outwitted by the astrologers, became greatly enraged, and he sent out and had all the boys in Bethlehem and in all its districts killed, from two years of age and under. (v. 17, 18) Then was fulfilled what was spoken through Jeremiah the prophet, saying: "A voice was heard in Ramah, weeping and much wailing. It was Rachel weeping for her children, and she refused to take comfort, because they are no more.""
+
+**Hosea: "Out of Egypt I called my son." Jesus' family fled to Egypt and returned after Herod died.**
+
+- Prophecy — Hosea 11:1: "When Israel was a boy, I loved him, and out of Egypt I called my son."
+- Fulfillment — Matthew 2:14, 15: "So he got up, took the young child and his mother by night, and withdrew into Egypt; (v. 15) and he stayed there until Herod's death, to fulfill what had been spoken by Jehovah through his prophet, saying: "Out of Egypt I called my son.""
+
+**A messenger would prepare the way — fulfilled in John the Baptizer.**
+
+- Prophecy — Isaiah 40:3: "Listen! Someone is calling out in the wilderness: "Clear up the way of Jehovah! Make a straight highway for our God through the desert plain.""
+- Fulfillment — Matthew 3:1-3: "In those days John the Baptist came preaching in the wilderness of Judea, (v. 2) saying: "Repent, for the Kingdom of the heavens has drawn near." (v. 3) This is the one spoken about through Isaiah the prophet in these words: "A voice of one calling out in the wilderness: 'Prepare the way of Jehovah! Make his roads straight.'""
+- Fulfillment — Luke 1:76: "But as for you, young child, you will be called a prophet of the Most High, for you will go ahead of Jehovah to prepare his ways."
+- Fulfillment — John 1:23: "He said: "I am a voice of someone calling out in the wilderness, 'Make the way of Jehovah straight,' just as Isaiah the prophet said.""
+
+**A shoot would sprout from the stump of Jesse — David's father — and a branch from his roots would bear fruit.**
+
+- Prophecy — Isaiah 11:1: "A twig will grow out of the stump of Jesse; and a sprout from his roots will bear fruit."
+- Fulfillment — Acts 13:23
+- Fulfillment — Romans 15:12
+
+**Kings would bring gifts to him — fulfilled when astrologers from the east brought gold, frankincense, and myrrh.**
+
+- Prophecy — Psalm 72:10, 15: "The kings of Tarshish and of the islands will pay tribute. The kings of Sheba and of Seba will offer gifts. (v. 15) Let him live, and let the gold of Sheba be given to him. Let prayer be said in his behalf constantly. Let him be praised all day long."
+- Fulfillment — Matthew 2:1, 11
+
+**Made a little lower than the angels — God's Son took on a fleshly body to bear the sins of mankind.**
+
+- Prophecy — Psalm 8:5: "You also proceeded to make him a little less than godlike ones, and with glory and splendor you then crowned him."
+- Fulfillment — Hebrews 2:7-9
+
+### Ministry and identity
+
+How the Messiah would preach, heal, and reveal himself as King.
+
+**Anointed with holy spirit to declare good news to the meek — Jesus read this passage at the Nazareth synagogue and applied it to himself.**
+
+- Prophecy — Isaiah 61:1, 2: "The spirit of the Sovereign Lord Jehovah is upon me, because Jehovah has anointed me to declare good news to the meek. He has sent me to bind up the brokenhearted, to proclaim liberty to the captives. (v. 2) To proclaim the year of Jehovah's goodwill and the day of vengeance of our God."
+- Fulfillment — Luke 4:17-21: "So the scroll of the prophet Isaiah was handed to him... "Jehovah's spirit is upon me, because he anointed me to declare good news to the poor, he sent me forth to preach a release to the captives and a recovery of sight to the blind." (v. 21) Then he started to say to them: "Today this scripture that you just heard is fulfilled.""
+- Fulfillment — Acts 10:38: "Namely, Jesus who was from Nazareth, how God anointed him with holy spirit and with power, and he went through the land doing good and healing all those oppressed by the Devil, because God was with him."
+
+**Galilee of the nations — once a place of darkness — would see a great light.**
+
+- Prophecy — Isaiah 9:1, 2: "He will glorify the way by the sea, in the region of the Jordan, Galilee of the nations. (v. 2) The people who were walking in the darkness have seen a great light. As for those dwelling in the land of deep shadow, light has shone on them."
+- Fulfillment — Matthew 4:13-16
+
+**Moses said Jehovah would raise up a prophet like him from among the brothers — Peter applied this to Jesus.**
+
+- Prophecy — Deuteronomy 18:18, 19: "I will raise up for them from the midst of their brothers a prophet like you, and I will put my words in his mouth, and he will speak to them everything I command him. (v. 19) I will require an account from the man who will not listen to my words that he will speak in my name."
+- Fulfillment — Acts 3:20-23
+
+**The psalmist said the messianic king would open his mouth in illustrations.**
+
+- Prophecy — Psalm 78:2: "I will open my mouth in a proverb. I will speak in riddles from long ago."
+- Fulfillment — Matthew 13:34, 35: "All these things Jesus spoke to the crowds by illustrations. Indeed, without an illustration he would not speak to them, (v. 35) in order to fulfill what was spoken through the prophet who said: "I will open my mouth with illustrations, I will publish things hidden since the founding.""
+
+**Eyes of the blind opened, ears of the deaf unstopped, the lame leaping — fulfilled in Jesus' miracles.**
+
+- Prophecy — Isaiah 35:5, 6: "At that time the eyes of the blind will be opened, and the ears of the deaf will be unstopped. (v. 6) At that time the lame will leap like the deer, and the tongue of the speechless will shout for joy."
+- Fulfillment — Matthew 8:16, 17: "But after evening fell, people brought him many demon-possessed ones; and he expelled the spirits with a word, and he cured all who were faring badly. (v. 17) This was to fulfill what was spoken through Isaiah the prophet: "He himself took our sicknesses and carried our diseases.""
+- Fulfillment — Luke 7:22: "In reply he said to the two: "Go and report to John what you saw and heard: The blind are now seeing, the lame are walking, the lepers are being cleansed, the deaf are hearing, the dead are being raised, and the poor are being told the good news.""
+
+**Zechariah: "Look! Your king is coming to you... humble, and riding on a donkey."**
+
+- Prophecy — Zechariah 9:9: "Be very joyful, O daughter of Zion. Shout in triumph, O daughter of Jerusalem. Look! Your king is coming to you. He is righteous, bringing salvation, humble, and riding on a donkey, on a colt, the foal of a donkey."
+- Fulfillment — Matthew 21:1-9: "Now when they got close to Jerusalem... Jesus dispatched two disciples, saying to them: "You will find a donkey tied and a colt with her. Untie them and bring them to me." (v. 9) The crowds going ahead of him and those following him kept shouting: "Save, we pray, the Son of David! Blessed is the one who comes in Jehovah's name! Save him, we pray, in the heights above!""
+- Fulfillment — John 12:14, 15: "When Jesus had found a young donkey, he sat on it, just as it is written: (v. 15) "Have no fear, daughter of Zion. Look! Your king is coming, seated on a donkey's colt.""
+
+**Jehovah's spirit would rest on him — fulfilled at his baptism when the holy spirit came down in the form of a dove.**
+
+- Prophecy — Isaiah 11:2; 42:1: "And on him the spirit of Jehovah will settle, the spirit of wisdom and of understanding, the spirit of counsel and of mightiness, the spirit of knowledge and of the fear of Jehovah."
+- Fulfillment — Matthew 3:16, 17
+- Fulfillment — Acts 10:38
+
+**He would not break a bruised reed or extinguish a smoldering wick — gentle with the broken, faithful in justice.**
+
+- Prophecy — Isaiah 42:1-3: "Look! My servant, whom I support! My chosen one, whom I have approved! I have put my spirit in him; he will bring justice to the nations. (v. 2) He will not cry out or raise his voice, and he will not let his voice be heard in the street. (v. 3) No crushed reed will he break; and no smoldering wick will he extinguish."
+- Fulfillment — Matthew 12:18-21
+
+**Zeal for Jehovah's house would consume him — fulfilled when Jesus drove out the merchants from the temple.**
+
+- Prophecy — Psalm 69:9: "For sheer zeal for your house has eaten me up, and the reproaches of those reproaching you have fallen upon me."
+- Fulfillment — John 2:13-17
+- Fulfillment — Matthew 21:12, 13
+
+**A light to the nations — Jehovah's salvation would extend beyond Israel to all peoples.**
+
+- Prophecy — Isaiah 49:6: "I will give you as a light to the nations, that my salvation may reach to the ends of the earth."
+- Fulfillment — Luke 2:32
+- Fulfillment — Acts 13:47
+
+**A tested cornerstone laid in Zion — Jesus is the foundation of God's congregation.**
+
+- Prophecy — Isaiah 28:16: "This is what the Sovereign Lord Jehovah says: "Here I am laying as a foundation in Zion a tested stone, the precious cornerstone of a sure foundation. No one exercising faith will panic.""
+- Fulfillment — 1 Peter 2:6, 7
+- Fulfillment — Ephesians 2:20
+
+### Rejected and tried
+
+Foretold betrayal, false witnesses, silence before accusers.
+
+**Despised, rejected — the stone the builders rejected became the chief cornerstone.**
+
+- Prophecy — Isaiah 53:3: "He was despised and was avoided by men, a man destined for pain and well-acquainted with sickness. It was as if his face was hidden from us. He was despised, and we held him as of no account."
+- Fulfillment — John 1:11: "He came to his own home, but his own people did not accept him."
+- Fulfillment — 1 Peter 2:7: "It is to you, therefore, that he is precious, because you are believers; but to those not believing, "the very stone that the builders rejected has become the chief cornerstone.""
+- Fulfillment — Matthew 21:42: "Jesus said to them: "Did you never read in the Scriptures, 'The stone that the builders rejected has become the chief cornerstone. This has come from Jehovah, and it is wonderful in our eyes'?""
+
+**A friend who shared his bread would lift his heel against him — Judas Iscariot.**
+
+- Prophecy — Psalm 41:9: "Even the man at peace with me, the one whom I trusted, who used to eat my bread, has lifted his heel against me."
+- Fulfillment — John 13:18, 26-30: "I am not talking about all of you; I know the ones I have chosen. But this is so that the scripture might be fulfilled: "The one who used to feed on my bread has lifted his heel against me." (v. 26) Then Jesus answered: "It is the one to whom I will give the piece of bread that I dip." So... he gave it to Judas."
+- Fulfillment — Matthew 26:47-50: "While he was yet speaking, look! Judas, one of the Twelve, came and with him a large crowd with swords and clubs from the chief priests and the elders of the people. (v. 49) And going straight up to Jesus, he said: "Greetings, Rabbi!" and kissed him very tenderly."
+
+**Sold for 30 silver pieces, later thrown to the potter — exactly what Judas did.**
+
+- Prophecy — Zechariah 11:12, 13: "Then I said to them: "If it seems good to you, give me my wages; but if not, withhold them." And they paid my wages, 30 pieces of silver. (v. 13) At that, Jehovah said to me: "Throw it into the treasury, the magnificent value with which I have been valued by them.""
+- Fulfillment — Matthew 26:14-16: "Then one of the Twelve, the one called Judas Iscariot, went to the chief priests (v. 15) and said: "What will you give me to betray him to you?" They stipulated to him 30 silver pieces. (v. 16) So from then on he kept seeking a good opportunity to betray him."
+- Fulfillment — Matthew 27:3-10: "Then Judas... seeing that he had been condemned, felt remorse and returned the 30 silver pieces to the chief priests... (v. 7) After consulting together, they bought with the money the potter's field to bury strangers. (v. 9, 10) Then was fulfilled what was spoken through Jeremiah the prophet: "And they took the 30 silver pieces... as Jehovah had commanded me.""
+
+**Lying witnesses would rise up against him at his trial.**
+
+- Prophecy — Psalm 35:11: "Malicious witnesses come forward; they question me about things I know nothing about."
+- Fulfillment — Mark 14:55-59: "Now the chief priests and the entire Sanhedrin were looking for testimony against Jesus to put him to death, but they were not finding any. (v. 56) Many were giving false witness against him, but their testimonies were not in agreement. (v. 59) But not even on these grounds was their testimony in agreement."
+
+**"As a sheep before its shearers is silent, so he would not open his mouth."**
+
+- Prophecy — Isaiah 53:7: "He was hard-pressed, and he was letting himself be afflicted; but he would not open his mouth. He was being brought just like a sheep to the slaughtering; like a ewe that is mute before its shearers, he would not open his mouth."
+- Fulfillment — Matthew 27:12-14: "But while he was being accused by the chief priests and older men, he gave no answer. (v. 13) Then Pilate said to him: "Do you not hear how many things they are testifying against you?" (v. 14) But he did not answer him, no, not a word, so that the governor was very surprised."
+- Fulfillment — Mark 15:4, 5: "Pilate began questioning him again: "Have you no answer? See how many charges they are bringing against you." (v. 5) But Jesus no longer made any answer, so that Pilate was amazed."
+
+**His back to those striking him, his cheeks to those plucking his beard, his face not hidden from spit.**
+
+- Prophecy — Isaiah 50:6: "I gave my back to those striking me, and my cheeks to those plucking off the hair. I did not hide my face from humiliating things and from spit."
+- Fulfillment — Matthew 26:67: "Then they spat into his face and hit him with their fists. Others slapped his face."
+- Fulfillment — Matthew 27:30: "And they spat on him and took the reed and began hitting him on his head."
+
+### Death and burial
+
+The exact circumstances of his execution and tomb.
+
+**"They have pierced my hands and my feet" — written by David ~1,000 years before crucifixion was a Roman practice.**
+
+- Prophecy — Psalm 22:16: "For dogs surround me; they close in on me like a pack of evildoers. Like a lion they are at my hands and my feet."
+- Fulfillment — Matthew 27:35: "When they had nailed him to the stake, they distributed his outer garments by casting lots."
+- Fulfillment — John 20:25-27: "But he said to them: "Unless I see in his hands the print of the nails and stick my finger into the print of the nails and stick my hand into his side, I will never believe." (v. 27) Next he said to Thomas: "Put your finger here, and see my hands, and take your hand and stick it into my side, and stop doubting but believe.""
+
+**He was counted with the transgressors — Jesus was executed between two robbers.**
+
+- Prophecy — Isaiah 53:12: "For that reason I will assign him a portion among the many, and he will apportion the spoil with the mighty, because he poured out his life even to death and was counted among the transgressors; he carried the sin of many people, and he interceded for the transgressors."
+- Fulfillment — Mark 15:27, 28: "Furthermore, they nailed two robbers on stakes alongside him, one on his right and one on his left. (v. 28) [Some manuscripts add: "And the scripture was fulfilled that says, 'And he was counted with lawless ones.'"]"
+- Fulfillment — Luke 22:37: "For I tell you that this which is written must be fulfilled in me, namely, "And he was counted with lawless ones." For that which concerns me is having an end."
+
+**His outer garments divided, lots cast for his inner garment — exactly what the Roman soldiers did.**
+
+- Prophecy — Psalm 22:18: "They divide my garments among themselves, and they cast lots for my clothing."
+- Fulfillment — Matthew 27:35
+- Fulfillment — John 19:23, 24: "When the soldiers had nailed Jesus to the stake, they took his outer garments and divided them into four parts, one part for each soldier, and they took the inner garment also. But the inner garment was without a seam, being woven from top to bottom. (v. 24) So they said to one another: "Let us not tear it, but let us decide by lot whose it will be." This was to fulfill the scripture: "They divided my garments among themselves, and they cast lots for my clothing.""
+
+**"For my thirst they tried to make me drink vinegar."**
+
+- Prophecy — Psalm 69:21: "For my food they gave me poison, and for my thirst they tried to give me vinegar to drink."
+- Fulfillment — Matthew 27:34, 48: "They gave him wine mixed with gall to drink. But after tasting it, he refused to drink it. (v. 48) And immediately one of them ran and got a sponge, soaked it in sour wine, and put it on a reed and gave him a drink."
+- Fulfillment — John 19:28-30: "After this, when Jesus knew that all things had now been accomplished, in order that the scripture might be fulfilled, he said: "I am thirsty." (v. 29) A jar full of sour wine was sitting there, so they put a sponge full of the sour wine on a hyssop and brought it to his mouth. (v. 30) When he had received the sour wine, Jesus said: "It has been accomplished!" And bowing his head, he gave up his spirit."
+
+**Like the Passover lamb — not one of his bones would be broken. The soldiers broke the legs of the two beside him, but found him already dead.**
+
+- Prophecy — Psalm 34:20: "He is guarding all his bones; not one of them has been broken."
+- Fulfillment — John 19:33-36: "But on coming to Jesus, they saw that he was already dead, so they did not break his legs. (v. 34) Yet one of the soldiers jabbed his side with a spear, and immediately blood and water came out. (v. 36) In fact, these things took place so that the scripture might be fulfilled: "Not a bone of his will be crushed.""
+
+**His grave with the wicked, but with the rich in his death — buried in Joseph of Arimathea's new tomb.**
+
+- Prophecy — Isaiah 53:9: "And he was given a burial place with the wicked, and with the rich in his death, although he had done no violence and there was no deception in his mouth."
+- Fulfillment — Matthew 27:57-60: "When it became evening, a rich man from Arimathea came named Joseph, who had also become a disciple of Jesus. (v. 58) This man went to Pilate and asked for the body of Jesus. Then Pilate commanded that it be given to him. (v. 60) And he laid it in his new memorial tomb, which he had quarried out in the rock-mass."
+
+### Raised and exalted
+
+Resurrection, ascent to heaven, seated at Jehovah's right hand.
+
+**Jehovah would not abandon his loyal one to the Grave or let him see corruption — Peter applied this to Jesus' resurrection.**
+
+- Prophecy — Psalm 16:10: "For you will not leave me in the Grave. You will not allow your loyal one to see the pit."
+- Fulfillment — Acts 2:25-31: "For David says about him: "I had Jehovah constantly before my eyes; for he is at my right hand that I may never be shaken." (v. 27) For you will not abandon me to the Grave, nor will you allow your loyal one to see corruption. (v. 31) He saw beforehand and spoke about the resurrection of the Christ."
+- Fulfillment — Acts 13:34-37: "And about the fact that he resurrected him from the dead, never again to return to corruption, he has stated this: "I will give you the loyal-love promises to David that are faithful." (v. 37) But the one whom God raised up did not see corruption."
+
+**He ascended on high after his resurrection.**
+
+- Prophecy — Psalm 68:18: "You ascended on high; you took away captives; you took gifts in the form of men, yes, even stubborn ones, to reside among them, O Jah God."
+- Fulfillment — Acts 1:9-11: "After he had said these things, while they were looking on, he was lifted up and a cloud caught him up from their sight. (v. 11) They said: "Men of Galilee, why do you stand looking into the sky? This Jesus who was taken up from you into the sky will come in the same manner as you have seen him going into the sky.""
+- Fulfillment — Ephesians 4:8-10: "For it says: "When he ascended on high he carried away captives; he gave gifts in men." (v. 10) The very one who descended is also the one who ascended far above all the heavens, that he might give fullness to all things."
+
+**"Sit at my right hand until I place your enemies as a stool for your feet." Jesus is now reigning as Messianic King.**
+
+- Prophecy — Psalm 110:1: "Jehovah declared to my Lord: "Sit at my right hand until I place your enemies as a stool for your feet.""
+- Fulfillment — Acts 2:34-36: "For David did not ascend to the heavens, but he himself says: "Jehovah said to my Lord: 'Sit at my right hand (v. 35) until I make your enemies a stool for your feet.'" (v. 36) Therefore, let all the house of Israel know for a certainty that God made him both Lord and Christ, this Jesus whom you executed on a stake."
+- Fulfillment — Hebrews 1:3, 13: "He is the reflection of God's glory and the exact representation of his very being... and after he had made a purification for our sins, he sat down at the right hand of the Majesty on high. (v. 13) But about which one of the angels has he ever said: "Sit at my right hand until I make your enemies a stool for your feet"?"
+
+---
+
+For deeper study, see https://jwstudy.org/llms.txt for the full site index, or visit https://jwstudy.org directly.

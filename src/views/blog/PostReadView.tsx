@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useMemo, type ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { marked } from "marked";
 import { sanitizeRich } from "../../lib/sanitize";
+import { imgUrl } from "../../lib/imgUrl";
 import { useRelatedPosts, useToggleBlogLike, useUserBlogLikes } from "../../hooks/useBlog";
 import { blogApi } from "../../api/blog";
 import { formatDate, authorName as authorNameUtil } from "../../utils/formatters";
@@ -28,9 +29,16 @@ function getReadSessionId(): string {
   }
 }
 
+// Some drafts (AI-assisted or pasted) open with an empty "# " heading used as
+// a visual subtitle divider, e.g. "# \n\n---\n\n". marked renders that as a
+// literal empty <h1></h1><hr>. Strip that leading artifact before parsing.
+function stripLeadingEmptyHeading(markdown: string): string {
+  return markdown.replace(/^\s*#{1,6}[ \t]*\n+(?:-{3,}\n+)?/, "");
+}
+
 function renderContent(raw: string): string {
   if (!raw) return "";
-  const html = /<[a-z][\s\S]*>/i.test(raw) ? raw : marked.parse(raw) as string;
+  const html = /<[a-z][\s\S]*>/i.test(raw) ? raw : marked.parse(stripLeadingEmptyHeading(raw)) as string;
   return sanitizeRich(html);
 }
 
@@ -253,7 +261,12 @@ export default function PostReadView({ post, user, navigate, children }: Props) 
           </div>
 
           {post.cover_url && (
-            <img className="pr-cover" src={post.cover_url} alt={post.title} />
+            <img
+              className="pr-cover"
+              src={imgUrl(post.cover_url, { width: 1200, quality: 75 })}
+              alt={post.title}
+              fetchPriority="high"
+            />
           )}
 
           <div className="pr-body">
