@@ -116,7 +116,7 @@ async function gatherContext(userId: string): Promise<string> {
 
   // Active reading plan + today's reading
   const plansRes = await fetch(
-    `${SUPABASE_URL}/rest/v1/user_reading_plans?user_id=eq.${userId}&is_paused=is.false&completed_at=is.null&order=created_at.desc&limit=1`,
+    `${SUPABASE_URL}/rest/v1/user_reading_plans?user_id=eq.${userId}&is_paused=is.false&order=created_at.desc&limit=1`,
     { headers: sbHeaders() },
   );
   type PlanRow = {

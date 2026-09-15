@@ -146,12 +146,12 @@ export default async function sitemap() {
     // Forum categories
     const { data: categories } = await supabase
       .from("forum_categories")
-      .select("id, updated_at, created_at");
+      .select("id, created_at");
 
     for (const cat of categories ?? []) {
       forumPages.push({
         url: `${BASE}/forum/${cat.id}`,
-        lastModified: new Date(cat.updated_at ?? cat.created_at),
+        lastModified: new Date(cat.created_at),
       });
     }
 

@@ -58,7 +58,7 @@ interface Props {
 export default function TodaysFocusCard({ userId, navigate, lang = "en" }: Props) {
   const { t } = useTranslation();
   const { data: plans = [], isLoading: plansLoading } = useMyPlans();
-  const activePlan = plans.find(p => !p.is_paused && !p.completed_at) ?? null;
+  const activePlan = plans.find(p => !p.is_paused) ?? null;
   const activePlanTotalDays = activePlan ? getTemplateOrCustom(activePlan)?.totalDays : undefined;
 
   const { data: completions = [] } = usePlanCompletions(activePlan?.id ?? null);

@@ -1240,7 +1240,7 @@ async function executeTool(
     // bounds the blast radius of a self-targeted attack.
     const MAX_ACTIVE_PLANS_PER_USER = 5;
     const countRes = await fetch(
-      `${SUPABASE_URL}/rest/v1/user_reading_plans?user_id=eq.${userId}&status=eq.active&select=id`,
+      `${SUPABASE_URL}/rest/v1/user_reading_plans?user_id=eq.${userId}&is_paused=is.false&select=id`,
       { headers: { ...supabaseHeaders(), Prefer: "count=exact" } },
     );
     if (countRes.ok) {

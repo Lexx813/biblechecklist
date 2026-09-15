@@ -67,7 +67,7 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
 
   // Active plan for the primary reading action
   const { data: plans = [] } = useMyPlans();
-  const activePlan = plans.find((p: any) => !p.is_paused && !p.completed_at) ?? null;
+  const activePlan = plans.find((p: any) => !p.is_paused) ?? null;
   const activeTemplate = useMemo(() => activePlan ? getTemplateOrCustom(activePlan) : null, [activePlan]);
   const todayPlan = useMemo(() => {
     if (!activePlan || !activeTemplate) return null;
