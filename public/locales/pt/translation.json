@@ -62,7 +62,18 @@
     "aiSample1": "O que a Bíblia diz sobre por que Deus permite o sofrimento?",
     "aiSample2": "Me explique a reunião CLAM desta semana",
     "aiSample3": "Por que as Testemunhas de Jeová não comemoram aniversários?",
-    "skipForNow": "Pular por enquanto"
+    "skipForNow": "Pular por enquanto",
+    "inviteTitle": "Leia com alguém",
+    "inviteSub": "Ler fica mais fácil junto. Envie seu link para a família ou um amigo, e vocês ficarão conectados assim que ele entrar.",
+    "inviteShare": "Convidar família ou um amigo",
+    "inviteShareText": "Estou acompanhando minha leitura da Bíblia no JW Study. Venha comigo:",
+    "inviteSent": "Convite enviado. Vocês ficarão conectados quando ele entrar.",
+    "inviteCopied": "Link copiado. Cole-o numa mensagem para a família ou um amigo.",
+    "inviteFailed": "Não foi possível compartilhar o link. Você pode encontrá-lo depois em Amigos.",
+    "inviteGroups": "Entrar num grupo de estudo",
+    "inviteGroupsSub": "Leia e converse com outros",
+    "inviteFamilyQuiz": "Começar um quiz em família",
+    "inviteFamilyQuizSub": "Perguntas bíblicas para toda a família"
   },
   "a11y": {
     "skipToContent": "Pular para o conteúdo principal",

@@ -62,7 +62,18 @@
     "aiSample1": "Que dit la Bible sur les raisons pour lesquelles Dieu permet la souffrance ?",
     "aiSample2": "Présente-moi la réunion CLAM de cette semaine",
     "aiSample3": "Pourquoi les Témoins de Jéhovah ne fêtent-ils pas les anniversaires ?",
-    "skipForNow": "Ignorer pour le moment"
+    "skipForNow": "Ignorer pour le moment",
+    "inviteTitle": "Lisez avec quelqu'un",
+    "inviteSub": "La lecture est plus facile à plusieurs. Envoyez votre lien à un membre de votre famille ou à un ami : vous serez connectés dès qu'il s'inscrira.",
+    "inviteShare": "Inviter un proche ou un ami",
+    "inviteShareText": "Je suis ma lecture de la Bible sur JW Study. Rejoins-moi :",
+    "inviteSent": "Invitation envoyée. Vous serez connectés dès son inscription.",
+    "inviteCopied": "Lien copié. Collez-le dans un message à un proche ou un ami.",
+    "inviteFailed": "Impossible de partager le lien. Vous le retrouverez plus tard dans Amis.",
+    "inviteGroups": "Rejoindre un groupe d'étude",
+    "inviteGroupsSub": "Lire et échanger avec d'autres",
+    "inviteFamilyQuiz": "Lancer un quiz en famille",
+    "inviteFamilyQuizSub": "Des questions bibliques pour toute la famille"
   },
   "a11y": {
     "skipToContent": "Aller au contenu principal",

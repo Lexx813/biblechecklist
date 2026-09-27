@@ -3,6 +3,9 @@ import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import { useUpdateProfile } from "../hooks/useAdmin";
 import { useEnrollPlan } from "../hooks/useReadingPlans";
+import { useInviteToken } from "../hooks/useFriends";
+import { shareInviteLink } from "../lib/shareInvite";
+import { trackFeatureUse } from "../lib/analytics";
 import "../styles/onboarding.css";
 
 const CHOICES = [
@@ -64,10 +67,12 @@ interface Props {
 
 export default function OnboardingModal({ onClose, navigate, user }: Props) {
   const { t } = useTranslation();
-  const [step, setStep] = useState(0); // 0=intent, 1=plan, 2=goal, 3=ai, 4=done
+  const [step, setStep] = useState(0); // 0=intent, 1=plan, 2=goal, 3=invite, 4=ai, 5=done
   const [goalInput, setGoalInput] = useState(3);
+  const [inviteStatus, setInviteStatus] = useState<"idle" | "shared" | "copied" | "failed">("idle");
   const updateProfile = useUpdateProfile(user?.id);
   const enrollPlan = useEnrollPlan();
+  const { data: inviteToken } = useInviteToken(user?.id ?? "");
 
   function complete(destination?: string, params?: Record<string, unknown>) {
     localStorage.setItem("nwt-onboarded", "1");
@@ -90,6 +95,17 @@ export default function OnboardingModal({ onClose, navigate, user }: Props) {
     const g = Math.min(30, Math.max(1, goalInput || 1));
     updateProfile.mutate({ daily_chapter_goal: g });
     setStep(3);
+  }
+
+  // Users who connect with someone in their first session come back far more
+  // often than solo users, so onboarding offers a way to bring someone along.
+  async function handleInvite() {
+    if (!inviteToken) return;
+    const url = `${window.location.origin}/invite/${inviteToken}`;
+    const result = await shareInviteLink(url, t("onboarding.inviteShareText"));
+    if (result === "cancelled") return;
+    setInviteStatus(result);
+    if (result !== "failed") trackFeatureUse(`onboarding_invite_${result}`);
   }
 
   function openAIWithSample(prompt: string) {
@@ -180,8 +196,58 @@ export default function OnboardingModal({ onClose, navigate, user }: Props) {
           </>
         )}
 
-        {/* Step 3: Meet the AI Companion */}
+        {/* Step 3: Read with someone */}
         {step === 3 && (
+          <>
+            <h2 className="onboard-title" id="onboard-title">{t("onboarding.inviteTitle")}</h2>
+            <p className="onboard-body">{t("onboarding.inviteSub")}</p>
+            {inviteStatus === "shared" || inviteStatus === "copied" ? (
+              <>
+                <p className="onboard-body" role="status">
+                  {inviteStatus === "shared" ? t("onboarding.inviteSent") : t("onboarding.inviteCopied")}
+                </p>
+                <button className="onboard-next" onClick={() => setStep(4)}>
+                  {t("onboarding.next")}
+                </button>
+              </>
+            ) : (
+              <>
+                <button className="onboard-next" onClick={handleInvite} disabled={!inviteToken}>
+                  {t("onboarding.inviteShare")}
+                </button>
+                {inviteStatus === "failed" && (
+                  <p className="onboard-choice-note" role="alert">{t("onboarding.inviteFailed")}</p>
+                )}
+              </>
+            )}
+            <div className="onboard-choices">
+              <button className="onboard-choice" onClick={() => complete("groups")}>
+                <span className="onboard-choice-icon">{CHOICES[2].icon}</span>
+                <div className="onboard-choice-text">
+                  <strong>{t("onboarding.inviteGroups")}</strong>
+                  <span>{t("onboarding.inviteGroupsSub")}</span>
+                </div>
+                <span className="onboard-choice-arrow">›</span>
+              </button>
+              <button className="onboard-choice" onClick={() => complete("familyQuiz")}>
+                <span className="onboard-choice-icon">{CHOICES[1].icon}</span>
+                <div className="onboard-choice-text">
+                  <strong>{t("onboarding.inviteFamilyQuiz")}</strong>
+                  <span>{t("onboarding.inviteFamilyQuizSub")}</span>
+                </div>
+                <span className="onboard-choice-arrow">›</span>
+              </button>
+            </div>
+            {inviteStatus !== "shared" && inviteStatus !== "copied" && (
+              <button className="onboard-skip-inline" onClick={() => setStep(4)}>
+                {t("onboarding.skipForNow")}
+              </button>
+            )}
+          </>
+        )}
+
+        {/* Step 4: Meet the AI Companion */}
+        {step === 4 && (
           <>
             <div className="onboard-ai-icon" aria-hidden>
               <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
@@ -218,14 +284,14 @@ export default function OnboardingModal({ onClose, navigate, user }: Props) {
                 &ldquo;{t("onboarding.aiSample3")}&rdquo;
               </button>
             </div>
-            <button className="onboard-skip-inline" onClick={() => setStep(4)}>
+            <button className="onboard-skip-inline" onClick={() => setStep(5)}>
               {t("onboarding.skipForNow")}
             </button>
           </>
         )}
 
-        {/* Step 4: Done */}
-        {step === 4 && (
+        {/* Step 5: Done */}
+        {step === 5 && (
           <>
             <div className="onboard-done-icon">🎉</div>
             <h2 className="onboard-title" id="onboard-title">
@@ -244,7 +310,7 @@ export default function OnboardingModal({ onClose, navigate, user }: Props) {
         )}
 
         <div className="onboard-dots">
-          {[0, 1, 2, 3, 4].map(i => (
+          {[0, 1, 2, 3, 4, 5].map(i => (
             <span key={i} className={`onboard-dot${i === step ? " onboard-dot--active" : ""}`} />
           ))}
         </div>

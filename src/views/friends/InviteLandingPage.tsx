@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { friendsApi } from "../../api/friends";
+import { storePendingInvite } from "../../lib/pendingInvite";
 import "../../styles/friends.css";
 
 interface Inviter {
@@ -25,7 +26,7 @@ export default function InviteLandingPage({ token, navigate }: Props) {
       setInviter(profile as Inviter | null);
       setLoading(false);
     });
-    sessionStorage.setItem("invite_token", token);
+    storePendingInvite(token);
   }, [token]);
 
   if (loading) return null;

@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useLogin, useRegister, useResetPassword } from "../../hooks/useAuth";
 import { authApi } from "../../api/auth";
-import { friendsApi } from "../../api/friends";
 import { trackSignup, trackLogin } from "../../lib/analytics";
 import { isDisposableEmail } from "../../lib/disposableEmails";
 import Button from "../../components/ui/Button";
@@ -148,11 +147,6 @@ export default function AuthPage({ onBack, onRegisterSuccess = null, confirmedEm
         onSuccess: async (result) => {
           trackSignup("email");
           if (result?.session) {
-            const inviteToken = sessionStorage.getItem("invite_token");
-            if (inviteToken) {
-              sessionStorage.removeItem("invite_token");
-              await friendsApi.processInviteSignup(inviteToken);
-            }
             // Honor a stashed ?next= path (set by App.tsx on landing). Only
             // applies when registration produced an immediate session;
             // email-confirmation flows fall through to the default screen.

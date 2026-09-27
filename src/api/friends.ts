@@ -212,33 +212,13 @@ export const friendsApi = {
     return row as unknown as ProfileBasic;
   },
 
-  processInviteSignup: async (token: string) => {
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) return;
-
-    const inviter = await friendsApi.getInviterByToken(token);
-    if (!inviter || inviter.id === user.id) return;
-
-    // `subscription_status` SELECT grant is revoked from authenticated; the
-    // RPC returns the boolean derived server-side. is_admin grant is intact.
-    const [{ data: inviterIsPremium }, { data: myIsPremium }] = await Promise.all([
-      supabase.rpc("user_has_premium", { p_user_id: inviter.id }),
-      supabase.rpc("user_has_premium", { p_user_id: user.id }),
-    ]);
-
-    const { error: reqErr } = await supabase
-      .from("friend_requests")
-      .insert({ from_user_id: inviter.id, to_user_id: user.id });
-
-    if (!reqErr && inviterIsPremium && !myIsPremium) {
-      const [a, b] = [inviter.id, user.id].sort();
-      await supabase.from("friend_requests")
-        .update({ status: "accepted" })
-        .eq("from_user_id", inviter.id)
-        .eq("to_user_id", user.id);
-      await supabase.from("friendships")
-        .insert({ user_a_id: a, user_b_id: b, sponsored_by: inviter.id });
-    }
+  // Befriends the owner of an invite link. Runs server-side (SECURITY
+  // DEFINER) because RLS only lets a user insert requests they send, and the
+  // invitee is the one holding the token. Returns the inviter's id, or null.
+  processInviteSignup: async (token: string): Promise<string | null> => {
+    const { data, error } = await supabase.rpc("accept_invite", { p_token: token });
+    if (error) throw new Error(error.message);
+    return data ?? null;
   },
 
   // ── Sponsored messaging check ────────────────────────────

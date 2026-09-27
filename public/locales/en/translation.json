@@ -68,7 +68,18 @@
     "aiSample1": "What does the Bible say about why God allows suffering?",
     "aiSample2": "Walk me through this week's CLAM meeting",
     "aiSample3": "Why don't Jehovah's Witnesses celebrate birthdays?",
-    "skipForNow": "Skip for now"
+    "skipForNow": "Skip for now",
+    "inviteTitle": "Read with someone",
+    "inviteSub": "Reading is easier together. Send your link to family or a friend, and you'll be connected as soon as they join.",
+    "inviteShare": "Invite family or a friend",
+    "inviteShareText": "I'm keeping track of my Bible reading on JW Study. Join me:",
+    "inviteSent": "Invite sent. You'll be connected when they join.",
+    "inviteCopied": "Link copied. Paste it in a message to family or a friend.",
+    "inviteFailed": "Couldn't share the link. You can find it later under Friends.",
+    "inviteGroups": "Join a study group",
+    "inviteGroupsSub": "Read and talk with others",
+    "inviteFamilyQuiz": "Start a family quiz",
+    "inviteFamilyQuizSub": "Bible questions for the whole family"
   },
   "a11y": {
     "skipToContent": "Skip to main content",

@@ -20,6 +20,7 @@ import { BOOKS } from "./data/books";
 import { usePostBySlugForEdit } from "./hooks/useBlog";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import ConsentGate from "./components/ConsentGate";
+import { getPendingInvite, clearPendingInvite } from "./lib/pendingInvite";
 import "./styles/app.css";
 // Load editor styles globally — every authed page can render rich content
 // (posts, group posts, blog comments) via .rich-content / .editor-render and
@@ -120,6 +121,20 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
       }).catch(() => {});
     });
   }, [profile, user.id]);
+
+  // Accept a friend invite stashed by the /invite landing page. Runs here
+  // rather than in the signup handler so it also covers Google sign-in and
+  // email-confirmation signups, which never return to AuthPage with a session.
+  useEffect(() => {
+    const token = getPendingInvite();
+    if (!token) return;
+    import("./api/friends").then(({ friendsApi }) => {
+      friendsApi.processInviteSignup(token).then(() => {
+        clearPendingInvite();
+        queryClient.invalidateQueries({ queryKey: ["friends", user.id] });
+      }).catch(() => { /* keep token; retry on next load */ });
+    });
+  }, [user.id, queryClient]);
 
   // Update last_active_at for re-engagement email targeting.
   // Throttled to at most once per 5 minutes per browser via localStorage —

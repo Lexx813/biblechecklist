@@ -62,7 +62,18 @@
     "aiSample1": "Ano ang sinasabi ng Bibliya kung bakit pinahihintulutan ng Diyos ang paghihirap?",
     "aiSample2": "Gabayan mo ako sa pulong na CLAM ngayong linggo",
     "aiSample3": "Bakit hindi nagdiriwang ng kaarawan ang mga Saksi ni Jehova?",
-    "skipForNow": "Laktawan muna"
+    "skipForNow": "Laktawan muna",
+    "inviteTitle": "Magbasa kasama ang iba",
+    "inviteSub": "Mas madaling magbasa kapag may kasama. Ipadala ang link mo sa pamilya o kaibigan, at magiging konektado kayo pagsali nila.",
+    "inviteShare": "Imbitahan ang pamilya o kaibigan",
+    "inviteShareText": "Sinusubaybayan ko ang pagbabasa ko ng Bibliya sa JW Study. Samahan mo ako:",
+    "inviteSent": "Naipadala ang imbitasyon. Magiging konektado kayo pagsali nila.",
+    "inviteCopied": "Nakopya ang link. I-paste ito sa mensahe sa pamilya o kaibigan.",
+    "inviteFailed": "Hindi maibahagi ang link. Makikita mo ito mamaya sa Friends.",
+    "inviteGroups": "Sumali sa study group",
+    "inviteGroupsSub": "Magbasa at makipag-usap sa iba",
+    "inviteFamilyQuiz": "Magsimula ng family quiz",
+    "inviteFamilyQuizSub": "Mga tanong sa Bibliya para sa buong pamilya"
   },
   "a11y": {
     "skipToContent": "Lumipat sa pangunahing nilalaman",

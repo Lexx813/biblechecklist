@@ -3913,6 +3913,7 @@ export type Database = {
         Args: { new_value: boolean; target_user_id: string }
         Returns: undefined
       }
+      accept_invite: { Args: { p_token: string }; Returns: string | null }
       apply_referral: {
         Args: { p_code: string; p_new_user_id: string }
         Returns: boolean

@@ -103,7 +103,18 @@
     "aiSample1": "圣经怎样解释上帝为什么容许苦难存在？",
     "aiSample2": "请带我了解本周的 CLAM 聚会内容",
     "aiSample3": "耶和华见证人为什么不庆祝生日？",
-    "skipForNow": "暂时跳过"
+    "skipForNow": "暂时跳过",
+    "inviteTitle": "和别人一起读",
+    "inviteSub": "一起读经更容易坚持。把你的链接发给家人或朋友，他们加入后你们就会自动成为好友。",
+    "inviteShare": "邀请家人或朋友",
+    "inviteShareText": "我在 JW Study 上记录读经进度，一起来吧：",
+    "inviteSent": "邀请已发送。对方加入后你们就会成为好友。",
+    "inviteCopied": "链接已复制。把它粘贴到发给家人或朋友的信息里。",
+    "inviteFailed": "无法分享链接。你以后可以在“好友”页面找到它。",
+    "inviteGroups": "加入学习小组",
+    "inviteGroupsSub": "和其他人一起阅读、交流",
+    "inviteFamilyQuiz": "开始家庭问答",
+    "inviteFamilyQuizSub": "适合全家的圣经问题"
   },
   "offline": {
     "message": "您已离线 — 部分功能暂时不可用。"
