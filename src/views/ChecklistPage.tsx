@@ -201,6 +201,7 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
       }
     }
     if (delta !== 0) scheduleLog(delta);
+    if (val && delta > 0) progressApi.recordReadingDay(user.id);
     setChaptersState(prev => {
       const chs = {};
       for (let c = 1; c <= total; c++) chs[c] = val;
@@ -272,6 +273,7 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
       setVersesState(prev => ({ ...prev, [bi]: { ...(prev[bi] || {}), [ch]: allVerses } }));
       return;
     }
+    if (!versesState[bi]?.[ch]?.includes(verse)) progressApi.recordReadingDay(user.id);
     setVersesState(prev => {
       const existing = prev[bi]?.[ch] ?? [];
       const updated = existing.includes(verse)
@@ -285,6 +287,7 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
     if (!verseModal) return;
     const { bookIndex: bi, chapter: ch } = verseModal;
     const total = VERSE_COUNTS[bi]?.[ch - 1] ?? 0;
+    if (total > 0) progressApi.recordReadingDay(user.id);
     setVersesState(prev => ({
       ...prev,
       [bi]: { ...(prev[bi] || {}), [ch]: Array.from({ length: total }, (_, i) => i + 1) },

@@ -29,8 +29,12 @@ export const progressApi = {
       .from("reading_progress")
       .upsert({ user_id: userId, progress, updated_at: new Date().toISOString() });
     if (error) throw new Error(error.message);
+  },
 
-    // Record today as a reading day (ignore errors — streak is non-critical)
+  // Record today as a reading day. Call only when the user actually marks
+  // something read — save() also runs on page load, so it must not count.
+  // Errors are swallowed: the streak is non-critical.
+  recordReadingDay: async (userId: string): Promise<void> => {
     await supabase
       .from("reading_activity")
       .upsert({ user_id: userId, activity_date: new Date().toISOString().slice(0, 10) });
@@ -47,6 +51,7 @@ export const progressApi = {
       user_id: userId, book_index: bookIndex, chapter, read_at: new Date().toISOString(),
     });
     if (error) throw new Error(error.message);
+    await progressApi.recordReadingDay(userId);
   },
 
   unmarkChapterRead: async (userId: string, bookIndex: number, chapter: number): Promise<void> => {
