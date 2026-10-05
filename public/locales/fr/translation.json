@@ -2280,7 +2280,32 @@
     "addImage": "Ajouter une image",
     "pinAnnouncement": "Épingler comme annonce",
     "posting": "Publication…",
-    "post": "Publier"
+    "post": "Publier",
+    "invite": {
+      "button": "Inviter",
+      "title": "Inviter des personnes",
+      "friendsHeading": "Amis sur JW Study",
+      "noFriends": "Vous n'avez pas encore d'amis sur JW Study. Invitez quelqu'un par e-mail ou partagez le lien ci-dessous.",
+      "allFriendsIn": "Tous vos amis sont déjà dans ce groupe.",
+      "addFriends_one": "Ajouter {{count}} ami",
+      "addFriends_other": "Ajouter {{count}} amis",
+      "friendsAdded_one": "{{count}} ami ajouté au groupe",
+      "friendsAdded_other": "{{count}} amis ajoutés au groupe",
+      "emailHeading": "Inviter par e-mail",
+      "emailPlaceholder": "nom@exemple.com",
+      "emailHint": "S'il a déjà un compte, il est ajouté tout de suite. Sinon, nous lui enverrons un lien pour rejoindre le groupe.",
+      "send": "Envoyer",
+      "invalidEmail": "Saisissez une adresse e-mail valide.",
+      "emailSent": "Invitation envoyée à {{email}}",
+      "linkHeading": "Lien d'invitation",
+      "linkHint": "Toute personne ayant ce lien peut rejoindre le groupe.",
+      "shareLink": "Partager le lien",
+      "resetLink": "Réinitialiser le lien",
+      "linkCopied": "Lien copié",
+      "linkReset": "L'ancien lien est désactivé. Partagez le nouveau.",
+      "shareText": "Rejoins mon groupe d'étude « {{name}} » sur JW Study :",
+      "failed": "Impossible d'envoyer l'invitation. Réessayez."
+    }
   },
   "messages": {
     "title": "Messages",
@@ -6577,7 +6602,8 @@
     "hoursAgo": "il y a {{count}} heure",
     "hoursAgo_other": "il y a {{count}} heures",
     "daysAgo": "il y a {{count}} jour",
-    "daysAgo_other": "il y a {{count}} jours"
+    "daysAgo_other": "il y a {{count}} jours",
+    "typeGroupInvite": "vous a ajouté à un groupe d'étude"
   },
   "friendBtn": {
     "friends": "Amis",

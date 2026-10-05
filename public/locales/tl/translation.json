@@ -2280,7 +2280,32 @@
     "addImage": "Magdagdag ng larawan",
     "pinAnnouncement": "I-pin bilang anunsyo",
     "posting": "Nagpo-post…",
-    "post": "I-post"
+    "post": "I-post",
+    "invite": {
+      "button": "Imbitahan",
+      "title": "Mag-imbita",
+      "friendsHeading": "Mga kaibigan sa JW Study",
+      "noFriends": "Wala ka pang kaibigan sa JW Study. Mag-imbita sa email o ibahagi ang link sa ibaba.",
+      "allFriendsIn": "Nasa grupong ito na ang lahat ng kaibigan mo.",
+      "addFriends_one": "Idagdag ang {{count}} kaibigan",
+      "addFriends_other": "Idagdag ang {{count}} kaibigan",
+      "friendsAdded_one": "{{count}} kaibigan ang naidagdag sa grupo",
+      "friendsAdded_other": "{{count}} kaibigan ang naidagdag sa grupo",
+      "emailHeading": "Mag-imbita sa email",
+      "emailPlaceholder": "pangalan@halimbawa.com",
+      "emailHint": "Kung may account na sila, maidadagdag sila agad. Kung wala pa, padadalhan namin sila ng link para sumali.",
+      "send": "Ipadala",
+      "invalidEmail": "Maglagay ng tamang email address.",
+      "emailSent": "Naipadala ang imbitasyon kay {{email}}",
+      "linkHeading": "Invite link",
+      "linkHint": "Puwedeng sumali sa grupo ang sinumang may link na ito.",
+      "shareLink": "Ibahagi ang link",
+      "resetLink": "I-reset ang link",
+      "linkCopied": "Nakopya ang link",
+      "linkReset": "Hindi na gumagana ang lumang link. Ibahagi ang bago.",
+      "shareText": "Sumali sa study group ko na \"{{name}}\" sa JW Study:",
+      "failed": "Hindi maipadala ang imbitasyon. Subukan ulit."
+    }
   },
   "messages": {
     "title": "Mga Mensahe",
@@ -6577,7 +6602,8 @@
     "hoursAgo": "{{count}} oras na ang nakalipas",
     "hoursAgo_other": "{{count}} oras na ang nakalipas",
     "daysAgo": "{{count}} araw na ang nakalipas",
-    "daysAgo_other": "{{count}} araw na ang nakalipas"
+    "daysAgo_other": "{{count}} araw na ang nakalipas",
+    "typeGroupInvite": "idinagdag ka sa isang study group"
   },
   "friendBtn": {
     "friends": "Magkaibigan",

@@ -23,3 +23,31 @@ export function clearPendingInvite(): void {
     sessionStorage.removeItem(LEGACY_KEY);
   } catch { /* storage blocked */ }
 }
+
+// ── Group invite links: /groups/<id>?join=<code> ─────────────────────────────
+
+const GROUP_KEY = "nwt:pending-group-invite";
+
+// Stashes ?join=<code> and strips it from the address bar so the code isn't
+// left in screenshots or re-shared by accident. Returns the code, if any.
+export function captureGroupInviteFromUrl(): string | null {
+  try {
+    const url = new URL(window.location.href);
+    const code = url.searchParams.get("join");
+    if (!code || !/^[0-9a-f]{32}$/i.test(code)) return null;
+    localStorage.setItem(GROUP_KEY, code);
+    url.searchParams.delete("join");
+    history.replaceState(history.state, "", url.pathname + url.search + url.hash);
+    return code;
+  } catch {
+    return null;
+  }
+}
+
+export function getPendingGroupInvite(): string | null {
+  try { return localStorage.getItem(GROUP_KEY); } catch { return null; }
+}
+
+export function clearPendingGroupInvite(): void {
+  try { localStorage.removeItem(GROUP_KEY); } catch { /* storage blocked */ }
+}

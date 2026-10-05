@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   useGroupMembers,
-  useApproveJoinRequest, useDenyJoinRequest,
+  useApproveMember, useDenyMember,
   useRemoveMember, useUpdateMemberRole,
 } from "../../../hooks/useGroups";
 import { GroupMember } from "../../../api/groups";
@@ -21,8 +21,8 @@ const PAGE = 20;
 export default function MembersTab({ groupId, userId, isAdmin, isOwner }: Props) {
   const { t } = useTranslation();
   const { data: members = [], isLoading } = useGroupMembers(groupId);
-  const approve = useApproveJoinRequest(groupId);
-  const deny = useDenyJoinRequest(groupId);
+  const approve = useApproveMember(groupId);
+  const deny = useDenyMember(groupId);
   const remove = useRemoveMember(groupId);
   const updateRole = useUpdateMemberRole(groupId);
   const [visible, setVisible] = useState(PAGE);
@@ -44,7 +44,7 @@ export default function MembersTab({ groupId, userId, isAdmin, isOwner }: Props)
               <Avatar src={m.avatar_url} name={m.display_name} size={36} />
               <span className="grp-member-name">{m.display_name || t("groups.unknown")}</span>
               <div className="grp-member-actions">
-                <button className="grp-btn grp-btn--sm grp-btn--primary" onClick={() => approve.mutate({ requestId: m.id, userId: m.user_id }, { onError: () => toast.error(t("groups.failedToApprove")) })}>{t("groups.approve")}</button>
+                <button className="grp-btn grp-btn--sm grp-btn--primary" onClick={() => approve.mutate(m.id, { onError: () => toast.error(t("groups.failedToApprove")) })}>{t("groups.approve")}</button>
                 <button className="grp-btn grp-btn--sm grp-btn--ghost" onClick={() => deny.mutate(m.id, { onError: () => toast.error(t("groups.failedToDeny")) })}>{t("groups.deny")}</button>
               </div>
             </div>

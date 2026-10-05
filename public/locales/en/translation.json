@@ -2295,7 +2295,32 @@
     "addImage": "Add image",
     "pinAnnouncement": "Pin as announcement",
     "posting": "Posting…",
-    "post": "Post"
+    "post": "Post",
+    "invite": {
+      "button": "Invite",
+      "title": "Invite people",
+      "friendsHeading": "Friends on JW Study",
+      "noFriends": "You don't have friends on JW Study yet. Invite someone by email or share the link below.",
+      "allFriendsIn": "All your friends are already in this group.",
+      "addFriends_one": "Add {{count}} friend",
+      "addFriends_other": "Add {{count}} friends",
+      "friendsAdded_one": "{{count}} friend added to the group",
+      "friendsAdded_other": "{{count}} friends added to the group",
+      "emailHeading": "Invite by email",
+      "emailPlaceholder": "name@example.com",
+      "emailHint": "If they already have an account, they're added right away. If not, we'll email them a link to join.",
+      "send": "Send",
+      "invalidEmail": "Enter a valid email address.",
+      "emailSent": "Invite sent to {{email}}",
+      "linkHeading": "Invite link",
+      "linkHint": "Anyone with this link can join the group.",
+      "shareLink": "Share link",
+      "resetLink": "Reset link",
+      "linkCopied": "Invite link copied",
+      "linkReset": "Old link turned off. Share the new one.",
+      "shareText": "Join my study group \"{{name}}\" on JW Study:",
+      "failed": "Couldn't send the invite. Please try again."
+    }
   },
   "messages": {
     "title": "Messages",
@@ -3987,7 +4012,8 @@
     "hoursAgo": "{{count}} hour ago",
     "hoursAgo_other": "{{count}} hours ago",
     "daysAgo": "{{count}} day ago",
-    "daysAgo_other": "{{count}} days ago"
+    "daysAgo_other": "{{count}} days ago",
+    "typeGroupInvite": "added you to a study group"
   },
   "friendBtn": {
     "friends": "Friends",

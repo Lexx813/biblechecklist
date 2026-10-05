@@ -28,7 +28,8 @@ type LimiterKind =
   | "renderVideo"
   | "linkPreview"
   | "semanticSearch"
-  | "songEvents";
+  | "songEvents"
+  | "groupInvite";
 
 interface LimiterConfig {
   /** Max requests in the window */
@@ -64,6 +65,8 @@ export const RATE_LIMITS: Record<LimiterKind, LimiterConfig> = {
   // — keyed by `${ip}:${song_id}` so a real TikTok-driven landing burst still
   // works but a single IP can't flood any one row.
   songEvents:     { max: 30, window: "1 m",  label: "song event" },
+  // Group email invites — each one can send an email to an arbitrary address.
+  groupInvite:    { max: 20, window: "1 h",  label: "group invite" },
 };
 
 let _redis: Redis | null = null;

@@ -615,65 +615,59 @@ export const groupsApi = {
 
   // ── Join requests ─────────────────────────────────────────────────────────
 
-  requestJoin: async (groupId: string) => {
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) throw new Error("Not authenticated");
-    const { data, error } = await supabase
-      .from("group_join_requests")
-      .insert({ group_id: groupId, user_id: user.id })
-      .select()
-      .single();
+  // Pending requests live in group_members (status 'pending'); admins
+  // approve by flipping status and deny by deleting the row.
+  approveMember: async (memberId: string): Promise<void> => {
+    const { error } = await supabase.from("group_members").update({ status: "member" }).eq("id", memberId);
+    if (error) throw new Error(error.message);
+  },
+
+  denyMember: async (memberId: string): Promise<void> => {
+    const { error } = await supabase.from("group_members").delete().eq("id", memberId).eq("status", "pending");
+    if (error) throw new Error(error.message);
+  },
+
+  // ── Invite links (owner/admin only; enforced by the RPCs) ────────────────
+
+  getInviteCode: async (groupId: string): Promise<string> => {
+    const { data, error } = await supabase.rpc("get_group_invite_code", { p_group_id: groupId });
     if (error) throw new Error(error.message);
     return data;
   },
 
-  getJoinRequests: async (groupId: string) => {
-    const { data, error } = await supabase
-      .from("group_join_requests")
-      .select("id, user_id, status, created_at")
-      .eq("group_id", groupId)
-      .eq("status", "pending")
-      .order("created_at", { ascending: true });
+  resetInviteCode: async (groupId: string): Promise<string> => {
+    const { data, error } = await supabase.rpc("reset_group_invite_code", { p_group_id: groupId });
     if (error) throw new Error(error.message);
-    if (!data?.length) return [];
-    const userIds = data.map(r => r.user_id);
-    const { data: profiles } = await supabase
-      .from("profiles")
-      .select("id, display_name, avatar_url")
-      .in("id", userIds);
-    const profileMap = Object.fromEntries((profiles ?? []).map(p => [p.id, p]));
-    return data.map(r => ({ ...r, profile: profileMap[r.user_id] ?? null }));
+    return data;
   },
 
-  approveJoinRequest: async (requestId: string, groupId: string, userId: string) => {
-    const { error: ue } = await supabase.from("group_join_requests").update({ status: "approved" }).eq("id", requestId);
-    if (ue) throw new Error(ue.message);
-    const { error: me } = await supabase.from("study_group_members").insert({ group_id: groupId, user_id: userId, role: "member" });
-    if (me) throw new Error(me.message);
-  },
-
-  denyJoinRequest: async (requestId: string) => {
-    const { error } = await supabase.from("group_join_requests").update({ status: "denied" }).eq("id", requestId);
+  // Adds friends of the caller directly; returns how many were newly added.
+  addFriends: async (groupId: string, userIds: string[]): Promise<number> => {
+    const { data, error } = await supabase.rpc("add_friends_to_group", { p_group_id: groupId, p_user_ids: userIds });
     if (error) throw new Error(error.message);
+    return data ?? 0;
   },
 
-  getMyJoinRequest: async (groupId: string) => {
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) return null;
-    const { data } = await supabase
-      .from("group_join_requests")
-      .select("id, status")
-      .eq("group_id", groupId)
-      .eq("user_id", user.id)
-      .maybeSingle();
+  // Server route: adds an existing account or emails a non-user the invite link.
+  inviteByEmail: async (groupId: string, email: string): Promise<void> => {
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) throw new Error("Not authenticated");
+    const res = await fetch("/api/group-invite", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Authorization: `Bearer ${session.access_token}` },
+      body: JSON.stringify({ groupId, email }),
+    });
+    if (!res.ok) {
+      const body = await res.json().catch(() => null);
+      throw new Error(body?.error ?? "Couldn't send the invite.");
+    }
+  },
+
+  // Returns the joined group's id, or null if the code is invalid/reset.
+  joinWithInvite: async (code: string): Promise<string | null> => {
+    const { data, error } = await supabase.rpc("join_group_with_invite", { p_code: code });
+    if (error) throw new Error(error.message);
     return data ?? null;
-  },
-
-  cancelJoinRequest: async (groupId: string) => {
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) throw new Error("Not authenticated");
-    const { error } = await supabase.from("group_join_requests").delete().eq("group_id", groupId).eq("user_id", user.id);
-    if (error) throw new Error(error.message);
   },
 
   // ── Reading progress ──────────────────────────────────────────────────────

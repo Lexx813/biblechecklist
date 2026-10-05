@@ -3,6 +3,7 @@ import { useState, useEffect, useLayoutEffect, lazy, Suspense } from "react";
 import { useTranslation } from "react-i18next";
 import LoadingSpinner from "./components/LoadingSpinner";
 import { ErrorBoundary } from "./components/ErrorBoundary";
+import { captureGroupInviteFromUrl } from "./lib/pendingInvite";
 const LandingPage = lazy(() => import("./views/LandingPage"));
 
 const TermsPage         = lazy(() => import("./views/TermsPage"));
@@ -72,6 +73,8 @@ export default function App() {
   // landing → auth. Validated in AuthPage on success. Only relative
   // same-origin paths are accepted.
   useLayoutEffect(() => {
+    // Group invite links work signed-in or out; AuthedApp redeems the code.
+    captureGroupInviteFromUrl();
     try {
       const next = new URLSearchParams(window.location.search).get("next");
       if (next && next.startsWith("/") && !next.startsWith("//") && !/^\/[a-z]+:/i.test(next)) {

@@ -24,6 +24,7 @@ const TYPE_LABEL: Record<string, string> = {
   reply: "replied to your thread",
   mention: "mentioned you in a reply",
   comment: "commented on your post",
+  group_invite: "added you to a study group",
 };
 
 Deno.serve(async (req) => {

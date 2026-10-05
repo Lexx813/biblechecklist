@@ -98,11 +98,10 @@ export function useLeaveGroup() {
   });
 }
 
-export function useApproveJoinRequest(groupId: string | undefined) {
+export function useApproveMember(groupId: string | undefined) {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: ({ requestId, userId }: { requestId: string; userId: string }) =>
-      groupsApi.approveJoinRequest(requestId, groupId!, userId),
+    mutationFn: (memberId: string) => groupsApi.approveMember(memberId),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ["group-members", groupId] });
       qc.invalidateQueries({ queryKey: ["group", groupId] });
@@ -110,11 +109,50 @@ export function useApproveJoinRequest(groupId: string | undefined) {
   });
 }
 
-export function useDenyJoinRequest(groupId: string | undefined) {
+export function useDenyMember(groupId: string | undefined) {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: (requestId: string) => groupsApi.denyJoinRequest(requestId),
+    mutationFn: (memberId: string) => groupsApi.denyMember(memberId),
     onSuccess: () => qc.invalidateQueries({ queryKey: ["group-members", groupId] }),
+  });
+}
+
+export function useGroupInviteCode(groupId: string | undefined, enabled: boolean) {
+  return useQuery({
+    queryKey: ["group-invite", groupId],
+    queryFn: () => groupsApi.getInviteCode(groupId!),
+    enabled: !!groupId && enabled,
+    staleTime: Infinity,
+  });
+}
+
+export function useResetGroupInvite(groupId: string | undefined) {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: () => groupsApi.resetInviteCode(groupId!),
+    onSuccess: (code) => qc.setQueryData(["group-invite", groupId], code),
+  });
+}
+
+export function useAddFriendsToGroup(groupId: string | undefined) {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (userIds: string[]) => groupsApi.addFriends(groupId!, userIds),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["group-members", groupId] });
+      qc.invalidateQueries({ queryKey: ["group", groupId] });
+    },
+  });
+}
+
+export function useInviteByEmail(groupId: string | undefined) {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (email: string) => groupsApi.inviteByEmail(groupId!, email),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["group-members", groupId] });
+      qc.invalidateQueries({ queryKey: ["group", groupId] });
+    },
   });
 }
 

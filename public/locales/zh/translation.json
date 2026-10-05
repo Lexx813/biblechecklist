@@ -1127,7 +1127,32 @@
     "addImage": "添加图片",
     "pinAnnouncement": "置顶为公告",
     "posting": "发布中…",
-    "post": "发布"
+    "post": "发布",
+    "invite": {
+      "button": "邀请",
+      "title": "邀请成员",
+      "friendsHeading": "JW Study 上的好友",
+      "noFriends": "你在 JW Study 上还没有好友。可以通过邮箱邀请，或分享下面的链接。",
+      "allFriendsIn": "你的好友都已经在这个小组里了。",
+      "addFriends_one": "添加 {{count}} 位好友",
+      "addFriends_other": "添加 {{count}} 位好友",
+      "friendsAdded_one": "已将 {{count}} 位好友加入小组",
+      "friendsAdded_other": "已将 {{count}} 位好友加入小组",
+      "emailHeading": "通过邮箱邀请",
+      "emailPlaceholder": "name@example.com",
+      "emailHint": "如果对方已有账号，会立即加入小组；如果没有，我们会给对方发送加入链接。",
+      "send": "发送",
+      "invalidEmail": "请输入有效的邮箱地址。",
+      "emailSent": "已向 {{email}} 发送邀请",
+      "linkHeading": "邀请链接",
+      "linkHint": "任何拿到此链接的人都可以加入小组。",
+      "shareLink": "分享链接",
+      "resetLink": "重置链接",
+      "linkCopied": "链接已复制",
+      "linkReset": "旧链接已失效，请分享新链接。",
+      "shareText": "来加入我在 JW Study 上的学习小组“{{name}}”：",
+      "failed": "邀请发送失败，请重试。"
+    }
   },
   "profile": {
     "title": "我的主页",
@@ -6590,7 +6615,8 @@
     "hoursAgo": "{{count}} 小时前",
     "hoursAgo_other": "{{count}} 小时前",
     "daysAgo": "{{count}} 天前",
-    "daysAgo_other": "{{count}} 天前"
+    "daysAgo_other": "{{count}} 天前",
+    "typeGroupInvite": "把你加入了学习小组"
   },
   "friendBtn": {
     "friends": "好友",

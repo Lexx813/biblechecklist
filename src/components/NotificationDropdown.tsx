@@ -12,6 +12,7 @@ const TYPE_LABEL_KEY: Record<string, string> = {
   like: "notif.typeLike",
   friend_request: "notif.typeFriendRequest",
   meeting_prep_reminder: "notif.typeMeetingReminder",
+  group_invite: "notif.typeGroupInvite",
 };
 
 function typeLabel(type: string, t: TFn): string {
@@ -102,6 +103,11 @@ export default function NotificationDropdown({ userId, onClose, navigate }: Prop
 
     if (n.type === "friend_request") {
       navigate("friendRequests");
+      return;
+    }
+
+    if (n.type === "group_invite" && n.link_hash?.startsWith("groups/")) {
+      navigate("groupDetail", { groupId: n.link_hash.slice(7) });
       return;
     }
 

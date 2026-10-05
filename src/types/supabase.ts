@@ -3914,6 +3914,7 @@ export type Database = {
         Returns: undefined
       }
       accept_invite: { Args: { p_token: string }; Returns: string | null }
+      add_friends_to_group: { Args: { p_group_id: string; p_user_ids: string[] }; Returns: number }
       apply_referral: {
         Args: { p_code: string; p_new_user_id: string }
         Returns: boolean
@@ -3951,6 +3952,9 @@ export type Database = {
       }
       generate_group_slug: { Args: { p_name: string }; Returns: string }
       generate_referral_code: { Args: { p_user_id: string }; Returns: string }
+      get_group_invite_code: { Args: { p_group_id: string }; Returns: string }
+      join_group_with_invite: { Args: { p_code: string }; Returns: string | null }
+      reset_group_invite_code: { Args: { p_group_id: string }; Returns: string }
       get_conversation_settings: {
         Args: { p_conversation_id: string }
         Returns: {

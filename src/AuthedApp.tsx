@@ -20,7 +20,7 @@ import { BOOKS } from "./data/books";
 import { usePostBySlugForEdit } from "./hooks/useBlog";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import ConsentGate from "./components/ConsentGate";
-import { getPendingInvite, clearPendingInvite } from "./lib/pendingInvite";
+import { getPendingInvite, clearPendingInvite, getPendingGroupInvite, clearPendingGroupInvite } from "./lib/pendingInvite";
 import "./styles/app.css";
 // Load editor styles globally — every authed page can render rich content
 // (posts, group posts, blog comments) via .rich-content / .editor-render and
@@ -134,6 +134,23 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
         queryClient.invalidateQueries({ queryKey: ["friends", user.id] });
       }).catch(() => { /* keep token; retry on next load */ });
     });
+  }, [user.id, queryClient]);
+
+  // Redeem a group invite link (/groups/<id>?join=<code>), captured in App.tsx
+  // before auth so it survives signup, then open the group.
+  useEffect(() => {
+    const code = getPendingGroupInvite();
+    if (!code) return;
+    import("./api/groups").then(({ groupsApi }) => {
+      groupsApi.joinWithInvite(code).then((groupId) => {
+        clearPendingGroupInvite();
+        queryClient.invalidateQueries({ queryKey: ["groups"] });
+        if (!groupId) return;
+        queryClient.invalidateQueries({ queryKey: ["group", groupId] });
+        navigate("groupDetail", { groupId });
+      }).catch(() => { /* keep code; retry on next load */ });
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user.id, queryClient]);
 
   // Update last_active_at for re-engagement email targeting.

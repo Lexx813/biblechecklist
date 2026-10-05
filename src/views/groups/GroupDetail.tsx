@@ -15,6 +15,7 @@ import CreateEventModal from "./detail/CreateEventModal";
 import EventCard from "./detail/EventCard";
 import MembersTab from "./detail/MembersTab";
 import FilesTab from "./detail/FilesTab";
+import InviteMembersModal from "./detail/InviteMembersModal";
 
 type Tab = "feed" | "members" | "events" | "files";
 
@@ -30,6 +31,7 @@ export default function GroupDetail({ groupId, user, navigate }: GroupDetailProp
   const [showCreateEvent, setShowCreateEvent] = useState(false);
   const [showLeaveConfirm, setShowLeaveConfirm] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [showInvite, setShowInvite] = useState(false);
   const { data: group, isLoading: groupLoading, isError: groupError } = useGroup(groupId);
   const { data: posts = [], isLoading: postsLoading } = useGroupPosts(tab === "feed" ? groupId : undefined);
   const { data: events = [], isLoading: eventsLoading } = useGroupEvents(tab === "events" ? groupId : undefined);
@@ -41,6 +43,8 @@ export default function GroupDetail({ groupId, user, navigate }: GroupDetailProp
   const isAdmin = myRole === "owner" || myRole === "admin";
   const isOwner = myRole === "owner";
   const isMember = myStatus === "member";
+  // Mirrors can_invite_to_group(): admins always, any member of a public group.
+  const canInvite = isMember && (isAdmin || group?.privacy === "public");
 
   function handleLeave() {
     leaveGroup.mutate(groupId, {
@@ -141,6 +145,12 @@ export default function GroupDetail({ groupId, user, navigate }: GroupDetailProp
               </p>
             </div>
             <div className="grp-detail-header-actions">
+              {canInvite && (
+                <button className="grp-btn grp-btn--primary grp-btn--sm" onClick={() => setShowInvite(true)}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+                  {t("groups.invite.button")}
+                </button>
+              )}
               {!isOwner && (
                 <button className="grp-btn grp-btn--ghost grp-btn--sm" onClick={() => setShowLeaveConfirm(true)}>{t("groups.leave")}</button>
               )}
@@ -213,6 +223,15 @@ export default function GroupDetail({ groupId, user, navigate }: GroupDetailProp
         {/* Files */}
         {tab === "files" && <FilesTab groupId={groupId} userId={user.id} isAdmin={isAdmin} />}
       </div>
+      {showInvite && (
+        <InviteMembersModal
+          groupId={groupId}
+          groupName={group.name}
+          userId={user.id}
+          isAdmin={isAdmin}
+          onClose={() => setShowInvite(false)}
+        />
+      )}
       {showCreateEvent && <CreateEventModal groupId={groupId} onClose={() => setShowCreateEvent(false)} />}
       {showLeaveConfirm && (
         <ConfirmModal

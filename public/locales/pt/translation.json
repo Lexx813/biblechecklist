@@ -2280,7 +2280,32 @@
     "addImage": "Adicionar imagem",
     "pinAnnouncement": "Fixar como anúncio",
     "posting": "Publicando…",
-    "post": "Publicar"
+    "post": "Publicar",
+    "invite": {
+      "button": "Convidar",
+      "title": "Convidar pessoas",
+      "friendsHeading": "Amigos no JW Study",
+      "noFriends": "Você ainda não tem amigos no JW Study. Convide alguém por e-mail ou compartilhe o link abaixo.",
+      "allFriendsIn": "Todos os seus amigos já estão neste grupo.",
+      "addFriends_one": "Adicionar {{count}} amigo",
+      "addFriends_other": "Adicionar {{count}} amigos",
+      "friendsAdded_one": "{{count}} amigo adicionado ao grupo",
+      "friendsAdded_other": "{{count}} amigos adicionados ao grupo",
+      "emailHeading": "Convidar por e-mail",
+      "emailPlaceholder": "nome@exemplo.com",
+      "emailHint": "Se a pessoa já tiver conta, ela é adicionada na hora. Se não, enviaremos um link para entrar.",
+      "send": "Enviar",
+      "invalidEmail": "Digite um e-mail válido.",
+      "emailSent": "Convite enviado para {{email}}",
+      "linkHeading": "Link de convite",
+      "linkHint": "Qualquer pessoa com este link pode entrar no grupo.",
+      "shareLink": "Compartilhar link",
+      "resetLink": "Redefinir link",
+      "linkCopied": "Link copiado",
+      "linkReset": "O link antigo foi desativado. Compartilhe o novo.",
+      "shareText": "Entre no meu grupo de estudo \"{{name}}\" no JW Study:",
+      "failed": "Não foi possível enviar o convite. Tente novamente."
+    }
   },
   "messages": {
     "title": "Mensagens",
@@ -6583,7 +6608,8 @@
     "hoursAgo": "há {{count}} hora",
     "hoursAgo_other": "há {{count}} horas",
     "daysAgo": "há {{count}} dia",
-    "daysAgo_other": "há {{count}} dias"
+    "daysAgo_other": "há {{count}} dias",
+    "typeGroupInvite": "adicionou você a um grupo de estudo"
   },
   "friendBtn": {
     "friends": "Amigos",
