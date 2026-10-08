@@ -30,6 +30,7 @@ const LANG_NAMES: Record<string, string> = {
   sw: "Swahili",
   ha: "Hausa",
   ar: "Arabic",
+  tr: "Turkish",
 };
 
 // Normalize an incoming lang code (may be "pt-BR") to a supported base code,

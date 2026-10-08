@@ -19,10 +19,10 @@ export function jwLibraryChapterUrl(bookIndex: number, chapter: number) {
 
 // ── Language map ──────────────────────────────────────────────────────────────
 
-type WolLang = "en" | "es" | "pt" | "fr" | "tl" | "zh" | "ja" | "ko" | "yo";
+type WolLang = "en" | "es" | "pt" | "fr" | "tl" | "zh" | "ja" | "ko" | "yo" | "tr";
 
 // `pub` is the Bible publication symbol on WOL. Most languages use `nwtsty`
-// (NWT Study Edition); a few only have the older `nwt` (e.g. Yoruba).
+// (NWT Study Edition); a few only have the older `nwt` (e.g. Yoruba, Turkish).
 const WOL_LANG: Record<WolLang, { locale: string; r: string; lp: string; wtlocale: string; pub: string }> = {
   en: { locale: "en",       r: "r1",  lp: "lp-e",   wtlocale: "E",   pub: "nwtsty" },
   es: { locale: "es",       r: "r4",  lp: "lp-s",   wtlocale: "S",   pub: "nwtsty" },
@@ -33,6 +33,7 @@ const WOL_LANG: Record<WolLang, { locale: string; r: string; lp: string; wtlocal
   ja: { locale: "ja",       r: "r7",  lp: "lp-j",   wtlocale: "J",   pub: "nwtsty" },
   ko: { locale: "ko",       r: "r8",  lp: "lp-ko",  wtlocale: "KO",  pub: "nwtsty" },
   yo: { locale: "yo",       r: "r36", lp: "lp-yr",  wtlocale: "YR",  pub: "nwt"    },
+  tr: { locale: "tr",       r: "r22", lp: "lp-tk",  wtlocale: "TK",  pub: "nwt"    },
 };
 
 function wolBase(lang: string) {

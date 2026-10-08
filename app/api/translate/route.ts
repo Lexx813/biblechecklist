@@ -35,6 +35,7 @@ const LANG_LABELS: Record<string, string> = {
   sw: "Swahili",
   ha: "Hausa",
   ar: "Arabic",
+  tr: "Turkish",
 };
 
 // JW-correct terminology per language. The translator MUST use these forms
@@ -66,6 +67,8 @@ const JW_GLOSSARIES: Record<string, string> = {
     "Jehovah → Jehobah · NWT → Fassarar Sabuwar Duniya · Hebrew Scriptures → Nassosin Ibrananci · Christian Greek Scriptures → Nassosin Helenanci na Kirista · God's Kingdom → Mulkin Allah · ransom → fansa · Memorial → Tunawa · congregation → ikilisiya · Kingdom Hall → Majami'ar Mulki · pure worship → bauta mai tsabta · holy spirit → ruhu mai tsarki / ƙarfin aiki na Allah (NOT a person) · anointed → shafaffu · great crowd → babban taro · elders → dattawa · publishers → masu shaida · pioneer → majagaba · Revelation → Ru'ya ta Yohanna · BC/AD → K.A.Z./A.Z. · NEVER 'Tsohon/Sabon Alkawari'.",
   ar:
     "Jehovah → يهوه · NWT → ترجمة العالم الجديد · Hebrew Scriptures → الأسفار العبرانية · Christian Greek Scriptures → الأسفار اليونانية المسيحية · God's Kingdom → ملكوت الله · ransom → الفدية · Memorial → الذكرى · congregation → الجماعة · Kingdom Hall → قاعة الملكوت · pure worship → العبادة النقية · holy spirit → الروح القدس / قوة الله العاملة (NOT شخص) · anointed → الممسوحون · great crowd → الجمع الكثير · elders → الشيوخ · field service → خدمة الحقل · publishers → الناشرون · pioneer → فاتح · Revelation → الرؤيا · BC/AD → ق.م./ب.م. · NEVER 'العهد القديم/الجديد'.",
+  tr:
+    "Jehovah → Yehova · Bible → Kutsal Kitap · NWT → Yeni Dünya Çevirisi · Hebrew Scriptures → İbranice Kutsal Yazılar · Christian Greek Scriptures → Yunanca Kutsal Yazılar · God's Kingdom → Tanrı'nın Krallığı · ransom → fidye · Memorial → Anma Yemeği · congregation → cemaat · Kingdom Hall → İbadet Salonu · pure worship → temiz tapınma · holy spirit → kutsal ruh (küçük harf, bir kişi DEĞİL) · anointed → meshedilmişler · great crowd → büyük kalabalık · elders → ihtiyarlar · field service → tarla hizmeti · publishers → müjdeciler · pioneer → öncü · Revelation → Vahiy · BC/AD → MÖ/MS · NEVER 'Eski/Yeni Ahit'.",
 };
 
 export const POST = withApiHandler(async (req: Request) => {

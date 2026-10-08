@@ -10,7 +10,7 @@ import "../styles/topbar.css";
 
 const FLAGS: Record<string, string> = {
   en: "🇺🇸", es: "🇪🇸", pt: "🇧🇷", tl: "🇵🇭", fr: "🇫🇷", de: "🇩🇪", zh: "🇨🇳", ja: "🇯🇵", ko: "🇰🇷",
-  yo: "🇳🇬", sw: "🇰🇪", ha: "🇳🇪", ar: "🇯🇴",
+  yo: "🇳🇬", sw: "🇰🇪", ha: "🇳🇪", ar: "🇯🇴", tr: "🇹🇷",
 };
 
 const SunIcon = () => (

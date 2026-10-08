@@ -59,6 +59,11 @@ describe("jwOrgBibleUrl", () => {
     expect(url).toContain("wtlocale=KO");
   });
 
+  it("uses Turkish wtlocale for lang=tr", () => {
+    const url = jwOrgBibleUrl(0, 1, "tr");
+    expect(url).toContain("wtlocale=TK");
+  });
+
   it("falls back to English for unknown lang", () => {
     const url = jwOrgBibleUrl(0, 1, "xx");
     expect(url).toContain("wtlocale=E");
@@ -89,6 +94,12 @@ describe("wolChapterUrl", () => {
   it("builds Genesis 1 URL in Korean", () => {
     expect(wolChapterUrl(0, 1, "ko")).toBe(
       "https://wol.jw.org/ko/wol/b/r8/lp-ko/nwtsty/1/1"
+    );
+  });
+
+  it("builds Genesis 1 URL in Turkish (nwt only, no study edition)", () => {
+    expect(wolChapterUrl(0, 1, "tr")).toBe(
+      "https://wol.jw.org/tr/wol/b/r22/lp-tk/nwt/1/1"
     );
   });
 });

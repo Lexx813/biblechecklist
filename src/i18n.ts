@@ -20,6 +20,7 @@ export const LANGUAGES: Array<{ code: string; label: string; beta?: boolean }> =
   { code: "sw", label: "Kiswahili", beta: true },
   { code: "ha", label: "Hausa", beta: true },
   { code: "ar", label: "العربية", beta: true },
+  { code: "tr", label: "Türkçe", beta: true },
 ];
 
 export const BETA_LANGS: readonly string[] = LANGUAGES.filter(l => l.beta).map(l => l.code);

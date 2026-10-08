@@ -44,6 +44,7 @@ const REMINDER_BODY: Record<string, string> = {
   sw: "Siku yako pamoja na Msaidizi iko tayari. Fungua programu kuona muhtasari wa leo.",
   ha: "Ranarka tare da Abokin Tafiya ya shirya. Buɗe manhajar don ganin taƙaitaccen rahoton yau.",
   ar: "يومك مع الرفيق جاهز. افتح التطبيق لرؤية موجز اليوم.",
+  tr: "Yardımcınla günün hazır. Bugünün özetini görmek için uygulamayı aç.",
 };
 
 function reminderBody(lang: string | null | undefined): string {
