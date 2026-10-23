@@ -476,6 +476,11 @@ main:has(.msg-layout) {
 
 .msg-back-btn:hover { color: var(--text-primary); }
 
+/* The conversation-list back button is the only way out of Messages when the
+   app topbar is hidden (≤1100px) and the mobile tab bar is off on this route,
+   so it shows at every width. The thread back button stays mobile-only. */
+.msg-back-btn--exit { display: flex; }
+
 .msg-thread-header-info { flex: 1; min-width: 0; }
 
 .msg-thread-name {
