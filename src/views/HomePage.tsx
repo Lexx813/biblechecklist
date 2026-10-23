@@ -346,7 +346,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
   }, [friends]);
 
   const initials = (profile?.display_name || user?.email || "U")[0].toUpperCase();
-  const displayName = profile?.display_name || user?.email?.split("@")[0] || "My Profile";
+  const displayName = profile?.display_name || user?.email?.split("@")[0] || t("profile.title", "My Profile");
 
   // Shared Tailwind classes
   const cardCls = "rounded-[var(--radius)] border border-[var(--border)] bg-white/[0.06] overflow-hidden transition-all duration-150 hover:border-brand-600/35 hover:bg-white/[0.09] hover:shadow-[var(--shadow-xs)] [html[data-theme=light]_&]:bg-white [html[data-theme=light]_&]:border-[var(--border)]";
@@ -622,7 +622,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
                   <span className="font-extrabold tabular-nums text-[#f59e0b]">{streak.current_streak}</span>
                   -{t("home.streakDay")} {t("home.streakLabel")}
                 </span>
-                <span className="mt-0.5 block text-[13px] text-[rgba(240,234,255,0.65)]">Keep it going, you're on a roll!</span>
+                <span className="mt-0.5 block text-[13px] text-[rgba(240,234,255,0.65)]">{t("home.streakKeepGoing", "Keep it going, you're on a roll!")}</span>
               </span>
               {streak.longest_streak > streak.current_streak && (
                 <span className="shrink-0 text-[13px] italic text-[rgba(240,234,255,0.75)]">{t("home.streakBest")}: {streak.longest_streak}</span>
@@ -700,7 +700,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
                       )}
                     </div>
                     <span className="shrink-0 whitespace-nowrap rounded-[10px] bg-amber-400 px-2 py-0.5 text-[0.65rem] font-bold text-amber-900">
-                      {"★"} SPOTLIGHT
+                      {"★"} {t("home.spotlightBadge", "SPOTLIGHT")}
                     </span>
                   </div>
                   <SpotlightPlayer video={spotlightVideo} />
@@ -811,7 +811,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
               <div className="flex flex-col gap-3">
                 {merged.map((post: any) => {
                   const author = post.profiles;
-                  const name = author?.display_name || "Someone";
+                  const name = author?.display_name || t("liked.someone", "Someone");
                   const initial = name[0].toUpperCase();
                   return (
                     <div key={post.id} className={`${cardCls} group/post overflow-hidden`}>
@@ -831,11 +831,11 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
                             <span className="flex items-center gap-1.5 text-xs text-[var(--text-muted)]">
                               {timeAgo(post.created_at)}
                               {post.visibility === "friends" ? (
-                                <span className="inline-flex items-center gap-0.5" title="Friends only">
+                                <span className="inline-flex items-center gap-0.5" title={t("createPost.friendsOnly", "Friends only")}>
                                   <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
                                 </span>
                               ) : (
-                                <span className="inline-flex items-center gap-0.5" title="Public">
+                                <span className="inline-flex items-center gap-0.5" title={t("createPost.public", "Public")}>
                                   <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
                                 </span>
                               )}

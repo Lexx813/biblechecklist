@@ -12,9 +12,11 @@ import { getTemplateOrCustom, generateSchedule } from "../../data/readingPlanTem
 import { wolChapterUrl } from "../../utils/wol";
 import { BOOKS } from "../../data/books";
 import { formatDate } from "../../utils/formatters";
+import i18n from "../../i18n";
 import "../../styles/todays-focus.css";
 import "../../styles/gamification.css";
 import { useFreezeStatus, useApplyFreeze } from "../../hooks/useStreakFreeze";
+import { localDateStr } from "../../lib/localDate";
 
 function effectiveDay(plan: { start_date: string; paused_days?: number; is_paused?: boolean; paused_at?: string }) {
   const start = new Date(plan.start_date + "T00:00:00");
@@ -42,7 +44,8 @@ function readingsLabel(readings: Array<{ bookIndex: number; chapter: number }> |
   }
   return Object.entries(byBook)
     .map(([bi, chs]) => {
-      const name = BOOKS[parseInt(bi, 10)]?.name ?? "";
+      const idx = parseInt(bi, 10);
+      const name = BOOKS[idx] ? i18n.t(`bookNames.${idx}`, BOOKS[idx].name) : "";
       if (chs.length === 1) return `${name} ${chs[0]}`;
       return `${name} ${chs[0]}–${chs[chs.length - 1]}`;
     })
@@ -82,7 +85,7 @@ export default function TodaysFocusCard({ userId, navigate, lang = "en" }: Props
   const applyFreeze = useApplyFreeze(userId);
   const [showFreezeConfirm, setShowFreezeConfirm] = useState(false);
 
-  const yesterdayStr = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+  const yesterdayStr = localDateStr(new Date(), -1);
   const yesterdayFrozen = freezeStatus?.recentFreezes?.includes(yesterdayStr);
   const canFreeze = (freezeStatus?.tokens ?? 0) > 0 && !yesterdayFrozen && (streak?.current_streak ?? 0) > 0;
 
@@ -108,7 +111,7 @@ export default function TodaysFocusCard({ userId, navigate, lang = "en" }: Props
   }, [activePlan, completions]);
 
   const todayDone = doneSet.has(currentDay);
-  const todayStr = new Date().toISOString().slice(0, 10);
+  const todayStr = localDateStr();
   const [dismissed, setDismissed] = useState(() => localStorage.getItem("tf-dismissed") === todayStr);
 
   function handleMarkDone() {
@@ -163,7 +166,7 @@ export default function TodaysFocusCard({ userId, navigate, lang = "en" }: Props
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
             </span>
             <div className="tf-continue-body">
-              <div className="tf-continue-title">{t("home.continueAt", { name: BOOKS[lastRead.bookIndex]?.name, chapter: lastRead.chapter })}</div>
+              <div className="tf-continue-title">{t("home.continueAt", { name: t(`bookNames.${lastRead.bookIndex}`, BOOKS[lastRead.bookIndex]?.name ?? ""), chapter: lastRead.chapter })}</div>
               <div className="tf-continue-sub">{t("home.lastReadDate", { date: formatDate(lastRead.ts) })}</div>
             </div>
             <span className="tf-continue-arrow">›</span>
@@ -190,7 +193,7 @@ export default function TodaysFocusCard({ userId, navigate, lang = "en" }: Props
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
             </span>
             <div className="tf-continue-body">
-              <div className="tf-continue-title">{t("home.continueAt", { name: BOOKS[lastRead.bookIndex]?.name, chapter: lastRead.chapter })}</div>
+              <div className="tf-continue-title">{t("home.continueAt", { name: t(`bookNames.${lastRead.bookIndex}`, BOOKS[lastRead.bookIndex]?.name ?? ""), chapter: lastRead.chapter })}</div>
               <div className="tf-continue-sub">{t("home.lastReadDate", { date: formatDate(lastRead.ts) })}</div>
             </div>
             <span className="tf-continue-arrow">›</span>
@@ -262,7 +265,7 @@ export default function TodaysFocusCard({ userId, navigate, lang = "en" }: Props
                     setShowFreezeConfirm(false);
                   }}
                 >
-                  Confirm
+                  {t("common.confirm", "Confirm")}
                 </button>
               </div>
             </div>
@@ -307,8 +310,8 @@ export default function TodaysFocusCard({ userId, navigate, lang = "en" }: Props
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
           </span>
           <div className="tf-continue-body">
-            <div className="tf-continue-title">Continue, {BOOKS[lastRead.bookIndex]?.name} {lastRead.chapter}</div>
-            <div className="tf-continue-sub">Last read {formatDate(lastRead.ts)}</div>
+            <div className="tf-continue-title">{t("home.continueBookChapter", "Continue, {{book}} {{chapter}}", { book: t(`bookNames.${lastRead.bookIndex}`, BOOKS[lastRead.bookIndex]?.name ?? ""), chapter: lastRead.chapter })}</div>
+            <div className="tf-continue-sub">{t("home.lastRead", "Last read {{date}}", { date: formatDate(lastRead.ts) })}</div>
           </div>
           <span className="tf-continue-arrow">›</span>
         </button>

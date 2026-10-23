@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useReadingHeatmap, useReadingStreaks, useSetDailyGoal } from "../../hooks/useReading";
 import ReadingHeatmap from "./ReadingHeatmap";
 import "../../styles/reading-plan.css";
+import { localDateStr } from "../../lib/localDate";
 
 function estimateFinishDays(heatmap: Array<{ date: string; chapters: number }>, chaptersRemaining: number) {
   if (chaptersRemaining <= 0) return null;
@@ -31,7 +32,7 @@ export default function ReadingPlanWidget({ userId, dailyGoal = 3, readonly = fa
   const [editingGoal, setEditingGoal] = useState(false);
   const [goalInput, setGoalInput] = useState(dailyGoal);
 
-  const todayStr = new Date().toISOString().slice(0, 10);
+  const todayStr = localDateStr();
   const todayEntry = heatmap.find(d => d.date === todayStr);
   const todayChapters = todayEntry?.chapters ?? 0;
   const goalMet = todayChapters >= dailyGoal;
@@ -90,7 +91,7 @@ export default function ReadingPlanWidget({ userId, dailyGoal = 3, readonly = fa
         <div className="reading-plan-goal-row">
           {editingGoal ? (
             <>
-              <span className="reading-plan-goal-label">Daily goal:</span>
+              <span className="reading-plan-goal-label">{t("readingPlan.dailyGoalLabel", "Daily goal:")}</span>
               <input
                 id="reading-plan-goal"
                 name="daily_goal"
@@ -113,7 +114,7 @@ export default function ReadingPlanWidget({ userId, dailyGoal = 3, readonly = fa
               className="reading-plan-goal-edit-btn"
               onClick={() => { setGoalInput(dailyGoal); setEditingGoal(true); }}
             >
-              {t("readingPlan.setGoal")} ({dailyGoal}/day)
+              {t("readingPlan.setGoal")} ({t("readingPlan.perDay", "{{count}}/day", { count: dailyGoal })})
             </button>
           )}
         </div>

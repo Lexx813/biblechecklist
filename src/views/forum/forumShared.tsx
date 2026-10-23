@@ -1,6 +1,7 @@
 // Shared helpers, icons, and small components for forum split files.
 import React from "react";
 import { useTranslation } from "react-i18next";
+import i18n from "../../i18n";
 import { useThreadReactions, useToggleReaction } from "../../hooks/useForum";
 
 // ── Constants ─────────────────────────────────────────────────────────────────
@@ -12,7 +13,7 @@ export const LEVEL_EMOJIS = [null,"📖","📚","🌱","👨‍👩‍👦","�
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function displayName(profile: any) {
-  return profile?.display_name || profile?.email?.split("@")[0] || "Anonymous";
+  return profile?.display_name || profile?.email?.split("@")[0] || i18n.t("forum.anonymous", "Anonymous");
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -78,9 +79,11 @@ export function Avatar({ profile, size = "md", onClick = undefined }: { profile:
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function BadgeChip({ level }: { level: any }) {
+  const { t } = useTranslation();
   if (!level || level < 1) return null;
+  const label = t("forum.levelN", "Level {{level}}", { level });
   return (
-    <span className="forum-badge-chip" data-tooltip={`Level ${level}`} title={`Level ${level}`}>
+    <span className="forum-badge-chip" data-tooltip={label} title={label}>
       {LEVEL_EMOJIS[Math.min(level, 12)]}
     </span>
   );
@@ -88,8 +91,9 @@ export function BadgeChip({ level }: { level: any }) {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function ModBadge({ profile }: { profile: any }) {
-  if (profile?.is_admin) return <span className="forum-role-chip forum-role-chip--admin" data-tooltip="Admin" title="Admin"><IconSettings /></span>;
-  if (profile?.is_moderator) return <span className="forum-role-chip forum-role-chip--mod" data-tooltip="Moderator" title="Moderator"><IconShield /></span>;
+  const { t } = useTranslation();
+  if (profile?.is_admin) return <span className="forum-role-chip forum-role-chip--admin" data-tooltip={t("forum.roleAdmin", "Admin")} title={t("forum.roleAdmin", "Admin")}><IconSettings /></span>;
+  if (profile?.is_moderator) return <span className="forum-role-chip forum-role-chip--mod" data-tooltip={t("forum.roleModerator", "Moderator")} title={t("forum.roleModerator", "Moderator")}><IconShield /></span>;
   return null;
 }
 

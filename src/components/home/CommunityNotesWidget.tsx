@@ -59,23 +59,23 @@ export default function CommunityNotesWidget({ notes, loading, expanded, setExpa
         <>
           {(expanded ? notes : notes.slice(0, 1)).map(note => {
             const passage = note.book_index != null
-              ? `${BOOKS[note.book_index]?.name ?? ""} ${note.chapter ?? ""}`.trim()
+              ? `${BOOKS[note.book_index] ? t(`bookNames.${note.book_index}`, BOOKS[note.book_index].name) : ""} ${note.chapter ?? ""}`.trim()
               : null;
             return (
               <div key={note.id} className="flex cursor-pointer items-start gap-2.5 px-4 py-2.5 transition-colors duration-100 hover:bg-brand-600/[0.06]" onClick={() => navigate("studyNotes", { tab: "public" })}>
                 <button
                   className="flex size-8 shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-[#2e1a5c] to-brand-800 text-[12px] font-bold text-white"
                   onClick={e => { e.stopPropagation(); navigate("publicProfile", { userId: note.user_id }); }}
-                  title={note.author?.display_name ?? "Anonymous"}
+                  title={note.author?.display_name ?? t("common.anonymous", "Anonymous")}
                 >
                   {note.author?.avatar_url
                     ? <img src={note.author.avatar_url} alt={note.author.display_name ?? ""} className="h-full w-full object-cover" width={32} height={32} loading="lazy" />
                     : (note.author?.display_name ?? "A")[0].toUpperCase()}
                 </button>
                 <div className="min-w-0 flex-1">
-                  <div className="text-[12px] font-semibold leading-snug text-[var(--text-primary)]">{note.title || "Untitled"}</div>
+                  <div className="text-[12px] font-semibold leading-snug text-[var(--text-primary)]">{note.title || t("common.untitled", "Untitled")}</div>
                   <div className={metaCls}>
-                    {note.author?.display_name ?? "Anonymous"}
+                    {note.author?.display_name ?? t("common.anonymous", "Anonymous")}
                     {passage && <> · {passage}</>}
                     {" · "}{formatDate(note.updated_at)}
                   </div>
@@ -92,7 +92,7 @@ export default function CommunityNotesWidget({ notes, loading, expanded, setExpa
             className="flex w-full cursor-pointer items-center justify-center gap-1.5 rounded-b-[var(--radius)] border-none bg-brand-600/10 py-2.5 text-xs font-semibold text-[var(--accent)] transition-colors duration-100 hover:bg-brand-600/20 [html[data-theme=light]_&]:bg-brand-600/[0.07] [html[data-theme=light]_&]:hover:bg-brand-600/[0.12]"
             onClick={() => notes.length > 1 && !expanded ? setExpanded(true) : navigate("studyNotes", { tab: "public" })}
           >
-            {expanded ? "View all notes" : notes.length > 1 ? `Show ${notes.length - 1} more` : "View all notes"}
+            {expanded ? t("home.viewAllNotes", "View all notes") : notes.length > 1 ? t("home.showMore", "Show {{count}} more", { count: notes.length - 1 }) : t("home.viewAllNotes", "View all notes")}
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ transform: expanded ? "rotate(180deg)" : "none", transition: "transform 200ms" }}><polyline points="6 9 12 15 18 9"/></svg>
           </button>
         </>

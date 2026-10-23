@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { makeTablistKeyHandler } from "../../lib/a11y/useTablistKeys";
 
 interface Props {
@@ -14,12 +15,19 @@ const TABS = [
 ];
 
 export default function ProfileTabs({ activeTab, onTabChange }: Props) {
+  const { t } = useTranslation();
+  const tabLabels: Record<string, string> = {
+    posts: t("profile.tabPosts", "Posts"),
+    about: t("profile.tabAbout", "About"),
+    friends: t("profile.tabFriends", "Friends"),
+    achievements: t("profile.tabAchievements", "Achievements"),
+  };
   const tabs = TABS;
   const onKeyDown = makeTablistKeyHandler(tabs.map(tb => tb.key), activeTab, onTabChange);
   return (
     <div
       role="tablist"
-      aria-label="Profile sections"
+      aria-label={t("profile.sectionsAria", "Profile sections")}
       className="profile-tabs flex gap-0 overflow-x-auto border-b border-[var(--border)] bg-[var(--card-bg)]"
     >
       {tabs.map(tab => (
@@ -38,7 +46,7 @@ export default function ProfileTabs({ activeTab, onTabChange }: Props) {
           }`}
           onClick={() => onTabChange(tab.key)}
         >
-          {tab.label}
+          {tabLabels[tab.key] ?? tab.label}
           {activeTab === tab.key && <span className="pf-tab-indicator" />}
         </button>
       ))}

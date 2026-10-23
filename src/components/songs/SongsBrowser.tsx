@@ -20,6 +20,7 @@ const COPY = {
     prev: "Previous",
     next: "Next",
     page: (cur: number, total: number) => `Page ${cur} of ${total}`,
+    pagination: "Pagination",
   },
   es: {
     searchPlaceholder: "Buscar por título, tema o escritura",
@@ -30,6 +31,7 @@ const COPY = {
     prev: "Anterior",
     next: "Siguiente",
     page: (cur: number, total: number) => `Página ${cur} de ${total}`,
+    pagination: "Paginación",
   },
 };
 
@@ -165,7 +167,7 @@ export default function SongsBrowser({ songs, lang }: Props) {
       {/* Pagination — appears only when filtered results exceed one page */}
       {totalPages > 1 && (
         <nav
-          aria-label="Pagination"
+          aria-label={t.pagination}
           className="mt-12 flex items-center justify-center gap-2"
         >
           <PageBtn disabled={safePage === 1} onClick={() => setPage((p) => Math.max(1, p - 1))}>

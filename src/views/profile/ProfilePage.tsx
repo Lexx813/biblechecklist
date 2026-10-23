@@ -35,7 +35,7 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, naviga
   const { data: readingProgress = {} } = useProgress(profileId);
   const { data: streak = { current_streak: 0, longest_streak: 0, total_days: 0 } } = useReadingStreak(profileId);
   const { data: forumStats = { threads: 0, replies: 0 } } = useUserForumStats(profileId);
-  useMeta({ title: profile?.display_name ? `${profile.display_name}'s Profile` : "Profile" });
+  useMeta({ title: profile?.display_name ? t("profile.metaTitleNamed", "{{name}}'s Profile", { name: profile.display_name }) : t("profile.metaTitle", "Profile") });
 
   useEffect(() => {
     const name = profile?.display_name || profile?.email?.split("@")[0];

@@ -174,10 +174,10 @@ export default function WriterPage({ user, navigate, editPost, initialDraft, onD
       return true;
     } catch (err: unknown) {
       setSaveStatus("unsaved");
-      toast.error(err instanceof Error ? err.message : "Save failed");
+      toast.error(err instanceof Error ? err.message : t("writer.saveFailed", "Save failed"));
       return false;
     }
-  }, [title, subtitle, currentMarkdown, coverUrl, tags, readTime, selectedSeries, createPost, updatePost, excerpt, customSlug, isFeatured]);
+  }, [title, subtitle, currentMarkdown, coverUrl, tags, readTime, selectedSeries, createPost, updatePost, excerpt, customSlug, isFeatured, t]);
 
   // Auto-save debounce, only fires when title is non-empty
   useEffect(() => {
@@ -202,7 +202,7 @@ export default function WriterPage({ user, navigate, editPost, initialDraft, onD
       const url = await blogApi.uploadCover(user.id, file);
       setCoverUrl(url);
     } catch (err: unknown) {
-      toast.error(err instanceof Error ? err.message : "Upload failed");
+      toast.error(err instanceof Error ? err.message : t("writer.uploadFailed", "Upload failed"));
     } finally {
       setCoverUploading(false);
     }
@@ -212,10 +212,10 @@ export default function WriterPage({ user, navigate, editPost, initialDraft, onD
     try {
       return await blogApi.uploadCover(user.id, file);
     } catch (err: unknown) {
-      toast.error(err instanceof Error ? err.message : "Image upload failed");
+      toast.error(err instanceof Error ? err.message : t("writer.imageUploadFailed", "Image upload failed"));
       throw err;
     }
-  }, [user.id]);
+  }, [user.id, t]);
 
   const addTag = (tag: string) => {
     const clean = tag.trim().toLowerCase();
@@ -231,13 +231,13 @@ export default function WriterPage({ user, navigate, editPost, initialDraft, onD
   };
 
   const handleCreateSeries = async () => {
-    const name = window.prompt("Series name:");
+    const name = window.prompt(t("writer.seriesNamePrompt", "Series name:"));
     if (!name?.trim()) return;
     try {
       const series = await createSeries.mutateAsync(name.trim());
       setSelectedSeries(series.id);
     } catch (err: unknown) {
-      toast.error(err instanceof Error ? err.message : "Failed to create series");
+      toast.error(err instanceof Error ? err.message : t("writer.createSeriesFailed", "Failed to create series"));
     }
   };
 
@@ -250,7 +250,7 @@ export default function WriterPage({ user, navigate, editPost, initialDraft, onD
     if (!ok) return;
     setShowPublishModal(false);
     navigate("blog");
-    toast.success(t("blog.published", "Published!"));
+    toast.success(t("writer.publishedToast", "Published!"));
   };
 
   // Table of contents from headings
@@ -332,7 +332,7 @@ export default function WriterPage({ user, navigate, editPost, initialDraft, onD
             {/* Cover zone */}
             <div className="writer-cover-zone">
               {coverUrl
-                ? <img src={coverUrl} alt="cover" onClick={() => setCoverUrl(null)} title="Click to remove" />
+                ? <img src={coverUrl} alt={t("writer.coverAlt", "cover")} onClick={() => setCoverUrl(null)} title={t("writer.clickToRemove", "Click to remove")} />
                 : coverUploading
                   ? <span className="writer-cover-hint">{t("writer.uploadingCover")}</span>
                   : (
@@ -611,6 +611,7 @@ export default function WriterPage({ user, navigate, editPost, initialDraft, onD
 
 // ── AI helper menu in the writer topbar ────────────────────────────────────
 function WriterAIMenu({ title, subtitle, markdown }: { title: string; subtitle: string; markdown: string }) {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -646,7 +647,7 @@ function WriterAIMenu({ title, subtitle, markdown }: { title: string; subtitle: 
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         aria-haspopup="menu"
-        title="AI assistance"
+        title={t("writer.aiAssistance", "AI assistance")}
       >
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <path d="M12 3l1.9 4.6L18.5 9.5l-4.6 1.9L12 16l-1.9-4.6L5.5 9.5l4.6-1.9L12 3z"/>
@@ -664,7 +665,7 @@ function WriterAIMenu({ title, subtitle, markdown }: { title: string; subtitle: 
             disabled={!hasContent}
             onClick={() => ask(`${titleLine}${subLine}${mdSnippet}Suggest 3 stronger title options for this blog post. Match the JW Study tone (warm, faithful, scripture-anchored).`)}
           >
-            ✍️ Suggest titles
+            ✍️ {t("writer.aiSuggestTitles", "Suggest titles")}
           </button>
           <button
             role="menuitem"
@@ -672,7 +673,7 @@ function WriterAIMenu({ title, subtitle, markdown }: { title: string; subtitle: 
             disabled={!hasContent}
             onClick={() => ask(`${titleLine}${mdSnippet}Improve this draft: tighten the prose, fix awkward phrasing, keep my voice and JW perspective intact, do NOT add doctrine or claims I didn't write. Return only the revised draft in markdown.`)}
           >
-            ✨ Improve writing
+            ✨ {t("writer.aiImproveWriting", "Improve writing")}
           </button>
           <button
             role="menuitem"
@@ -680,7 +681,7 @@ function WriterAIMenu({ title, subtitle, markdown }: { title: string; subtitle: 
             disabled={!hasContent}
             onClick={() => ask(`${titleLine}${mdSnippet}Suggest 3-5 NWT scriptures (with markdown links to wol.jw.org) that could strengthen this post. Briefly note where each one fits.`)}
           >
-            📖 Add scriptures
+            📖 {t("writer.aiAddScriptures", "Add scriptures")}
           </button>
           <button
             role="menuitem"
@@ -688,7 +689,7 @@ function WriterAIMenu({ title, subtitle, markdown }: { title: string; subtitle: 
             disabled={!hasContent}
             onClick={() => ask(`${titleLine}${mdSnippet}Write a 1-2 sentence excerpt (max 200 chars) that would draw readers in on jwstudy.org. Match the JW Study tone.`)}
           >
-            ≡ Generate excerpt
+            ≡ {t("writer.aiGenerateExcerpt", "Generate excerpt")}
           </button>
           <div className="writer-ai-menu-divider" />
           <button
@@ -696,7 +697,7 @@ function WriterAIMenu({ title, subtitle, markdown }: { title: string; subtitle: 
             className="writer-ai-menu-item"
             onClick={() => ask(`I'm writing a blog post for jwstudy.org${title.trim() ? ` titled "${title.trim()}"` : ""}. ${hasContent ? `Here's what I have so far:\n"""\n${markdown.slice(0, 3000)}\n"""\n\nWhat should I add or improve?` : "Help me draft an outline."}`)}
           >
-            💬 Open in AI chat
+            💬 {t("writer.aiOpenChat", "Open in AI chat")}
           </button>
         </div>
       )}

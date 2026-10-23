@@ -1,5 +1,6 @@
 // src/api/streakFreeze.ts
 import { supabase } from "../lib/supabase";
+import { localDateStr } from "../lib/localDate";
 
 export const streakFreezeApi = {
   getFreezeStatus: async (userId: string) => {
@@ -13,7 +14,7 @@ export const streakFreezeApi = {
         .from("streak_freeze_uses")
         .select("used_date")
         .eq("user_id", userId)
-        .gte("used_date", new Date(Date.now() - 7 * 86400000).toISOString().slice(0, 10))
+        .gte("used_date", localDateStr(new Date(), -7))
         .order("used_date", { ascending: false }),
     ]);
     if (profileRes.error) throw profileRes.error;

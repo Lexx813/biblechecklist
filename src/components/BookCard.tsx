@@ -114,7 +114,7 @@ const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapte
           </div>
         </div>
         {readers.length > 0 && (
-          <div className="book-readers" title={readers.map(r => r.display_name ?? "Someone").join(", ") + " reading this week"}>
+          <div className="book-readers" title={t("book.readersThisWeek", "{{names}} reading this week", { names: readers.map(r => r.display_name ?? t("liked.someone", "Someone")).join(", ") })}>
             {readers.slice(0, 3).map(r => (
               <span key={r.user_id} className="book-reader-avatar">
                 {r.avatar_url
@@ -319,7 +319,7 @@ const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapte
                     target={isTouchDevice ? undefined : "_blank"}
                     rel={isTouchDevice ? undefined : "noopener noreferrer"}
                     onClick={e => e.stopPropagation()}
-                    aria-label={`Open chapter ${ch} in JW Library`}
+                    aria-label={t("book.openChapterInJwLibrary", "Open chapter {{chapter}} in JW Library", { chapter: ch })}
                   >
                     <svg className="ch-pill-wol-icon" width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                     <span className="ch-pill-wol-tooltip">JW Library</span>

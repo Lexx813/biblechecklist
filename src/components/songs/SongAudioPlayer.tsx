@@ -17,12 +17,14 @@ const COPY = {
     pause: "Pause",
     nowPlaying: "Now playing",
     unavailable: "Audio unavailable. Refresh to retry.",
+    seek: "Seek",
   },
   es: {
     play: "Reproducir",
     pause: "Pausar",
     nowPlaying: "Reproduciendo",
     unavailable: "Audio no disponible. Actualiza para reintentar.",
+    seek: "Buscar posición",
   },
 };
 
@@ -177,7 +179,7 @@ export default function SongAudioPlayer({ signedUrl, durationSeconds, title, son
               onPointerDown={() => setSeeking(true)}
               onPointerUp={() => setSeeking(false)}
               onPointerCancel={() => setSeeking(false)}
-              aria-label="Seek"
+              aria-label={t.seek}
               className="absolute inset-0 size-full cursor-pointer opacity-0"
             />
           </div>

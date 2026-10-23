@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import i18n from "../../i18n";
 import { useActivityFeed, useSuggestedUsers, useToggleFollowDynamic } from "../../hooks/useFollows";
 import { useFriends, type FriendProfile } from "../../hooks/useFriends";
 import { ONLINE_THRESHOLD_MS } from "../../hooks/useOnlineMembers";
@@ -70,7 +71,7 @@ function FeedAvatar({ author }: { author?: AuthorShape | null }) {
 }
 
 function authorName(author?: AuthorShape | null): string {
-  return author?.display_name || author?.email?.split("@")[0] || "Someone";
+  return author?.display_name || author?.email?.split("@")[0] || i18n.t("feed.someone", "Someone");
 }
 
 // ── Friends scroll row ──────────────────────────────────────────────────────

@@ -336,11 +336,11 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
   useEffect(() => {
     function handleBadgeEarned(e) {
       const { badge } = e.detail;
-      toast(`${badge.emoji} Achievement Unlocked — ${badge.label}`);
+      toast(`${badge.emoji} ${i18n.t("app.achievementUnlocked", "Achievement Unlocked — {{label}}", { label: badge.label })}`);
     }
     window.addEventListener("badge-earned", handleBadgeEarned);
     return () => window.removeEventListener("badge-earned", handleBadgeEarned);
-  }, []);
+  }, [i18n]);
 
   const [homePanelRequest, setHomePanelRequest] = useState<{ panel: string; params: Record<string, any> } | null>(() => {
     const p = parsePath();
@@ -613,9 +613,10 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
 
 // ── Blog edit loader — fetches post before mounting WriterPage ────────────────
 function BlogEditLoader({ slug, user, navigate }: { slug: string; user: { id: string }; navigate: (p: string, params?: Record<string, unknown>) => void }) {
+  const { t } = useTranslation();
   const { data: post, isLoading } = usePostBySlugForEdit(slug, user.id);
-  if (isLoading) return <div style={{ padding: 40, textAlign: "center", color: "var(--text-muted)" }}>Loading…</div>;
-  if (!post) return <div style={{ padding: 40, textAlign: "center", color: "var(--text-muted)" }}>Post not found.</div>;
+  if (isLoading) return <div style={{ padding: 40, textAlign: "center", color: "var(--text-muted)" }}>{t("common.loading", "Loading…")}</div>;
+  if (!post) return <div style={{ padding: 40, textAlign: "center", color: "var(--text-muted)" }}>{t("blog.notFound", "Post not found.")}</div>;
   return (
     <Suspense fallback={null}>
       <WriterPage user={user} navigate={navigate} editPost={post as any} />
@@ -685,7 +686,7 @@ export default function AuthedApp({ onShowLanding, i18n }) {
     }
   }
 
-  if (maintenanceMode) return <div style={{display:"flex",alignItems:"center",justifyContent:"center",height:"100dvh",flexDirection:"column",gap:"1rem"}}><h1>🔧 Maintenance</h1><p>We'll be back shortly.</p></div>;
+  if (maintenanceMode) return <div style={{display:"flex",alignItems:"center",justifyContent:"center",height:"100dvh",flexDirection:"column",gap:"1rem"}}><h1>🔧 {t("app.maintenanceTitle", "Maintenance")}</h1><p>{t("app.maintenanceBody", "We'll be back shortly.")}</p></div>;
 
   // Allow unauthenticated read-only access to blog posts
   const publicNav = parsePath();
@@ -764,7 +765,7 @@ export default function AuthedApp({ onShowLanding, i18n }) {
 
   return (
     <>
-      <a href="#main-content" className="skip-link">Skip to main content</a>
+      <a href="#main-content" className="skip-link">{t("a11y.skipToContent", "Skip to main content")}</a>
       <Suspense fallback={null}><OfflineBanner /></Suspense>
       <Suspense fallback={null}><AnnouncementBanner /></Suspense>
       <Suspense fallback={null}><Toast /></Suspense>

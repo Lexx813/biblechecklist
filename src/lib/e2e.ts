@@ -4,6 +4,7 @@
  * Private keys never leave the user's device (stored in localStorage as JWK).
  * Public keys are published to Supabase so the other party can derive the shared key.
  */
+import i18n from "../i18n";
 
 const STORAGE_KEY = (userId: string) => `nwt-e2e-${userId}`;
 
@@ -128,13 +129,13 @@ export async function decryptMessage(content: string, aesKey: CryptoKey): Promis
   if (!content?.startsWith("enc:")) return content ?? "";
   try {
     const parts = content.split(":");
-    if (parts.length < 3) return "[Message could not be displayed — malformed data]";
+    if (parts.length < 3) return `[${i18n.t("common.e2eMalformed", "Message could not be displayed — malformed data")}]`;
     const iv = fromB64url(parts[1]);
     const ct = fromB64url(parts.slice(2).join(":"));
     const plain = await crypto.subtle.decrypt({ name: "AES-GCM", iv: iv as any }, aesKey, ct as any);
     return new TextDecoder().decode(plain);
   } catch {
-    return "[Could not decrypt — your encryption keys may be out of sync. Try refreshing the page.]";
+    return `[${i18n.t("common.e2eDecryptFailed", "Could not decrypt — your encryption keys may be out of sync. Try refreshing the page.")}]`;
   }
 }
 

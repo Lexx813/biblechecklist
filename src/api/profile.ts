@@ -1,5 +1,6 @@
 import { supabase } from "../lib/supabase";
 import { assertNoPII } from "../lib/pii";
+import i18n from "../i18n";
 
 export interface Profile {
   id: string;
@@ -114,8 +115,8 @@ export const profileApi = {
   uploadAvatar: async (userId: string, file: File): Promise<string> => {
     const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif"];
     const MAX_SIZE = 5 * 1024 * 1024; // 5 MB
-    if (!ALLOWED_TYPES.includes(file.type)) throw new Error("Only JPEG, PNG, WebP, or GIF images are allowed.");
-    if (file.size > MAX_SIZE) throw new Error("Image must be under 5 MB.");
+    if (!ALLOWED_TYPES.includes(file.type)) throw new Error(i18n.t("settings.errAvatarType", "Only JPEG, PNG, WebP, or GIF images are allowed."));
+    if (file.size > MAX_SIZE) throw new Error(i18n.t("settings.errAvatarSize", "Image must be under 5 MB."));
     const ext = file.name.split(".").pop()!.toLowerCase().replace(/[^a-z0-9]/g, "");
     const path = `${userId}/avatar.${ext}`;
 
@@ -138,8 +139,8 @@ export const profileApi = {
   uploadCover: async (userId: string, file: File): Promise<string> => {
     const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp"];
     const MAX_SIZE = 8 * 1024 * 1024; // 8 MB
-    if (!ALLOWED_TYPES.includes(file.type)) throw new Error("Only JPEG, PNG, or WebP images are allowed.");
-    if (file.size > MAX_SIZE) throw new Error("Image must be under 8 MB.");
+    if (!ALLOWED_TYPES.includes(file.type)) throw new Error(i18n.t("settings.errCoverType", "Only JPEG, PNG, or WebP images are allowed."));
+    if (file.size > MAX_SIZE) throw new Error(i18n.t("settings.errCoverSize", "Image must be under 8 MB."));
     const ext = file.name.split(".").pop()!.toLowerCase().replace(/[^a-z0-9]/g, "");
     const path = `${userId}/cover.${ext}`;
 

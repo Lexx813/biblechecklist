@@ -281,7 +281,7 @@ export function ConvSettingsPanel({ convId, onClose, accentColor, onAccentChange
                 key={tc.label}
                 className={`fc-swatch${theme === tc.value ? " fc-swatch--active" : ""}`}
                 style={{ background: tc.value ?? "linear-gradient(135deg, var(--teal), #5b21b6)" }}
-                title={tc.label}
+                title={t(tc.labelKey, tc.label)}
                 onClick={() => setTheme(tc.value)}
               />
             ))}
@@ -296,7 +296,7 @@ export function ConvSettingsPanel({ convId, onClose, accentColor, onAccentChange
                 className={`fc-disappear-btn${disappear === opt.value ? " fc-disappear-btn--active" : ""}`}
                 onClick={() => setDisappear(opt.value)}
               >
-                {opt.label}
+                {t(opt.labelKey, opt.label)}
               </button>
             ))}
           </div>

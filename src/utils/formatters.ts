@@ -1,6 +1,7 @@
 /**
  * Shared formatting utilities used across pages.
  */
+import i18n from "../i18n";
 
 /**
  * Format an ISO date string to a short human-readable date.
@@ -20,7 +21,7 @@ export function formatDate(iso: string, monthFormat: "short" | "long" = "short")
  * Object must have a `profiles` key with `display_name` and optionally `email`.
  */
 export function authorName(obj: { profiles?: { display_name?: string; email?: string } } | null | undefined) {
-  return obj?.profiles?.display_name || obj?.profiles?.email?.split("@")[0] || "Anonymous";
+  return obj?.profiles?.display_name || obj?.profiles?.email?.split("@")[0] || i18n.t("common.anonymous", "Anonymous");
 }
 
 /** Format a number with locale-aware thousands separators. */

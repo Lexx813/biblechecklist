@@ -1,10 +1,11 @@
 import { supabase } from "../lib/supabase";
+import { localDateStr } from "../lib/localDate";
 
 export const readingApi = {
   // delta = +N when marking chapters read, -N when unmarking
   logChapter: async (delta: number) => {
     if (delta === 0) return;
-    const today = new Date().toISOString().slice(0, 10);
+    const today = localDateStr();
     const { error } = await supabase.rpc("increment_reading_log", {
       p_date: today,
       p_delta: delta,
@@ -19,7 +20,7 @@ export const readingApi = {
   },
 
   getStreaks: async (userId: string) => {
-    const { data, error } = await supabase.rpc("get_reading_streaks", { p_user_id: userId });
+    const { data, error } = await supabase.rpc("get_reading_streaks", { p_user_id: userId, p_today: localDateStr() });
     if (error) return { current_streak: 0, longest_streak: 0 };
     return data ?? { current_streak: 0, longest_streak: 0 };
   },
@@ -44,7 +45,7 @@ export const readingApi = {
   },
 
   getStats: async (userId: string) => {
-    const since = new Date(Date.now() - 60 * 86400000).toISOString().slice(0, 10);
+    const since = localDateStr(new Date(), -60);
     const { data, error } = await supabase
       .from("reading_log")
       .select("date, chapters_read")
@@ -59,27 +60,14 @@ export const readingApi = {
     );
 
     // Current streak — counts backwards from today (or yesterday if today not yet logged)
-    const todayStr = new Date().toISOString().slice(0, 10);
-    const yestStr = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
     let streak = 0;
-    const anchor = activeMap.has(todayStr)
-      ? new Date()
-      : activeMap.has(yestStr)
-      ? new Date(Date.now() - 86400000)
-      : null;
-    if (anchor) {
-      const d = new Date(anchor);
-      while (true) {
-        const ds = d.toISOString().slice(0, 10);
-        if (activeMap.has(ds)) {
-          streak++;
-          d.setDate(d.getDate() - 1);
-        } else break;
-      }
+    const start = activeMap.has(localDateStr()) ? 0 : activeMap.has(localDateStr(new Date(), -1)) ? -1 : null;
+    if (start !== null) {
+      while (activeMap.has(localDateStr(new Date(), start - streak))) streak++;
     }
 
     // Chapters in the last 7 days
-    const weekAgoStr = new Date(Date.now() - 7 * 86400000).toISOString().slice(0, 10);
+    const weekAgoStr = localDateStr(new Date(), -7);
     const weeklyChapters = log
       .filter((r) => r.date > weekAgoStr)
       .reduce((sum, r) => sum + r.chapters_read, 0);
@@ -87,7 +75,7 @@ export const readingApi = {
     // 14-day activity grid (oldest → newest)
     const grid: { date: string; chapters: number }[] = [];
     for (let i = 13; i >= 0; i--) {
-      const ds = new Date(Date.now() - i * 86400000).toISOString().slice(0, 10);
+      const ds = localDateStr(new Date(), -i);
       grid.push({ date: ds, chapters: activeMap.get(ds) ?? 0 });
     }
 

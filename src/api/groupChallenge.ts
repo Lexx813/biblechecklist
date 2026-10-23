@@ -2,6 +2,7 @@
 import { supabase } from "../lib/supabase";
 import { PLAN_TEMPLATES } from "../data/readingPlanTemplates";
 import { BOOKS } from "../data/books";
+import { localDateStr } from "../lib/localDate";
 
 interface PlanChapter {
   bookIndex: number;
@@ -46,7 +47,7 @@ export const groupChallengeApi = {
       .eq("group_id", groupId)
       .is("ended_at", null);
 
-    const today = new Date().toISOString().slice(0, 10);
+    const today = localDateStr();
     const { data, error } = await supabase
       .from("group_challenges")
       .insert({

@@ -1,5 +1,7 @@
 import { supabase } from "../lib/supabase";
+import i18n from "../i18n";
 import { assertNoPII } from "../lib/pii";
+import { localDateStr } from "../lib/localDate";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -138,10 +140,10 @@ export const groupsApi = {
   uploadCoverPhoto: async (file: File): Promise<string> => {
     const ALLOWED_TYPES: Record<string, string> = { "image/jpeg": "jpg", "image/png": "png", "image/webp": "webp", "image/gif": "gif" };
     const MAX_SIZE = 5 * 1024 * 1024; // 5 MB
-    if (!ALLOWED_TYPES[file.type]) throw new Error("Only JPEG, PNG, WebP, or GIF images are allowed.");
-    if (file.size > MAX_SIZE) throw new Error("Image must be under 5 MB.");
+    if (!ALLOWED_TYPES[file.type]) throw new Error(i18n.t("groups.errImageType", "Only JPEG, PNG, WebP, or GIF images are allowed."));
+    if (file.size > MAX_SIZE) throw new Error(i18n.t("groups.errImageSize", "Image must be under 5 MB."));
     const { data: { user } } = await supabase.auth.getUser();
-    if (!user) throw new Error("Not authenticated");
+    if (!user) throw new Error(i18n.t("common.notAuthenticated", "Not authenticated"));
     const ext = ALLOWED_TYPES[file.type];
     const path = `${user.id}/${Date.now()}.${ext}`;
     const { error } = await supabase.storage.from("group-covers").upload(path, file, { upsert: true });
@@ -153,7 +155,7 @@ export const groupsApi = {
   createGroup: async ({ name, description, privacy, cover_url }: { name: string; description?: string; privacy: "public" | "private"; cover_url?: string }): Promise<Group> => {
     assertNoPII(name, description ?? "");
     const { data: { user } } = await supabase.auth.getUser();
-    if (!user) throw new Error("Not authenticated");
+    if (!user) throw new Error(i18n.t("common.notAuthenticated", "Not authenticated"));
     const slug = toSlug(name);
     const { data: group, error: ge } = await supabase
       .from("groups")
@@ -201,7 +203,7 @@ export const groupsApi = {
 
   joinGroup: async (groupId: string): Promise<void> => {
     const { data: { user } } = await supabase.auth.getUser();
-    if (!user) throw new Error("Not authenticated");
+    if (!user) throw new Error(i18n.t("common.notAuthenticated", "Not authenticated"));
     const { data: group } = await supabase.from("groups").select("privacy").eq("id", groupId).single();
     const status = group?.privacy === "private" ? "pending" : "member";
     const { error } = await supabase.from("group_members").insert({ group_id: groupId, user_id: user.id, role: "member", status });
@@ -210,7 +212,7 @@ export const groupsApi = {
 
   leaveGroup: async (groupId: string): Promise<void> => {
     const { data: { user } } = await supabase.auth.getUser();
-    if (!user) throw new Error("Not authenticated");
+    if (!user) throw new Error(i18n.t("common.notAuthenticated", "Not authenticated"));
     const { error } = await supabase.from("group_members").delete().eq("group_id", groupId).eq("user_id", user.id);
     if (error) throw new Error(error.message);
   },
@@ -264,7 +266,7 @@ export const groupsApi = {
   createPost: async (groupId: string, content: string, isAnnouncement = false, mediaUrls: string[] = []): Promise<GroupPost> => {
     assertNoPII(content);
     const { data: { user } } = await supabase.auth.getUser();
-    if (!user) throw new Error("Not authenticated");
+    if (!user) throw new Error(i18n.t("common.notAuthenticated", "Not authenticated"));
     const { data, error } = await supabase
       .from("group_posts")
       .insert({ group_id: groupId, author_id: user.id, content: content.trim(), is_announcement: isAnnouncement, media_urls: mediaUrls })
@@ -281,7 +283,7 @@ export const groupsApi = {
 
   toggleLike: async (postId: string): Promise<void> => {
     const { data: { user } } = await supabase.auth.getUser();
-    if (!user) throw new Error("Not authenticated");
+    if (!user) throw new Error(i18n.t("common.notAuthenticated", "Not authenticated"));
     const { data: existing } = await supabase
       .from("group_post_likes")
       .select("post_id")
@@ -319,7 +321,7 @@ export const groupsApi = {
   addComment: async (postId: string, content: string): Promise<PostComment> => {
     assertNoPII(content);
     const { data: { user } } = await supabase.auth.getUser();
-    if (!user) throw new Error("Not authenticated");
+    if (!user) throw new Error(i18n.t("common.notAuthenticated", "Not authenticated"));
     const { data, error } = await supabase
       .from("group_post_comments")
       .insert({ post_id: postId, author_id: user.id, content: content.trim() })
@@ -362,7 +364,7 @@ export const groupsApi = {
   createEvent: async (groupId: string, event: { title: string; description?: string; location?: string; starts_at: string; ends_at?: string }): Promise<GroupEvent> => {
     assertNoPII(event.title, event.description ?? "", event.location ?? "");
     const { data: { user } } = await supabase.auth.getUser();
-    if (!user) throw new Error("Not authenticated");
+    if (!user) throw new Error(i18n.t("common.notAuthenticated", "Not authenticated"));
     const { data, error } = await supabase
       .from("group_events")
       .insert({ group_id: groupId, created_by: user.id, ...event, ends_at: event.ends_at || null })
@@ -379,7 +381,7 @@ export const groupsApi = {
 
   setRsvp: async (eventId: string, status: "going" | "maybe" | "not_going"): Promise<void> => {
     const { data: { user } } = await supabase.auth.getUser();
-    if (!user) throw new Error("Not authenticated");
+    if (!user) throw new Error(i18n.t("common.notAuthenticated", "Not authenticated"));
     const { error } = await supabase
       .from("group_event_rsvps")
       .upsert({ event_id: eventId, user_id: user.id, status }, { onConflict: "event_id,user_id" });
@@ -388,7 +390,7 @@ export const groupsApi = {
 
   removeRsvp: async (eventId: string): Promise<void> => {
     const { data: { user } } = await supabase.auth.getUser();
-    if (!user) throw new Error("Not authenticated");
+    if (!user) throw new Error(i18n.t("common.notAuthenticated", "Not authenticated"));
     const { error } = await supabase.from("group_event_rsvps").delete().eq("event_id", eventId).eq("user_id", user.id);
     if (error) throw new Error(error.message);
   },
@@ -412,10 +414,10 @@ export const groupsApi = {
   uploadPostImage: async (groupId: string, file: File): Promise<string> => {
     const ALLOWED_TYPES: Record<string, string> = { "image/jpeg": "jpg", "image/png": "png", "image/webp": "webp", "image/gif": "gif" };
     const MAX_SIZE = 5 * 1024 * 1024; // 5 MB
-    if (!ALLOWED_TYPES[file.type]) throw new Error("Only JPEG, PNG, WebP, or GIF images are allowed.");
-    if (file.size > MAX_SIZE) throw new Error("Image must be under 5 MB.");
+    if (!ALLOWED_TYPES[file.type]) throw new Error(i18n.t("groups.errImageType", "Only JPEG, PNG, WebP, or GIF images are allowed."));
+    if (file.size > MAX_SIZE) throw new Error(i18n.t("groups.errImageSize", "Image must be under 5 MB."));
     const { data: { user } } = await supabase.auth.getUser();
-    if (!user) throw new Error("Not authenticated");
+    if (!user) throw new Error(i18n.t("common.notAuthenticated", "Not authenticated"));
     const ext = ALLOWED_TYPES[file.type];
     const path = `groups/${groupId}/posts/${crypto.randomUUID()}.${ext}`;
     const { error } = await supabase.storage.from("group-files").upload(path, file, { contentType: file.type });
@@ -435,10 +437,10 @@ export const groupsApi = {
       "text/plain", "audio/mpeg",
     ]);
     const MAX_SIZE = 25 * 1024 * 1024; // 25 MB
-    if (!ALLOWED_TYPES.has(file.type)) throw new Error("This file type is not allowed.");
-    if (file.size > MAX_SIZE) throw new Error("File must be under 25 MB.");
+    if (!ALLOWED_TYPES.has(file.type)) throw new Error(i18n.t("groups.errFileType", "This file type is not allowed."));
+    if (file.size > MAX_SIZE) throw new Error(i18n.t("groups.errFileSize", "File must be under 25 MB."));
     const { data: { user } } = await supabase.auth.getUser();
-    if (!user) throw new Error("Not authenticated");
+    if (!user) throw new Error(i18n.t("common.notAuthenticated", "Not authenticated"));
     const MIME_EXT: Record<string, string> = {
       "image/jpeg": "jpg", "image/png": "png", "image/webp": "webp", "image/gif": "gif",
       "video/mp4": "mp4", "video/quicktime": "mov", "video/webm": "webm",
@@ -487,19 +489,19 @@ export const groupsApi = {
       .select("id, display_name, avatar_url")
       .in("id", userIds);
     const profileMap = Object.fromEntries((profiles ?? []).map(p => [p.id, p]));
-    const results = await Promise.all(
-      userIds.map(async (uid) => {
-        const { data: streak } = await supabase.rpc("get_reading_streaks", { p_user_id: uid });
-        return {
-          userId: uid,
-          displayName: profileMap[uid]?.display_name || "Unknown",
-          avatarUrl: profileMap[uid]?.avatar_url || null,
-          currentStreak: (streak as { current_streak?: number } | null)?.current_streak ?? 0,
-          longestStreak: (streak as { longest_streak?: number } | null)?.longest_streak ?? 0,
-        };
-      })
-    );
-    return results.sort((a, b) => b.currentStreak - a.currentStreak);
+    const { data: streaks } = await supabase.rpc("get_reading_streaks_bulk", {
+      p_user_ids: userIds,
+      p_today: localDateStr(),
+    });
+    const streakMap = (streaks ?? {}) as Record<string, { current_streak?: number; longest_streak?: number }>;
+    const results = userIds.map(uid => ({
+      userId: uid,
+      displayName: profileMap[uid]?.display_name || i18n.t("friendReq.unknown", "Unknown"),
+      avatarUrl: profileMap[uid]?.avatar_url || null,
+      currentStreak: streakMap[uid]?.current_streak ?? 0,
+      longestStreak: streakMap[uid]?.longest_streak ?? 0,
+    }));
+    return results.sort((a, b) => b.currentStreak - a.currentStreak || b.longestStreak - a.longestStreak);
   },
 
   // ── Group chat ────────────────────────────────────────────────────────────
@@ -526,7 +528,7 @@ export const groupsApi = {
   sendMessage: async (groupId: string, content: string, replyToId?: string) => {
     assertNoPII(content);
     const { data: { user } } = await supabase.auth.getUser();
-    if (!user) throw new Error("Not authenticated");
+    if (!user) throw new Error(i18n.t("common.notAuthenticated", "Not authenticated"));
     const { data, error } = await supabase
       .from("study_group_messages")
       .insert({ group_id: groupId, sender_id: user.id, content: content.trim(), reply_to_id: replyToId ?? null })
@@ -598,7 +600,7 @@ export const groupsApi = {
   createAnnouncement: async (groupId: string, content: string) => {
     assertNoPII(content);
     const { data: { user } } = await supabase.auth.getUser();
-    if (!user) throw new Error("Not authenticated");
+    if (!user) throw new Error(i18n.t("common.notAuthenticated", "Not authenticated"));
     const { data, error } = await supabase
       .from("group_announcements")
       .insert({ group_id: groupId, created_by: user.id, content: content.trim() })
@@ -651,7 +653,7 @@ export const groupsApi = {
   // Server route: adds an existing account or emails a non-user the invite link.
   inviteByEmail: async (groupId: string, email: string): Promise<void> => {
     const { data: { session } } = await supabase.auth.getSession();
-    if (!session) throw new Error("Not authenticated");
+    if (!session) throw new Error(i18n.t("common.notAuthenticated", "Not authenticated"));
     const res = await fetch("/api/group-invite", {
       method: "POST",
       headers: { "Content-Type": "application/json", Authorization: `Bearer ${session.access_token}` },
@@ -659,7 +661,7 @@ export const groupsApi = {
     });
     if (!res.ok) {
       const body = await res.json().catch(() => null);
-      throw new Error(body?.error ?? "Couldn't send the invite.");
+      throw new Error(body?.error ?? i18n.t("groups.errInviteFailed", "Couldn't send the invite."));
     }
   },
 

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useTranslation } from "react-i18next";
+import { useAdminTranslation } from "../useAdminTranslation";
 import CustomSelect from "../../../components/CustomSelect";
 import ConfirmModal from "../../../components/ConfirmModal";
 import { useAdminQuizStats } from "../../../hooks/useAdmin";
@@ -15,7 +15,7 @@ function emptyForm(level: number) {
 
 // ── Quiz Stats Tab ────────────────────────────────────────────────────────────
 export function QuizStatsTab() {
-  const { t } = useTranslation();
+  const { t } = useAdminTranslation();
   const { data: rawData = [], isLoading } = useAdminQuizStats();
 
   const stats = Array.from({ length: 12 }, (_, i) => {
@@ -76,7 +76,7 @@ export function QuizStatsTab() {
 
 // ── Quiz Editor Tab ────────────────────────────────────────────────────────────
 export function QuizTab() {
-  const { t } = useTranslation();
+  const { t } = useAdminTranslation();
   const { data: allQuestions = [], isLoading } = useAllQuizQuestions();
   const createQuestion  = useCreateQuizQuestion();
   const updateQuestion  = useUpdateQuizQuestion();

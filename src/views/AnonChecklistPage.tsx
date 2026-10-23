@@ -48,7 +48,7 @@ export default function AnonChecklistPage({ onSignUp, onBack }: Props) {
         const total = BOOKS[bi].chapters;
         const doneCount = Object.values(next[bi]).filter(Boolean).length;
         if (doneCount === total) {
-          setTimeout(() => setCelebrateBook({ name: BOOKS[bi].name, chapters: total }), 300);
+          setTimeout(() => setCelebrateBook({ name: t(`bookNames.${bi}`, BOOKS[bi].name), chapters: total }), 300);
         }
       }
       return next;

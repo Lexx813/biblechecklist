@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { createPortal } from "react-dom";
-import { useTranslation } from "react-i18next";
+import { useAdminTranslation } from "../useAdminTranslation";
 import CustomSelect from "../../../components/CustomSelect";
 import ConfirmModal from "../../../components/ConfirmModal";
 import {
@@ -138,7 +138,7 @@ export function UsersTab({ currentUser, navigate }) {
   const setBlog = useSetBlog();
   const banUser = useBanUser();
   const createUser = useCreateUser();
-  const { t } = useTranslation();
+  const { t } = useAdminTranslation();
 
   const [showAddForm, setShowAddForm] = useState(false);
   const [newEmail, setNewEmail] = useState("");

@@ -47,7 +47,7 @@ export default function InviteLandingPage({ token, navigate }: Props) {
     <div className="invite-landing">
       <div className="invite-card">
         {inviter.avatar_url
-          ? <img className="invite-card-avatar" src={inviter.avatar_url} alt={inviter.display_name ?? "User"} />
+          ? <img className="invite-card-avatar" src={inviter.avatar_url} alt={inviter.display_name ?? t("invite.user", "User")} />
           : <div className="invite-card-avatar-placeholder">{(inviter.display_name ?? "?")[0].toUpperCase()}</div>
         }
         <div className="invite-card-heading">

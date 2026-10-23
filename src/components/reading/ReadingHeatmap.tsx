@@ -2,6 +2,7 @@ import React, { useMemo, useState, useCallback } from "react";
 import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import "../../styles/reading-plan.css";
+import { localDateStr } from "../../lib/localDate";
 
 function getLevel(chapters: number, goal: number) {
   if (!chapters || chapters === 0) return 0;
@@ -66,7 +67,7 @@ export default function ReadingHeatmap({ data = [], dailyGoal = 3 }: Props) {
     for (let i = 363; i >= 0; i--) {
       const d = new Date(today);
       d.setDate(today.getDate() - i);
-      const dateStr = d.toISOString().slice(0, 10);
+      const dateStr = localDateStr(d);
       const chapters = dataMap.get(dateStr) ?? 0;
       days.push({ date: dateStr, chapters, level: getLevel(chapters, dailyGoal) });
     }
@@ -95,7 +96,7 @@ export default function ReadingHeatmap({ data = [], dailyGoal = 3 }: Props) {
                   );
                 }
                 const dateLabel = new Date(cell.date + "T12:00:00").toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
-                const ariaLabel = `${cell.chapters} chapter${cell.chapters === 1 ? "" : "s"} on ${dateLabel}`;
+                const ariaLabel = t("heatmap.cellAria", { count: cell.chapters, date: dateLabel, defaultValue: "{{count}} chapters on {{date}}", defaultValue_one: "{{count}} chapter on {{date}}" });
                 return (
                   <div
                     key={di}
@@ -129,7 +130,7 @@ export default function ReadingHeatmap({ data = [], dailyGoal = 3 }: Props) {
           style={{ left: tooltip.x, top: tooltip.y }}
         >
           {tooltip.date}
-          {tooltip.chapters > 0 && <><br />{tooltip.chapters} chapter{tooltip.chapters !== 1 ? "s" : ""}</>}
+          {tooltip.chapters > 0 && <><br />{t("heatmap.chapterCount", { count: tooltip.chapters, defaultValue: "{{count}} chapters", defaultValue_one: "{{count}} chapter" })}</>}
         </div>,
         document.body
       )}

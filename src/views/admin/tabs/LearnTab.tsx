@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useTranslation } from "react-i18next";
+import { useAdminTranslation } from "../useAdminTranslation";
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip,
   ResponsiveContainer, Cell,
@@ -34,7 +34,7 @@ function relativeTime(s: string | null | undefined): string {
 
 export function LearnTab() {
   const { data: stats, isLoading, isError, error } = useAdminLearnStats();
-  const { t: i18n } = useTranslation();
+  const { t: i18n } = useAdminTranslation();
   const t = useChartTheme();
 
   // Course shape (lesson order, titles) comes from local content, not the DB.

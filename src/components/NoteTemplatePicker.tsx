@@ -1,14 +1,12 @@
 import { useState } from "react";
 import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
-import { NOTE_TEMPLATES } from "../data/noteTemplates";
-
-interface NoteTemplate {
-  key: string;
-  name: string;
-  content: string;
-  previewLines: string[];
-}
+import {
+  NOTE_TEMPLATES,
+  getTemplateContent,
+  getTemplateName,
+  getTemplatePreviewLines,
+} from "../data/noteTemplates";
 
 interface Props {
   userId?: string;
@@ -21,8 +19,8 @@ export default function NoteTemplatePicker({ onSelect, onDismiss }: Props) {
   const [selectedKey, setSelectedKey] = useState("blank");
 
   function handleContinue() {
-    const template = NOTE_TEMPLATES.find((t) => t.key === selectedKey) ?? NOTE_TEMPLATES[0];
-    onSelect(template.content);
+    const template = NOTE_TEMPLATES.find((tpl) => tpl.key === selectedKey) ?? NOTE_TEMPLATES[0];
+    onSelect(getTemplateContent(template.key, t));
   }
 
   if (typeof document === "undefined") return null;
@@ -42,7 +40,7 @@ export default function NoteTemplatePicker({ onSelect, onDismiss }: Props) {
         }}
         role="dialog"
         aria-modal="true"
-        aria-label="Choose a note template"
+        aria-label={t("noteTemplates.ariaLabel", "Choose a note template")}
       >
         {/* Header */}
         <h2 className="mb-1 text-center text-[18px] font-bold" style={{ color: "var(--text-primary)" }}>
@@ -54,14 +52,16 @@ export default function NoteTemplatePicker({ onSelect, onDismiss }: Props) {
 
         {/* Template grid */}
         <div className="mb-5 grid grid-cols-2 gap-3">
-          {NOTE_TEMPLATES.map((template: NoteTemplate) => {
+          {NOTE_TEMPLATES.map((template) => {
             const selected = selectedKey === template.key;
+            const name = getTemplateName(template, t);
+            const previewLines = getTemplatePreviewLines(template, t);
             return (
               <button
                 key={template.key}
                 onClick={() => setSelectedKey(template.key)}
                 aria-pressed={selected}
-                aria-label={template.name}
+                aria-label={name}
                 className="relative min-h-27 rounded-xl p-4 text-left transition-all duration-150"
                 style={{
                   background: selected
@@ -76,17 +76,17 @@ export default function NoteTemplatePicker({ onSelect, onDismiss }: Props) {
                 }}
               >
                 <span className="mb-2 block text-[14px] font-bold" style={{ color: "var(--text-primary)" }}>
-                  {template.name}
+                  {name}
                 </span>
                 <ul className="m-0 list-none p-0 space-y-0.5">
-                  {template.previewLines.map((line, i) => (
+                  {previewLines.map((line, i) => (
                     <li key={i} className="truncate text-[11px]" style={{ color: "var(--text-muted)" }}>
                       {line}
                     </li>
                   ))}
-                  {template.previewLines.length === 0 && (
+                  {previewLines.length === 0 && (
                     <li className="text-[11px] italic" style={{ color: "var(--text-muted)" }}>
-                      Empty note
+                      {t("noteTemplates.emptyNote", "Empty note")}
                     </li>
                   )}
                 </ul>

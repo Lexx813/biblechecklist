@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useTranslation } from "react-i18next";
+import { useAdminTranslation } from "../useAdminTranslation";
 import { useQueryClient } from "@tanstack/react-query";
 import ConfirmModal from "../../../components/ConfirmModal";
 import {
@@ -15,7 +15,7 @@ import { AdminSkeleton } from "./UsersTab";
 
 // ── Reports Tab ───────────────────────────────────────────────────────────────
 export function ReportsTab({ navigate }: { navigate: (page: string) => void }) {
-  const { t } = useTranslation();
+  const { t } = useAdminTranslation();
   const { data: reports = [], isLoading } = useReports();
   const updateReport = useUpdateReport();
   const deleteReport = useDeleteReport();
@@ -137,7 +137,7 @@ export function ReportsTab({ navigate }: { navigate: (page: string) => void }) {
 
 // ── Blog Tab ──────────────────────────────────────────────────────────────────
 export function BlogTab({ navigate }: { navigate: (page: string) => void }) {
-  const { t } = useTranslation();
+  const { t } = useAdminTranslation();
   const { data: posts = [], isLoading } = useAllBlogPosts();
   const deletePost = useAdminDeleteBlogPost();
   const [confirmDelete, setConfirmDelete] = useState<typeof posts[0] | null>(null);
@@ -213,7 +213,7 @@ export function BlogTab({ navigate }: { navigate: (page: string) => void }) {
 
 // ── Forum Tab ─────────────────────────────────────────────────────────────────
 export function ForumTab({ navigate }: { navigate: (page: string) => void }) {
-  const { t } = useTranslation();
+  const { t } = useAdminTranslation();
   const { data: threads = [], isLoading } = useAllForumThreads();
   const deleteThread = useAdminDeleteForumThread();
   const pinThread = useAdminPinThread();
@@ -303,7 +303,7 @@ export function ForumTab({ navigate }: { navigate: (page: string) => void }) {
 
 // ── Forum Categories Tab ──────────────────────────────────────────────────────
 export function ForumCategoriesTab() {
-  const { t } = useTranslation();
+  const { t } = useAdminTranslation();
   const queryClient = useQueryClient();
   const { data: categories = [], isLoading } = useCategories();
   const [form, setForm] = useState({ icon: "", name: "", description: "", sort_order: "" });
@@ -407,7 +407,7 @@ export function ForumCategoriesTab() {
 
 // ── Blog Comments Tab ─────────────────────────────────────────────────────────
 export function BlogCommentsTab() {
-  const { t } = useTranslation();
+  const { t } = useAdminTranslation();
   const { data: comments = [], isLoading } = useAllComments();
   const deleteComment = useAdminDeleteComment();
   const [confirmDelete, setConfirmDelete] = useState<typeof comments[0] | null>(null);

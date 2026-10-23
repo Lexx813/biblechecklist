@@ -100,7 +100,7 @@ export default function VideoDetailPage({ user, slug, onBack, navigate }: Props)
     );
   }
 
-  const creatorName = video.profiles?.display_name ?? "Unknown";
+  const creatorName = video.profiles?.display_name ?? t("videos.unknownCreator", "Unknown");
   const isTikTok = video.embed_url?.includes("tiktok.com") ?? false;
   const frameClass = `video-player-frame${isTikTok ? " portrait" : ""}`;
 
@@ -108,7 +108,7 @@ export default function VideoDetailPage({ user, slug, onBack, navigate }: Props)
     <div className="video-detail-page">
       {/* ── Dark hero band with player ── */}
       <div className="video-detail-hero">
-        <button className="video-detail-back" onClick={onBack}>← All videos</button>
+        <button className="video-detail-back" onClick={onBack}>← {t("videos.allVideos")}</button>
         <div className={frameClass}>
           {video.embed_url ? (
             <iframe src={video.embed_url} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" title={video.title} />
@@ -152,7 +152,7 @@ export default function VideoDetailPage({ user, slug, onBack, navigate }: Props)
                 {c.profiles?.avatar_url ? <img src={c.profiles.avatar_url} alt={c.profiles?.display_name ?? "?"} /> : (c.profiles?.display_name?.[0] ?? "?").toUpperCase()}
               </div>
               <div className="video-comment-body">
-                <div className="video-comment-author">{c.profiles?.display_name ?? "Anonymous"}</div>
+                <div className="video-comment-author">{c.profiles?.display_name ?? t("videos.anonymous", "Anonymous")}</div>
                 <div className="video-comment-text">{c.content}</div>
                 <div className="video-comment-date">{formatDate(c.created_at)}</div>
               </div>

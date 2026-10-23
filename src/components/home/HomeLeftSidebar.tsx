@@ -181,7 +181,7 @@ export default function HomeLeftSidebar({
             onClick={() => { setActivePanel("admin"); setQuizLevelState(null); }}
           >
             <span className="hls-icon">{ADMIN_ICON}</span>
-            {profile?.is_admin ? "Admin" : "Moderation"}
+            {profile?.is_admin ? t("mobileMore.admin", "Admin") : t("mobileMore.moderation", "Moderation")}
           </button>
         </>
       )}

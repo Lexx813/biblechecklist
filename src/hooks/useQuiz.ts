@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
+import i18n from "../i18n";
 import { quizApi } from "../api/quiz";
 import { badgesApi } from "../api/badges";
 import { notificationsApi } from "../api/notifications";
@@ -44,7 +45,7 @@ export function useSubmitQuiz(userId: string | undefined) {
         if (data?.badge_earned) {
           const emoji = LEVEL_BADGES[level] ?? "🏅";
           notificationsApi.create(userId, userId, "badge_earned", {
-            preview: `${emoji} Level ${level} badge earned! Perfect score!`,
+            preview: `${emoji} ${i18n.t("quiz.badgeEarnedPreview", "Level {{level}} badge earned! Perfect score!", { level })}`,
             linkHash: "quiz",
           }).catch(() => {});
         }

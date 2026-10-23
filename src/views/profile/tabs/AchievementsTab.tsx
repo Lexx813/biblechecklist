@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
+import type { TFunction } from "i18next";
 import { BADGES } from "../../../data/badges";
 import { BOOKS } from "../../../data/books";
 import { useNotes } from "../../../hooks/useNotes";
@@ -56,19 +57,20 @@ function badgeProgress(
 }
 
 /** Human-readable progress label */
-function progressLabel(key: string, progress: number, ctx: { streak: { longest_streak: number }; otRead: number; ntRead: number; totalRead: number; levelsCompleted: number; notesCount: number; plansCompleted: number }): string {
-  if (progress >= 1) return "Completed!";
+function progressLabel(t: TFunction, key: string, progress: number, ctx: { streak: { longest_streak: number }; otRead: number; ntRead: number; totalRead: number; levelsCompleted: number; notesCount: number; plansCompleted: number }): string {
+  const completed = t("badges.completed", "Completed!");
+  if (progress >= 1) return completed;
   switch (key) {
-    case "full_bible_read": return `${ctx.totalRead} / ${TOTAL_CHAPTERS} chapters`;
-    case "streak_30":       return `${Math.min(ctx.streak.longest_streak, 30)} / 30 days`;
-    case "streak_100":      return `${Math.min(ctx.streak.longest_streak, 100)} / 100 days`;
-    case "streak_365":      return `${Math.min(ctx.streak.longest_streak, 365)} / 365 days`;
-    case "quiz_all_levels": return `${ctx.levelsCompleted} / ${LEVEL_BADGES.length} levels`;
-    case "first_note":      return ctx.notesCount > 0 ? "Completed!" : "Write your first note";
-    case "first_group":     return "Join a group";
-    case "plan_complete":   return ctx.plansCompleted > 0 ? "Completed!" : "Finish a reading plan";
-    case "full_nt_read":    return `${ctx.ntRead} / ${NT_CHAPTERS} chapters`;
-    case "full_ot_read":    return `${ctx.otRead} / ${OT_CHAPTERS} chapters`;
+    case "full_bible_read": return t("badges.progressChapters", "{{done}} / {{total}} chapters", { done: ctx.totalRead, total: TOTAL_CHAPTERS });
+    case "streak_30":       return t("badges.progressDays", "{{done}} / {{total}} days", { done: Math.min(ctx.streak.longest_streak, 30), total: 30 });
+    case "streak_100":      return t("badges.progressDays", "{{done}} / {{total}} days", { done: Math.min(ctx.streak.longest_streak, 100), total: 100 });
+    case "streak_365":      return t("badges.progressDays", "{{done}} / {{total}} days", { done: Math.min(ctx.streak.longest_streak, 365), total: 365 });
+    case "quiz_all_levels": return t("badges.progressLevels", "{{done}} / {{total}} levels", { done: ctx.levelsCompleted, total: LEVEL_BADGES.length });
+    case "first_note":      return ctx.notesCount > 0 ? completed : t("badges.hintFirstNote", "Write your first note");
+    case "first_group":     return t("badges.hintFirstGroup", "Join a group");
+    case "plan_complete":   return ctx.plansCompleted > 0 ? completed : t("badges.hintPlanComplete", "Finish a reading plan");
+    case "full_nt_read":    return t("badges.progressChapters", "{{done}} / {{total}} chapters", { done: ctx.ntRead, total: NT_CHAPTERS });
+    case "full_ot_read":    return t("badges.progressChapters", "{{done}} / {{total}} chapters", { done: ctx.otRead, total: OT_CHAPTERS });
     default: return "";
   }
 }
@@ -135,6 +137,13 @@ export default function AchievementsTab({ userId, streak, readingProgress }: Pro
   const earnedMap = useMemo(() => Object.fromEntries(earnedBadges.map(b => [b.badge_key, b.earned_at])), [earnedBadges]);
   const earnedCount = earnedKeys.size;
 
+  const tierLabels: Record<string, string> = {
+    common: t("badges.tierCommon", "common"),
+    rare: t("badges.tierRare", "rare"),
+    epic: t("badges.tierEpic", "epic"),
+    legendary: t("badges.tierLegendary", "legendary"),
+  };
+
   const ctx = { streak, otRead, ntRead, totalRead, levelsCompleted, notesCount: notes.length, plansCompleted };
 
   // Sort: earned first, then by progress descending
@@ -190,7 +199,7 @@ export default function AchievementsTab({ userId, streak, readingProgress }: Pro
               <circle cx="12" cy="8" r="7"/>
               <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/>
             </svg>
-            Achievements
+            {t("profile.tabAchievements", "Achievements")}
           </h2>
           <span className="rounded-full bg-[var(--accent)]/10 px-3 py-1 text-xs font-bold text-[var(--accent)]">
             {earnedCount} / {BADGES.length}
@@ -213,7 +222,7 @@ export default function AchievementsTab({ userId, streak, readingProgress }: Pro
             const earnedAt = earnedMap[badge.key];
             const progress = earned ? 1 : badgeProgress(badge.key, ctx);
             const tier = badgeTier(badge.key);
-            const label = progressLabel(badge.key, progress, ctx);
+            const label = progressLabel(t, badge.key, progress, ctx);
 
             return (
               <div
@@ -221,7 +230,7 @@ export default function AchievementsTab({ userId, streak, readingProgress }: Pro
                 className={`ach-card ach-card--${tier}${earned ? " ach-card--earned" : ""}`}
               >
                 {/* Tier indicator */}
-                <div className={`ach-tier-dot ach-tier-dot--${tier}`} title={tier} />
+                <div className={`ach-tier-dot ach-tier-dot--${tier}`} title={tierLabels[tier]} />
 
                 {/* Emoji */}
                 <div className={`ach-emoji${earned ? " ach-emoji--earned" : ""}`}>
@@ -230,8 +239,8 @@ export default function AchievementsTab({ userId, streak, readingProgress }: Pro
 
                 {/* Info */}
                 <div className="ach-info">
-                  <span className="ach-name">{badge.label}</span>
-                  <span className="ach-desc">{badge.description}</span>
+                  <span className="ach-name">{t(badge.labelKey, badge.label)}</span>
+                  <span className="ach-desc">{t(badge.descKey, badge.description)}</span>
 
                   {/* Progress */}
                   {!earned && progress > 0 && progress < 1 && (
@@ -249,7 +258,7 @@ export default function AchievementsTab({ userId, streak, readingProgress }: Pro
 
                   {earned && earnedAt && (
                     <span className="ach-earned-date">
-                      Earned {new Date(earnedAt).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" })}
+                      {t("badges.earnedOn", "Earned {{date}}", { date: new Date(earnedAt).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" }) })}
                     </span>
                   )}
                 </div>

@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef, useState, useCallback } from "react";
 import { supabase } from "../lib/supabase";
+import i18n from "../i18n";
 import { subscribeWithMonitor } from "../lib/realtime";
 import { messagesApi } from "../api/messages";
 import { useSession } from "./useAuth";
@@ -431,7 +432,7 @@ export function useUploadImage(conversationId: string | null | undefined) {
         metadata: { url, filename: file.name, size: file.size },
       });
     } catch (err) {
-      const msg = err instanceof Error ? err.message : "Failed to upload image.";
+      const msg = err instanceof Error ? err.message : i18n.t("messages.errUploadImage", "Failed to upload image.");
       onError?.(msg);
     } finally {
       setUploading(false);

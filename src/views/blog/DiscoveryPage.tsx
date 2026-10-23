@@ -33,18 +33,19 @@ function fallbackImage(id: string): string {
   return `data:image/svg+xml;utf8,${svg.replace(/#/g, "%23")}`;
 }
 
-const TOPICS = [
-  "All",
-  "Faith & Trust",
-  "Bible Study",
-  "Family",
-  "New World",
-  "Ministry",
-  "Meeting Prep",
-  "Endurance",
-  "Creation",
-  "Jehovah's Kingdom",
-  "Comfort & Hope",
+// `value` is the tag sent to search (DB value, not translated); `key` is the i18n key.
+const TOPICS: ReadonlyArray<{ value: string; key: string }> = [
+  { value: "All",               key: "topicAll" },
+  { value: "Faith & Trust",     key: "topicFaithTrust" },
+  { value: "Bible Study",       key: "topicBibleStudy" },
+  { value: "Family",            key: "topicFamily" },
+  { value: "New World",         key: "topicNewWorld" },
+  { value: "Ministry",          key: "topicMinistry" },
+  { value: "Meeting Prep",      key: "topicMeetingPrep" },
+  { value: "Endurance",         key: "topicEndurance" },
+  { value: "Creation",          key: "topicCreation" },
+  { value: "Jehovah's Kingdom", key: "topicJehovahsKingdom" },
+  { value: "Comfort & Hope",    key: "topicComfortHope" },
 ];
 
 const PAGE_SIZE = 8;
@@ -116,14 +117,14 @@ export default function DiscoveryPage({ navigate, user }: Props) {
             onClick={() => { history.pushState(null, "", "/"); window.dispatchEvent(new PopStateEvent("popstate")); }}
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
-            Back to Home
+            {t("blog.backToHome", "Back to Home")}
           </button>
         </div>
       )}
       {/* Hero */}
       <div className="disc-hero">
-        <h1 className="disc-hero-title">Explore JW Study Articles</h1>
-        <p className="disc-hero-sub">Written by the community, for the community</p>
+        <h1 className="disc-hero-title">{t("blog.discoverTitle", "Explore JW Study Articles")}</h1>
+        <p className="disc-hero-sub">{t("blog.discoverSubtitle", "Written by the community, for the community")}</p>
         <div className="disc-search-bar">
           <span className="disc-search-icon">🔍</span>
           <input
@@ -139,10 +140,10 @@ export default function DiscoveryPage({ navigate, user }: Props) {
       <div className="disc-pills-wrap">
         {TOPICS.map(topic => (
           <button
-            key={topic}
-            className={`disc-pill${activeTopic === topic ? " active" : ""}`}
-            onClick={() => handleTopicClick(topic)}
-          >{topic}</button>
+            key={topic.value}
+            className={`disc-pill${activeTopic === topic.value ? " active" : ""}`}
+            onClick={() => handleTopicClick(topic.value)}
+          >{t(`blog.${topic.key}`, topic.value)}</button>
         ))}
       </div>
 
@@ -151,22 +152,22 @@ export default function DiscoveryPage({ navigate, user }: Props) {
         <div className="disc-top-strip">
           {user && (
             <div className="disc-sidebar-widget disc-top-strip-write">
-              <div className="disc-sidebar-label">Share your thoughts</div>
+              <div className="disc-sidebar-label">{t("blog.shareYourThoughts", "Share your thoughts")}</div>
               <button
                 className="btn btn-primary"
                 style={{ width: "100%", padding: "10px", fontSize: 14, marginBottom: 8 }}
                 onClick={() => navigate("blogNew")}
-              >✍️ Write an article</button>
+              >✍️ {t("blog.writeArticle", "Write an article")}</button>
               <button
                 className="btn btn-secondary"
                 style={{ width: "100%", padding: "9px", fontSize: 13 }}
                 onClick={() => navigate("myPosts")}
-              >📄 My Posts</button>
+              >📄 {t("blog.myPosts", "My Posts")}</button>
             </div>
           )}
           {(activeWriters as unknown as Writer[]).length > 0 && (
             <div className="disc-sidebar-widget disc-top-strip-writers">
-              <div className="disc-sidebar-label">Active Writers</div>
+              <div className="disc-sidebar-label">{t("blog.activeWriters", "Active Writers")}</div>
               {(activeWriters as unknown as Writer[]).map(writer => (
                 <div key={writer.id} className="disc-writer-row">
                   <div className="disc-writer-avatar">
@@ -176,9 +177,11 @@ export default function DiscoveryPage({ navigate, user }: Props) {
                     }
                   </div>
                   <div>
-                    <div className="disc-writer-name">{writer.display_name ?? "Anonymous"}</div>
+                    <div className="disc-writer-name">{writer.display_name ?? t("blog.anonymousAuthor", "Anonymous")}</div>
                     <div className="disc-writer-count">
-                      {writer.post_count} post{writer.post_count !== 1 ? "s" : ""} this month
+                      {writer.post_count === 1
+                        ? t("blog.writerPostThisMonth", "{{count}} post this month", { count: writer.post_count })
+                        : t("blog.writerPostsThisMonth", "{{count}} posts this month", { count: writer.post_count })}
                     </div>
                   </div>
                   <button
@@ -226,11 +229,11 @@ export default function DiscoveryPage({ navigate, user }: Props) {
                       : authorInitial((featuredPost as unknown as Post).profiles?.display_name)
                     }
                   </div>
-                  <span>{(featuredPost as unknown as Post).profiles?.display_name ?? "Anonymous"}</span>
+                  <span>{(featuredPost as unknown as Post).profiles?.display_name ?? t("blog.anonymousAuthor", "Anonymous")}</span>
                   <span className="disc-card-dot">·</span>
                   <span>{formatDate((featuredPost as unknown as Post).created_at, "short")}</span>
                   {(featuredPost as unknown as Post).read_time_minutes > 0 && (
-                    <><span className="disc-card-dot">·</span><span>{(featuredPost as unknown as Post).read_time_minutes} min</span></>
+                    <><span className="disc-card-dot">·</span><span>{t("blog.minLabel", "{{count}} min", { count: (featuredPost as unknown as Post).read_time_minutes })}</span></>
                   )}
                 </div>
               </div>
@@ -272,11 +275,11 @@ export default function DiscoveryPage({ navigate, user }: Props) {
                           : authorInitial(post.profiles?.display_name)
                         }
                       </div>
-                      <span>{post.profiles?.display_name ?? "Anonymous"}</span>
+                      <span>{post.profiles?.display_name ?? t("blog.anonymousAuthor", "Anonymous")}</span>
                       <span className="disc-card-dot">·</span>
                       <span>{formatDate(post.created_at, "short")}</span>
                       {post.read_time_minutes > 0 && (
-                        <><span className="disc-card-dot">·</span><span>{post.read_time_minutes} min</span></>
+                        <><span className="disc-card-dot">·</span><span>{t("blog.minLabel", "{{count}} min", { count: post.read_time_minutes })}</span></>
                       )}
                       <span className="disc-card-dot">·</span>
                       <span>❤️ {post.like_count}</span>
@@ -289,7 +292,7 @@ export default function DiscoveryPage({ navigate, user }: Props) {
 
           {hasMore && (
             <button className="disc-load-more" onClick={() => setPage(p => p + 1)}>
-              Load more articles
+              {t("blog.loadMoreArticles", "Load more articles")}
             </button>
           )}
         </div>
@@ -298,7 +301,7 @@ export default function DiscoveryPage({ navigate, user }: Props) {
         <aside className="disc-sidebar">
           {(trendingPosts as unknown as Post[]).length > 0 && (
             <div className="disc-sidebar-widget">
-              <div className="disc-sidebar-label">Trending This Week</div>
+              <div className="disc-sidebar-label">{t("blog.trendingThisWeek", "Trending This Week")}</div>
               {(trendingPosts as unknown as Post[]).map((post, i) => (
                 <button
                   key={post.id}

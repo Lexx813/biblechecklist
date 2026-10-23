@@ -1,3 +1,4 @@
+import i18next from "i18next";
 /**
  * Content filtering for user-generated posts, comments, messages, etc.
  *
@@ -100,9 +101,14 @@ export function assertNoPII(...fields: string[]): void {
   for (const text of fields) {
     const found = detectBlockedRef(text);
     if (found) {
-      throw new Error(
-        `Links to ${found} are not allowed. Please reference jw.org or the Watchtower Library instead.`
-      );
+      const fallback = `Links to ${found} are not allowed. Please reference jw.org or the Watchtower Library instead.`;
+      // Uses the bare i18next singleton (initialised by src/i18n on the client)
+      // because this module is also imported by server components, where
+      // react-i18next must not be loaded. Uninitialised → English fallback.
+      const msg = i18next.isInitialized
+        ? i18next.t("common.blockedLink", "Links to {{source}} are not allowed. Please reference jw.org or the Watchtower Library instead.", { source: found })
+        : fallback;
+      throw new Error(msg || fallback);
     }
   }
 }

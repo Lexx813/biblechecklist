@@ -22,12 +22,15 @@ import {
 import "../../styles/study-notes.css";
 import { formatDate, stripHtml } from "../../utils/formatters";
 import { sanitizeRich } from "../../lib/sanitize";
+import i18n from "../../i18n";
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
 function passageLabel(note) {
   if (note.book_index == null) return null;
-  const book = BOOKS[note.book_index]?.name ?? "Unknown";
+  const book = BOOKS[note.book_index]
+    ? i18n.t(`bookNames.${note.book_index}`, BOOKS[note.book_index].name)
+    : i18n.t("studyNotes.unknownBook", "Unknown");
   let label = book;
   if (note.chapter) label += ` ${note.chapter}`;
   if (note.verse) label += `:${note.verse}`;
@@ -42,10 +45,10 @@ function exportAsMarkdown(note) {
   const passage = passageLabel(note);
   const lines = [];
   if (note.title) lines.push(`# ${note.title}`, "");
-  if (passage) lines.push(`**Passage:** ${passage}`, "");
-  if (note.tags?.length) lines.push(`**Tags:** ${note.tags.map(t => `#${t}`).join(" ")}`, "");
+  if (passage) lines.push(`**${i18n.t("studyNotes.exportPassageLabel", "Passage:")}** ${passage}`, "");
+  if (note.tags?.length) lines.push(`**${i18n.t("studyNotes.exportTagsLabel", "Tags:")}** ${note.tags.map(t => `#${t}`).join(" ")}`, "");
   if (note.content) lines.push(stripHtml(note.content));
-  lines.push("", `*Updated: ${formatDate(note.updated_at)}*`);
+  lines.push("", `*${i18n.t("studyNotes.exportUpdated", "Updated: {{date}}", { date: formatDate(note.updated_at) })}*`);
   const blob = new Blob([lines.join("\n")], { type: "text/markdown" });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
@@ -61,7 +64,7 @@ function escapeHtml(str: string): string {
 
 function exportAsPrint(note) {
   const passage = passageLabel(note);
-  const safeTitle = escapeHtml(note.title || "Note");
+  const safeTitle = escapeHtml(note.title || i18n.t("studyNotes.exportDefaultTitle", "Note"));
   const safeContent = sanitizeRich(note.content || "");
   const safeTags = (note.tags ?? []).map((t: string) => `<span>#${escapeHtml(t)}</span>`).join("");
   const win = window.open("", "_blank");
@@ -107,7 +110,7 @@ function TagInput({ tags, onChange }) {
         {tags.map(tag => (
           <span key={tag} className="sn-tag-pill">
             #{tag}
-            <button type="button" className="sn-tag-remove" onClick={() => remove(tag)} aria-label="Remove tag">×</button>
+            <button type="button" className="sn-tag-remove" onClick={() => remove(tag)} aria-label={t("studyNotes.removeTag", "Remove tag")}>×</button>
           </span>
         ))}
       </div>
@@ -119,7 +122,7 @@ function TagInput({ tags, onChange }) {
           onChange={e => setInput(e.target.value)}
           onKeyDown={e => { if (e.key === "Enter" || e.key === ",") { e.preventDefault(); add(); } }}
           maxLength={30}
-          aria-label="Add tag"
+          aria-label={t("studyNotes.addTagAria", "Add tag")}
         />
         <button type="button" className="sn-tag-add-btn" onClick={add}>{t("studyNotes.add")}</button>
       </div>
@@ -133,9 +136,10 @@ function TagInput({ tags, onChange }) {
 // Builds context-aware prompts and opens /ai?ask= to deepen the note via chat.
 // Disabled when the note is empty (the AI needs something to improve).
 function NoteAIHelper({ form }: { form: { title?: string; content?: string; book_index?: number | null; chapter?: number | null; verse?: string | null } }) {
+  const { t } = useTranslation();
   const passage = (() => {
     if (form.book_index == null) return "";
-    const name = BOOKS[form.book_index]?.name ?? "";
+    const name = BOOKS[form.book_index] ? t(`bookNames.${form.book_index}`, BOOKS[form.book_index].name) : "";
     const ch = form.chapter ? ` ${form.chapter}` : "";
     const v = form.verse ? `:${form.verse}` : "";
     return `${name}${ch}${v}`.trim();
@@ -147,12 +151,12 @@ function NoteAIHelper({ form }: { form: { title?: string; content?: string; book
     window.location.href = `/ai?ask=${encodeURIComponent(prompt)}`;
   }
 
-  const refLine = passage ? `Passage: ${passage}\n` : "";
-  const titleLine = form.title?.trim() ? `Note title: ${form.title.trim()}\n` : "";
-  const noteBlock = plain ? `Current note draft:\n"""\n${plain.slice(0, 2000)}\n"""\n\n` : "";
+  const refLine = passage ? `${t("studyNotes.aiPassageLine", "Passage: {{passage}}", { passage })}\n` : "";
+  const titleLine = form.title?.trim() ? `${t("studyNotes.aiTitleLine", "Note title: {{title}}", { title: form.title.trim() })}\n` : "";
+  const noteBlock = plain ? `${t("studyNotes.aiDraftLabel", "Current note draft:")}\n"""\n${plain.slice(0, 2000)}\n"""\n\n` : "";
 
   return (
-    <div className="sn-ai-helper" role="toolbar" aria-label="AI assistance for this note">
+    <div className="sn-ai-helper" role="toolbar" aria-label={t("studyNotes.aiToolbarAria", "AI assistance for this note")}>
       <span className="sn-ai-helper-label" aria-hidden>
         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <path d="M12 3l1.9 4.6L18.5 9.5l-4.6 1.9L12 16l-1.9-4.6L5.5 9.5l4.6-1.9L12 3z"/>
@@ -164,25 +168,25 @@ function NoteAIHelper({ form }: { form: { title?: string; content?: string; book
         type="button"
         className="sn-ai-chip"
         disabled={!passage && !hasContent}
-        onClick={() => ask(`${refLine}${noteBlock}Suggest 3-5 scriptures (with NWT references) that connect to this note's theme. Briefly explain why each one fits.`)}
+        onClick={() => ask(`${refLine}${noteBlock}${t("studyNotes.aiPromptScriptures", "Suggest 3-5 scriptures (with NWT references) that connect to this note's theme. Briefly explain why each one fits.")}`)}
       >
-        + Add scriptures
+        {t("studyNotes.aiAddScriptures", "+ Add scriptures")}
       </button>
       <button
         type="button"
         className="sn-ai-chip"
         disabled={!hasContent}
-        onClick={() => ask(`${refLine}${titleLine}${noteBlock}Improve the writing: tighten the prose, fix any awkward phrasing, keep my voice and the JW perspective intact, do NOT add new claims or doctrine I didn't write. Return only the revised note.`)}
+        onClick={() => ask(`${refLine}${titleLine}${noteBlock}${t("studyNotes.aiPromptImprove", "Improve the writing: tighten the prose, fix any awkward phrasing, keep my voice and the JW perspective intact, do NOT add new claims or doctrine I didn't write. Return only the revised note.")}`)}
       >
-        ✨ Improve
+        ✨ {t("studyNotes.aiImprove", "Improve")}
       </button>
       <button
         type="button"
         className="sn-ai-chip"
         disabled={!hasContent}
-        onClick={() => ask(`${refLine}${noteBlock}Summarize this note in 1-2 sentences I could use as the opening line.`)}
+        onClick={() => ask(`${refLine}${noteBlock}${t("studyNotes.aiPromptSummarize", "Summarize this note in 1-2 sentences I could use as the opening line.")}`)}
       >
-        ≡ Summarize
+        ≡ {t("studyNotes.aiSummarize", "Summarize")}
       </button>
     </div>
   );
@@ -251,7 +255,7 @@ function NoteEditor({ note, initialContent = "", folders, onSave, onCancel, savi
           <CustomSelect
             value={form.book_index}
             onChange={bi => setForm(prev => ({ ...prev, book_index: bi, chapter: bi != null ? 1 : null }))}
-            options={[{ value: null, label: t("studyNotes.fieldBook") }, ...BOOKS.map((b, i) => ({ value: i, label: b.name }))]}
+            options={[{ value: null, label: t("studyNotes.fieldBook") }, ...BOOKS.map((b, i) => ({ value: i, label: t(`bookNames.${i}`, b.name) }))]}
             placeholder={t("studyNotes.fieldBook")}
             searchable
           />
@@ -272,7 +276,7 @@ function NoteEditor({ note, initialContent = "", folders, onSave, onCancel, savi
               value={form.verse ?? ""}
               onChange={e => set("verse", e.target.value)}
               maxLength={10}
-              aria-label="Verse reference"
+              aria-label={t("studyNotes.verseReferenceAria", "Verse reference")}
             />
           )}
         </div>
@@ -362,7 +366,7 @@ function NoteCard({ note, onClick, onDelete = null, onExportMd = null, onExportP
             <button
               className={`sn-like-btn${note.user_has_liked ? " sn-like-btn--liked" : ""}`}
               onClick={e => { e.stopPropagation(); onLike(note.id); }}
-              aria-label={note.user_has_liked ? "Unlike" : "Like"}
+              aria-label={note.user_has_liked ? t("studyNotes.unlike", "Unlike") : t("studyNotes.like", "Like")}
             >
               {note.user_has_liked ? "♥" : "♡"}{note.like_count > 0 ? ` ${note.like_count}` : ""}
             </button>
@@ -431,7 +435,7 @@ function NoteViewModal({ note, userId, onClose, onLike, onDelete }) {
           <button
             className={`sn-like-btn${note.user_has_liked ? " sn-like-btn--liked" : ""}`}
             onClick={() => onLike(note.id)}
-            aria-label={note.user_has_liked ? "Unlike" : "Like"}
+            aria-label={note.user_has_liked ? t("studyNotes.unlike", "Unlike") : t("studyNotes.like", "Like")}
           >
             {note.user_has_liked ? "♥" : "♡"}{note.like_count > 0 ? ` ${note.like_count}` : ""}
           </button>
@@ -492,12 +496,12 @@ function FolderSidebar({ folders, activeFolder, onSelect, onCreate, onRename, on
             placeholder={t("studyNotes.folderName")}
             autoFocus
             maxLength={40}
-            aria-label="Folder name"
+            aria-label={t("studyNotes.folderName")}
           />
-          <button type="submit" className="sn-folder-save-btn" aria-label="Save">
+          <button type="submit" className="sn-folder-save-btn" aria-label={t("common.save")}>
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
           </button>
-          <button type="button" className="sn-folder-cancel-btn" onClick={() => setCreating(false)} aria-label="Cancel">
+          <button type="button" className="sn-folder-cancel-btn" onClick={() => setCreating(false)} aria-label={t("common.cancel")}>
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
           </button>
         </form>
@@ -521,12 +525,12 @@ function FolderSidebar({ folders, activeFolder, onSelect, onCreate, onRename, on
                 onChange={e => setRenameVal(e.target.value)}
                 autoFocus
                 maxLength={40}
-                aria-label="Rename folder"
+                aria-label={t("studyNotes.renameFolder", "Rename folder")}
               />
-              <button type="submit" className="sn-folder-save-btn" aria-label="Save">
+              <button type="submit" className="sn-folder-save-btn" aria-label={t("common.save")}>
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
               </button>
-              <button type="button" className="sn-folder-cancel-btn" onClick={() => setRenamingId(null)} aria-label="Cancel">
+              <button type="button" className="sn-folder-cancel-btn" onClick={() => setRenamingId(null)} aria-label={t("common.cancel")}>
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
               </button>
             </form>
@@ -566,7 +570,7 @@ function PromptModal({ label, onConfirm, onCancel }) {
   }
   return createPortal(
     <div className="confirm-overlay" onClick={onCancel}>
-      <div className="confirm-modal" role="dialog" aria-modal="true" aria-label="Enter value" onClick={e => e.stopPropagation()}>
+      <div className="confirm-modal" role="dialog" aria-modal="true" aria-label={t("studyNotes.enterValue", "Enter value")} onClick={e => e.stopPropagation()}>
         <form className="confirm-body" onSubmit={handleSubmit}>
           <div className="confirm-title">{label}</div>
           <input
@@ -575,7 +579,7 @@ function PromptModal({ label, onConfirm, onCancel }) {
             value={val}
             onChange={e => setVal(e.target.value)}
             placeholder={label}
-            aria-label="Enter value"
+            aria-label={t("studyNotes.enterValue", "Enter value")}
           />
         </form>
         <div className="confirm-actions">
@@ -843,7 +847,20 @@ export default function StudyNotesPage({ user, navigate, initialTab = "mine", ..
     return list;
   }, [notes, search, activeTag, activeFolder, sortBy]);
 
-  const displayedPublic = publicNotes.length > 0 ? publicNotes : SEED_PUBLIC_NOTES;
+  const displayedPublic = useMemo(
+    () =>
+      publicNotes.length > 0
+        ? publicNotes
+        : SEED_PUBLIC_NOTES.map((n) => {
+            const num = n.id.replace("seed-", "");
+            return {
+              ...n,
+              title: t(`studyNotes.sample${num}Title`, n.title),
+              content: t(`studyNotes.sample${num}Body`, n.content),
+            };
+          }),
+    [publicNotes, t]
+  );
 
   const filteredPublic = useMemo(() => {
     if (!search.trim()) return displayedPublic;
@@ -929,7 +946,7 @@ export default function StudyNotesPage({ user, navigate, initialTab = "mine", ..
           placeholder={t("studyNotes.search")}
           value={search}
           onChange={e => setSearch(e.target.value)}
-          aria-label="Search notes"
+          aria-label={t("studyNotes.searchAria", "Search notes")}
         />
         {tab === "mine" && (
           <CustomSelect

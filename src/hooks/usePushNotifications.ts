@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { pushApi } from "../api/pushSubscriptions";
+import i18n from "../i18n";
 
 const VAPID_PUBLIC_KEY = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY ?? "";
 const LS_KEY = "nwt-push-subscribed";
@@ -28,7 +29,7 @@ async function getSwReg(): Promise<ServiceWorkerRegistration> {
   // SW is installing/waiting — wait up to 10 s for it to activate.
   return new Promise((resolve, reject) => {
     const timer = setTimeout(
-      () => reject(new Error("App is still loading. Please refresh and try again.")),
+      () => reject(new Error(i18n.t("notif.pushAppLoading", "App is still loading. Please refresh and try again."))),
       10000
     );
     const done = () => { clearTimeout(timer); resolve(reg!); };
@@ -38,7 +39,7 @@ async function getSwReg(): Promise<ServiceWorkerRegistration> {
 
     sw.addEventListener("statechange", function handler(this: ServiceWorker) {
       if (this.state === "activated") { sw.removeEventListener("statechange", handler); done(); }
-      if (this.state === "redundant") { sw.removeEventListener("statechange", handler); reject(new Error("Service worker failed. Refresh and try again.")); }
+      if (this.state === "redundant") { sw.removeEventListener("statechange", handler); reject(new Error(i18n.t("notif.pushSwFailed", "Service worker failed. Refresh and try again."))); }
     });
   });
 }
@@ -131,8 +132,8 @@ export function usePushNotifications() {
       if (result !== "granted") {
         setError(
           result === "denied"
-            ? "Notifications blocked. Open your browser or phone Settings → Site Settings → Notifications and allow this site."
-            : "Notification permission was not granted. Please try again."
+            ? i18n.t("notif.pushBlocked", "Notifications blocked. Open your browser or phone Settings → Site Settings → Notifications and allow this site.")
+            : i18n.t("notif.pushNotGranted", "Notification permission was not granted. Please try again.")
         );
         return false;
       }
@@ -155,7 +156,7 @@ export function usePushNotifications() {
       return true;
     } catch (err) {
       console.error("[push] subscribe failed:", err);
-      setError((err as Error).message || "Failed to enable notifications. Please try again.");
+      setError((err as Error).message || i18n.t("notif.pushEnableFailed", "Failed to enable notifications. Please try again."));
       return false;
     } finally {
       setLoading(false);
@@ -180,7 +181,7 @@ export function usePushNotifications() {
       try { localStorage.removeItem(LS_KEY); } catch {}
     } catch (err) {
       console.error("[push] unsubscribe failed:", err);
-      setError((err as Error).message || "Failed to disable notifications. Please try again.");
+      setError((err as Error).message || i18n.t("notif.pushDisableFailed", "Failed to disable notifications. Please try again."));
     } finally {
       setLoading(false);
     }

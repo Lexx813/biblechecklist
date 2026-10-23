@@ -45,6 +45,9 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
       try {
         await readingApi.logChapter(d);
         queryClient.invalidateQueries({ queryKey: ["reading", "stats", user.id] });
+        // reading_log drives the streak — refresh it so the flame updates now
+        queryClient.invalidateQueries({ queryKey: ["streak", user.id] });
+        queryClient.invalidateQueries({ queryKey: ["reading", "streaks", user.id] });
       } catch { /* reading log is non-critical */ }
     }, 1000);
   };
@@ -141,7 +144,7 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
     if (!initialized) return;
     const timer = setTimeout(() => saveProgress.mutate(
       { ...chaptersState, _v: versesState },
-      { onError: () => toast.error("Failed to save progress. Check your connection.") }
+      { onError: () => toast.error(t("checklist.saveFailed", "Failed to save progress. Check your connection.")) }
     ), 800);
     return () => clearTimeout(timer);
   }, [chaptersState, versesState, initialized]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -157,9 +160,9 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
 
     if (activePlan && todayPlan && isTodayPlanReading) {
       if (willRead && wouldCompleteTodayPlan && !todayPlanAlreadyDone) {
-        markPlanDay.mutate(todayPlan.day, { onError: () => toast.error("Chapter saved, but the reading-plan day did not update.") });
+        markPlanDay.mutate(todayPlan.day, { onError: () => toast.error(t("checklist.chapterSavedPlanFailed", "Chapter saved, but the reading-plan day did not update.")) });
       } else if (!willRead && todayPlanAlreadyDone) {
-        unmarkPlanDay.mutate(todayPlan.day, { onError: () => toast.error("Chapter updated, but the reading-plan day did not update.") });
+        unmarkPlanDay.mutate(todayPlan.day, { onError: () => toast.error(t("checklist.chapterUpdatedPlanFailed", "Chapter updated, but the reading-plan day did not update.")) });
       }
     }
 
@@ -174,7 +177,7 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
         const total = BOOKS[bi].chapters;
         const nowDone = Object.values(next[bi]).filter(Boolean).length;
         if (nowDone === total) {
-          setTimeout(() => setCelebrateBook({ name: BOOKS[bi].name, icon: null, chapters: total }), 300);
+          setTimeout(() => setCelebrateBook({ name: t(`bookNames.${bi}`, BOOKS[bi].name), icon: null, chapters: total }), 300);
         }
       }
       return next;
@@ -195,9 +198,9 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
     });
     if (activePlan && todayPlan && affectsTodayPlan) {
       if (val && wouldCompleteTodayPlan && !todayPlanAlreadyDone) {
-        markPlanDay.mutate(todayPlan.day, { onError: () => toast.error("Book saved, but the reading-plan day did not update.") });
+        markPlanDay.mutate(todayPlan.day, { onError: () => toast.error(t("checklist.bookSavedPlanFailed", "Book saved, but the reading-plan day did not update.")) });
       } else if (!val && todayPlanAlreadyDone) {
-        unmarkPlanDay.mutate(todayPlan.day, { onError: () => toast.error("Book updated, but the reading-plan day did not update.") });
+        unmarkPlanDay.mutate(todayPlan.day, { onError: () => toast.error(t("checklist.bookUpdatedPlanFailed", "Book updated, but the reading-plan day did not update.")) });
       }
     }
     if (delta !== 0) scheduleLog(delta);
@@ -206,7 +209,7 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
       const chs = {};
       for (let c = 1; c <= total; c++) chs[c] = val;
       if (val && !allDone) {
-        setTimeout(() => setCelebrateBook({ name: BOOKS[bi].name, icon: null, chapters: total }), 300);
+        setTimeout(() => setCelebrateBook({ name: t(`bookNames.${bi}`, BOOKS[bi].name), icon: null, chapters: total }), 300);
       }
       return { ...prev, [bi]: chs };
     });
@@ -230,7 +233,7 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
         return !!chaptersState[r.bookIndex]?.[r.chapter];
       });
       if (activePlan && todayPlan && isTodayPlanReading && wouldCompleteTodayPlan && !todayPlanAlreadyDone) {
-        markPlanDay.mutate(todayPlan.day, { onError: () => toast.error("Chapter saved, but the reading-plan day did not update.") });
+        markPlanDay.mutate(todayPlan.day, { onError: () => toast.error(t("checklist.chapterSavedPlanFailed", "Chapter saved, but the reading-plan day did not update.")) });
       }
       // Mark complete + clear verse data
       scheduleLog(1);
@@ -239,7 +242,7 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
         const next = { ...prev, [bi]: { ...(prev[bi] || {}), [ch]: true } };
         const total = BOOKS[bi].chapters;
         const nowDone = Object.values(next[bi]).filter(Boolean).length;
-        if (nowDone === total) setTimeout(() => setCelebrateBook({ name: BOOKS[bi].name, icon: null, chapters: total }), 300);
+        if (nowDone === total) setTimeout(() => setCelebrateBook({ name: t(`bookNames.${bi}`, BOOKS[bi].name), icon: null, chapters: total }), 300);
         return next;
       });
       setVersesState(prev => {
@@ -250,7 +253,7 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
       setVerseModal(null);
     } else {
       if (activePlan && todayPlan && isTodayPlanReading && todayPlanAlreadyDone) {
-        unmarkPlanDay.mutate(todayPlan.day, { onError: () => toast.error("Chapter updated, but the reading-plan day did not update.") });
+        unmarkPlanDay.mutate(todayPlan.day, { onError: () => toast.error(t("checklist.chapterUpdatedPlanFailed", "Chapter updated, but the reading-plan day did not update.")) });
       }
       // Undo complete
       scheduleLog(-1);
@@ -341,7 +344,7 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
     return nextUnread;
   }, [todayPlan, chaptersState, nextUnread]);
   const continueSource = todayPlan?.readings?.length ? "plan" : nextUnread ? "next" : "complete";
-  const todayPlanLabel = todayPlan?.readings?.map(r => `${BOOKS[r.bookIndex]?.name ?? r.bookName} ${r.chapter}`).join(", ") ?? "";
+  const todayPlanLabel = todayPlan?.readings?.map(r => `${BOOKS[r.bookIndex] ? t(`bookNames.${r.bookIndex}`, BOOKS[r.bookIndex].name) : r.bookName} ${r.chapter}`).join(", ") ?? "";
 
   // Index notes by book for O(1) lookup per BookCard
   const notesByBook = useMemo(() => {
@@ -450,7 +453,7 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
                   </span>
                   <h2 className="cl-today-title">
                     {todayReading
-                      ? `${BOOKS[todayReading.bookIndex]?.name ?? todayReading.bookName} ${todayReading.chapter}`
+                      ? `${BOOKS[todayReading.bookIndex] ? t(`bookNames.${todayReading.bookIndex}`, BOOKS[todayReading.bookIndex].name) : todayReading.bookName} ${todayReading.chapter}`
                       : t("checklist.completeTitle", "Full Bible complete")}
                   </h2>
                   <p className="cl-today-sub">

@@ -1,5 +1,6 @@
 // src/api/quizTimed.ts
 import { supabase } from "../lib/supabase";
+import i18n from "../i18n";
 
 export const quizTimedApi = {
   saveTimedScore: async (userId: string, level: number, score: number) => {
@@ -38,7 +39,7 @@ export const quizTimedApi = {
         return {
           rank: i + 1,
           userId: row.user_id,
-          displayName: profile?.display_name ?? "Anonymous",
+          displayName: profile?.display_name ?? i18n.t("leaderboard.anonymous", "Anonymous"),
           avatarUrl: profile?.avatar_url ?? null,
           score: row.score,
           achievedAt: row.achieved_at,

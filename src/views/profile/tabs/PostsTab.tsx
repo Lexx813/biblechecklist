@@ -56,7 +56,7 @@ export default function PostsTab({ profileId, isOwner, userId, navigate }: Props
         </h2>
         {isOwner && (
           <Button variant="primary" size="sm" onClick={() => setShowModal(true)}>
-            + New Post
+            {t("profile.newPost", "+ New Post")}
           </Button>
         )}
       </div>
@@ -99,7 +99,7 @@ export default function PostsTab({ profileId, isOwner, userId, navigate }: Props
               className="mt-1 cursor-pointer rounded-lg bg-[var(--accent)] px-4 py-2 text-sm font-bold text-white transition-opacity hover:opacity-85"
               onClick={() => setShowModal(true)}
             >
-              Write your first post
+              {t("profile.writeFirstPost", "Write your first post")}
             </button>
           )}
         </div>
@@ -125,9 +125,9 @@ export default function PostsTab({ profileId, isOwner, userId, navigate }: Props
                 <span className="flex items-center gap-1.5">
                   <span className="text-xs text-[var(--text-muted)]">{formatPostDate(post.created_at)}</span>
                   {post.visibility === "friends" && (
-                    <span className="inline-flex items-center gap-0.5 rounded-full bg-green-500/10 px-1.5 py-px text-[10px] font-semibold text-green-400" title="Friends only">
+                    <span className="inline-flex items-center gap-0.5 rounded-full bg-green-500/10 px-1.5 py-px text-[10px] font-semibold text-green-400" title={t("profile.friendsOnly", "Friends only")}>
                       <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-                      Friends
+                      {t("profile.friendsVisibility", "Friends")}
                     </span>
                   )}
                 </span>

@@ -400,15 +400,15 @@ export default function PostReadView({ post, user, navigate, children }: Props) 
           )}
 
           <div className="pr-widget pr-jw-widget">
-            <div className="pr-widget-label">Official JW Resources</div>
+            <div className="pr-widget-label">{t("blog.officialJwResources", "Official JW Resources")}</div>
             <a className="pr-jw-widget-link" href="https://www.jw.org" target="_blank" rel="noopener noreferrer">
               🌐 <span>jw.org</span>
             </a>
             <a className="pr-jw-widget-link" href="https://wol.jw.org" target="_blank" rel="noopener noreferrer">
-              🔍 <span>WOL Research Library</span>
+              🔍 <span>{t("blog.wolResearchLibrary", "WOL Research Library")}</span>
             </a>
             <a className="pr-jw-widget-link" href="https://www.jw.org/en/online-help/jw-library/" target="_blank" rel="noopener noreferrer">
-              📱 <span>JW Library App</span>
+              📱 <span>{t("blog.jwLinkJwLibraryApp", "JW Library App")}</span>
             </a>
           </div>
         </aside>
@@ -422,7 +422,7 @@ export default function PostReadView({ post, user, navigate, children }: Props) 
           else window.scrollTo({ top: 0, behavior: "smooth" });
         }}
       >
-        ↑ Top <span className="pr-back-top-pct">{scrollPct}%</span>
+        ↑ {t("blog.backToTop", "Top")} <span className="pr-back-top-pct">{scrollPct}%</span>
       </button>
     </div>
   );

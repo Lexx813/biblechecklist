@@ -122,7 +122,7 @@ function ReelItem({ video, liked, isActive, onLike, onExpand, onComment, onShare
   const videoRef = useRef<HTMLVideoElement>(null);
   const [progress, setProgress] = useState(0);
   const isUpload = !video.embed_url && !!video.storage_path;
-  const creatorName = video.profiles?.display_name ?? "Creator";
+  const creatorName = video.profiles?.display_name ?? t("videos.creatorFallback", "Creator");
   const initials = (creatorName[0] ?? "?").toUpperCase();
 
   // Fetch signed URL for storage videos, start fetching 1 video early so it's
@@ -334,7 +334,7 @@ function CommentDrawer({ videoId, user, onClose }: CommentDrawerProps) {
                   : (c.profiles?.display_name?.[0] ?? "?").toUpperCase()}
               </div>
               <div className="video-comment-body">
-                <div className="video-comment-author">{c.profiles?.display_name ?? "Anonymous"}</div>
+                <div className="video-comment-author">{c.profiles?.display_name ?? t("videos.anonymous", "Anonymous")}</div>
                 <div className="video-comment-text">{c.content}</div>
               </div>
             </div>

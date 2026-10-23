@@ -49,8 +49,8 @@ export default function ForumHighlightsWidget({ threads, loading, expanded, setE
       {loading ? <ThreadSkeleton /> : threads.length === 0 ? (
         <EmptyState
           icon={<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>}
-          title="No discussions yet" sub="Start the first conversation."
-          btnLabel="Start a thread \u2192" onBtn={() => navigate("forum")}
+          title={t("home.forumEmptyTitle", "No discussions yet")} sub={t("home.forumEmptySub", "Start the first conversation.")}
+          btnLabel={t("home.forumStartThread", "Start a thread \u2192")} onBtn={() => navigate("forum")}
         />
       ) : (
         <>
@@ -77,7 +77,7 @@ export default function ForumHighlightsWidget({ threads, loading, expanded, setE
             className="flex w-full cursor-pointer items-center justify-center gap-1.5 rounded-b-[var(--radius)] border-none bg-brand-600/10 py-2.5 text-xs font-semibold text-[var(--accent)] transition-colors duration-100 hover:bg-brand-600/20 [html[data-theme=light]_&]:bg-brand-600/[0.07] [html[data-theme=light]_&]:hover:bg-brand-600/[0.12]"
             onClick={() => threads.length > 1 && !expanded ? setExpanded(true) : navigate("forum")}
           >
-            {expanded ? "View all threads" : threads.length > 1 ? `Show ${threads.length - 1} more` : "View all threads"}
+            {expanded ? t("home.viewAllThreads", "View all threads") : threads.length > 1 ? t("home.showMore", "Show {{count}} more", { count: threads.length - 1 }) : t("home.viewAllThreads", "View all threads")}
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ transform: expanded ? "rotate(180deg)" : "none", transition: "transform 200ms" }}><polyline points="6 9 12 15 18 9"/></svg>
           </button>
         </>

@@ -1,3 +1,5 @@
+import i18n from "../i18n";
+
 const ALLOWED_VIDEO_TYPES = ["video/mp4", "video/quicktime", "video/webm"];
 const MAX_VIDEO_BYTES = 50 * 1024 * 1024;
 
@@ -36,10 +38,10 @@ export function parseEmbedUrl(rawUrl: string): string | null {
 /** Returns an error message, or null if the file is valid. */
 export function validateVideoFile(file: File): string | null {
   if (!ALLOWED_VIDEO_TYPES.includes(file.type)) {
-    return "Only MP4, MOV, WebM files are supported.";
+    return i18n.t("common.videoUnsupportedType", "Only MP4, MOV, WebM files are supported.");
   }
   if (file.size > MAX_VIDEO_BYTES) {
-    return "File too large. Maximum size is 50 MB.";
+    return i18n.t("common.videoFileTooLarge", "File too large. Maximum size is 50 MB.");
   }
   return null;
 }

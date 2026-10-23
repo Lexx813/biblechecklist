@@ -33,7 +33,7 @@ export default function VideoPreview({ userId }: VideoPreviewProps) {
     async function load() {
       try {
         const { data: { session } } = await supabase.auth.getSession();
-        if (!session) throw new Error("Sign in to preview your video.");
+        if (!session) throw new Error(t("share.signInToPreview", "Sign in to preview your video."));
 
         const body: Record<string, string> = {};
         if (userId) body.userId = userId;
@@ -56,7 +56,7 @@ export default function VideoPreview({ userId }: VideoPreviewProps) {
         if (!cancelled) setState({ status: "ready", props });
       } catch (err) {
         if (!cancelled) {
-          setState({ status: "error", message: err instanceof Error ? err.message : "Failed to load video." });
+          setState({ status: "error", message: err instanceof Error ? err.message : t("share.videoLoadFailed", "Failed to load video.") });
         }
       }
     }

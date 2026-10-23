@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useTranslation } from "react-i18next";
+import { useAdminTranslation } from "../useAdminTranslation";
 import { useAllAnnouncements, useCreateAnnouncement, useToggleAnnouncement, useDeleteAnnouncement } from "../../../hooks/useAnnouncements";
 import { formatDate } from "../../../utils/formatters";
 import { AdminSkeleton } from "./UsersTab";
@@ -9,7 +9,7 @@ interface Props {
 }
 
 export function AnnouncementsTab({ currentUser }: Props) {
-  const { t } = useTranslation();
+  const { t } = useAdminTranslation();
   const { data: announcements = [], isLoading } = useAllAnnouncements();
   const createAnnouncement = useCreateAnnouncement();
   const toggleAnnouncement = useToggleAnnouncement();

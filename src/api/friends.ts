@@ -1,4 +1,5 @@
 import { supabase } from "../lib/supabase";
+import i18n from "../i18n";
 
 interface ProfileBasic {
   id: string;
@@ -11,7 +12,7 @@ export const friendsApi = {
 
   sendRequest: async (toUserId: string) => {
     const { data: { user } } = await supabase.auth.getUser();
-    if (!user) throw new Error("Not authenticated");
+    if (!user) throw new Error(i18n.t("common.notAuthenticated", "Not authenticated"));
     const { error } = await supabase
       .from("friend_requests")
       .insert({ from_user_id: user.id, to_user_id: toUserId });
@@ -30,7 +31,7 @@ export const friendsApi = {
 
   cancelRequest: async (toUserId: string) => {
     const { data: { user } } = await supabase.auth.getUser();
-    if (!user) throw new Error("Not authenticated");
+    if (!user) throw new Error(i18n.t("common.notAuthenticated", "Not authenticated"));
     const { error } = await supabase
       .from("friend_requests")
       .delete()
@@ -42,7 +43,7 @@ export const friendsApi = {
 
   acceptRequest: async (fromUserId: string) => {
     const { data: { user } } = await supabase.auth.getUser();
-    if (!user) throw new Error("Not authenticated");
+    if (!user) throw new Error(i18n.t("common.notAuthenticated", "Not authenticated"));
 
     // Update request status
     const { error: reqErr } = await supabase
@@ -63,7 +64,7 @@ export const friendsApi = {
 
   declineRequest: async (fromUserId: string) => {
     const { data: { user } } = await supabase.auth.getUser();
-    if (!user) throw new Error("Not authenticated");
+    if (!user) throw new Error(i18n.t("common.notAuthenticated", "Not authenticated"));
     const { error } = await supabase
       .from("friend_requests")
       .update({ status: "declined" })
@@ -184,7 +185,7 @@ export const friendsApi = {
 
   getOrCreateToken: async () => {
     const { data: { user } } = await supabase.auth.getUser();
-    if (!user) throw new Error("Not authenticated");
+    if (!user) throw new Error(i18n.t("common.notAuthenticated", "Not authenticated"));
 
     const { data: existing } = await supabase
       .from("invite_tokens")

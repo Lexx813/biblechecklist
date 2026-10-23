@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { supabase } from "../../lib/supabase";
+import i18n from "../../i18n";
 import { subscribeWithMonitor } from "../../lib/realtime";
 import type { TriviaRoom, TriviaPlayer, ActiveQuestion } from "../../lib/trivia/types";
 
@@ -83,7 +84,7 @@ export function useRoom(roomId: string | null): RoomState {
         .single();
 
       if (error || !room) {
-        setState((s) => ({ ...s, loading: false, error: "Room not found" }));
+        setState((s) => ({ ...s, loading: false, error: i18n.t("trivia.roomNotFound", "Room not found") }));
         return;
       }
 
@@ -136,9 +137,9 @@ export function useRoom(roomId: string | null): RoomState {
       // a frozen room state means a half-dead game with no signal.
       subscribeWithMonitor(channel, `trivia-room:${roomId}`, (status) => {
         if (status !== "SUBSCRIBED") {
-          setState((s) => ({ ...s, error: "Reconnecting…" }));
+          setState((s) => ({ ...s, error: i18n.t("trivia.reconnecting", "Reconnecting…") }));
         } else {
-          setState((s) => (s.error === "Reconnecting…" ? { ...s, error: null } : s));
+          setState((s) => (s.error === i18n.t("trivia.reconnecting", "Reconnecting…") ? { ...s, error: null } : s));
           // Re-pull state on reconnect.
           refresh();
         }

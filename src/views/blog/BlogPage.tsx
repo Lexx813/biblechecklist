@@ -136,14 +136,14 @@ function PostComments({ postId, postAuthorId, postSlug, user, profile, navigate 
             <div key={c.id} className="blog-comment">
               <div className="blog-comment-avatar blog-avatar--clickable" onClick={() => navigate("publicProfile", { userId: c.author_id })}>
                 {c.profiles?.avatar_url
-                  ? <img src={c.profiles.avatar_url} alt={c.profiles?.display_name || c.profiles?.email?.split("@")[0] || "User"} width={36} height={36} loading="lazy" />
+                  ? <img src={c.profiles.avatar_url} alt={c.profiles?.display_name || c.profiles?.email?.split("@")[0] || t("follow.user", "User")} width={36} height={36} loading="lazy" />
                   : (c.profiles?.display_name || c.profiles?.email || "?")[0].toUpperCase()
                 }
               </div>
               <div className="blog-comment-body">
                 <div className="blog-comment-meta">
                   <span className="blog-comment-author">
-                    {c.profiles?.display_name || c.profiles?.email?.split("@")[0] || "Anonymous"}
+                    {c.profiles?.display_name || c.profiles?.email?.split("@")[0] || t("blog.anonymousAuthor", "Anonymous")}
                   </span>
                   <span className="blog-comment-time">
                     {new Date(c.created_at).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" })}
@@ -174,8 +174,8 @@ function PostComments({ postId, postAuthorId, postSlug, user, profile, navigate 
                             blockUser.mutate(c.author_id);
                           }
                         }}
-                        title={blockedSet.has(c.author_id) ? "Unblock user" : "Block user"}
-                        aria-label={blockedSet.has(c.author_id) ? "Unblock user" : "Block user"}
+                        title={blockedSet.has(c.author_id) ? t("forum.unblockUser", "Unblock user") : t("forum.blockUser", "Block user")}
+                        aria-label={blockedSet.has(c.author_id) ? t("forum.unblockUser", "Unblock user") : t("forum.blockUser", "Block user")}
                       >
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
                       </button>
@@ -331,7 +331,7 @@ function PostView({ slug, onBack, onSelectPost, user, profile, navigate, darkMod
               <span>{formatDateLong(post.created_at)}</span>
               <span className="blog-dot">·</span>
               <span>{t("blog.minRead", { count: minRead })}</span>
-              {post.view_count > 0 && <><span className="blog-dot">·</span><span>{post.view_count.toLocaleString()} views</span></>}
+              {post.view_count > 0 && <><span className="blog-dot">·</span><span>{t("blog.viewCount", "{{formatted}} views", { count: post.view_count, formatted: post.view_count.toLocaleString() })}</span></>}
             </div>
             <ShareButtons path={`/blog/${post.slug}`} title={displayTitle} type="blog" />
           </div>
@@ -650,7 +650,8 @@ function PostReadViewLoader({ slug, user, navigate, onBack, renderFallback }: {
 
 // ── Main Blog Page ────────────────────────────────────────────────────────────
 export default function BlogPage({ user, profile, onBack, onWriteClick, onMyPostsClick = null, slug, onSelectPost, navigate, darkMode, setDarkMode, i18n, onLogout }) {
-  useMeta(!slug ? { title: "Blog", description: "Reflections, studies, and insights from the JW Study community." } : {});
+  const { t } = useTranslation();
+  useMeta(!slug ? { title: t("app.blog", "Blog"), description: t("blog.metaDescription", "Reflections, studies, and insights from the JW Study community.") } : {});
 
   if (slug) {
     return (

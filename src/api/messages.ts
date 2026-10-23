@@ -1,4 +1,5 @@
 import { supabase } from "../lib/supabase";
+import i18n from "../i18n";
 import { assertNoPII } from "../lib/pii";
 import type { Database } from "../types/supabase";
 
@@ -156,7 +157,7 @@ export const messagesApi = {
     metadata: Json = null,
   ): Promise<MessageRow> => {
     const { data: { user } } = await supabase.auth.getUser();
-    if (!user) throw new Error("Not authenticated");
+    if (!user) throw new Error(i18n.t("common.notAuthenticated", "Not authenticated"));
     if (messageType === "text") assertNoPII(content);
     const row: Record<string, unknown> = {
       conversation_id: conversationId,
@@ -277,13 +278,13 @@ export const messagesApi = {
     const ALLOWED_TYPES: Record<string, string> = { "image/jpeg": "jpg", "image/png": "png", "image/gif": "gif", "image/webp": "webp" };
     const MAX_BYTES = 5 * 1024 * 1024; // 5 MB
 
-    if (!ALLOWED_TYPES[file.type]) throw new Error("Only JPEG, PNG, GIF, and WebP images are allowed.");
-    if (file.size > MAX_BYTES) throw new Error("Image must be smaller than 5 MB.");
+    if (!ALLOWED_TYPES[file.type]) throw new Error(i18n.t("messages.errImageType", "Only JPEG, PNG, GIF, and WebP images are allowed."));
+    if (file.size > MAX_BYTES) throw new Error(i18n.t("messages.errImageSize", "Image must be smaller than 5 MB."));
 
     // Prefix uploads with the user's ID so storage.objects RLS can gate
     // write/update/delete to (storage.foldername(name))[1] = auth.uid()::text.
     const { data: { user } } = await supabase.auth.getUser();
-    if (!user) throw new Error("Not authenticated");
+    if (!user) throw new Error(i18n.t("common.notAuthenticated", "Not authenticated"));
 
     const ext = ALLOWED_TYPES[file.type];
     const path = `${user.id}/${Date.now()}-${crypto.randomUUID()}.${ext}`;

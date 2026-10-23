@@ -7,21 +7,21 @@ import { wolChapterUrl } from "../../utils/wol";
 export const REACTION_EMOJIS = ["👍","❤️","😂","😮","😢","🔥","🙏","👏"];
 
 export const THEME_COLORS = [
-  { label: "Teal", value: null },
-  { label: "Purple", value: "#7c3aed" },
-  { label: "Blue", value: "#2563eb" },
-  { label: "Rose", value: "#e11d48" },
-  { label: "Amber", value: "#d97706" },
-  { label: "Emerald", value: "#059669" },
-  { label: "Indigo", value: "#4f46e5" },
-  { label: "Pink", value: "#db2777" },
+  { labelKey: "messages.colorTeal", label: "Teal", value: null },
+  { labelKey: "messages.colorPurple", label: "Purple", value: "#7c3aed" },
+  { labelKey: "messages.colorBlue", label: "Blue", value: "#2563eb" },
+  { labelKey: "messages.colorRose", label: "Rose", value: "#e11d48" },
+  { labelKey: "messages.colorAmber", label: "Amber", value: "#d97706" },
+  { labelKey: "messages.colorEmerald", label: "Emerald", value: "#059669" },
+  { labelKey: "messages.colorIndigo", label: "Indigo", value: "#4f46e5" },
+  { labelKey: "messages.colorPink", label: "Pink", value: "#db2777" },
 ];
 
 export const DISAPPEAR_OPTIONS = [
-  { label: "Off", value: null },
-  { label: "24 hours", value: 1 },
-  { label: "7 days", value: 7 },
-  { label: "30 days", value: 30 },
+  { labelKey: "messages.disappearOff", label: "Off", value: null },
+  { labelKey: "messages.disappear24hours", label: "24 hours", value: 1 },
+  { labelKey: "messages.disappear7days", label: "7 days", value: 7 },
+  { labelKey: "messages.disappear30days", label: "30 days", value: 30 },
 ];
 
 export const PUSH_DISMISS_KEY = "nwt-push-prompt-dismissed";

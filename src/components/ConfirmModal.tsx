@@ -27,7 +27,7 @@ export default function ConfirmModal({ message, onConfirm, onCancel, confirmLabe
         className="flex w-full max-w-[340px] animate-[confirm-in_var(--dur-base)_var(--ease-spring)] flex-col gap-5 rounded-[var(--radius-lg)] border border-[var(--border)] bg-[var(--card-bg)] px-6 pb-6 pt-7 shadow-[var(--shadow-xl)]"
         role="dialog"
         aria-modal="true"
-        aria-label="Confirm action"
+        aria-label={t("confirm.ariaLabel", "Confirm action")}
         onClick={e => e.stopPropagation()}
       >
         <div className="flex flex-col gap-2">

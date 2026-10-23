@@ -1,10 +1,12 @@
+import i18n from "../../../i18n";
+
 export function timeAgo(iso: string): string {
   const m = Math.floor((Date.now() - new Date(iso).getTime()) / 60_000);
-  if (m < 1) return "just now";
-  if (m < 60) return `${m}m ago`;
+  if (m < 1) return i18n.t("groups.timeJustNow", "just now");
+  if (m < 60) return i18n.t("groups.timeMinutesAgo", "{{count}}m ago", { count: m });
   const h = Math.floor(m / 60);
-  if (h < 24) return `${h}h ago`;
-  return `${Math.floor(h / 24)}d ago`;
+  if (h < 24) return i18n.t("groups.timeHoursAgo", "{{count}}h ago", { count: h });
+  return i18n.t("groups.timeDaysAgo", "{{count}}d ago", { count: Math.floor(h / 24) });
 }
 
 export function formatDate(iso: string): string {

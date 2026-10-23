@@ -46,7 +46,12 @@ const ReadingRow = memo(function ReadingRow({ row, i, isMe, onProfile }: any) {
       <Avatar row={row} />
       <div className="lb-info">
         <span className="lb-name">{row.display_name || t("leaderboard.anonymous")}</span>
-        <span className="lb-sub">{row.pct}% {t("leaderboard.complete")}</span>
+        <span className="lb-sub">
+          {row.pct}% {t("leaderboard.complete")}
+          {row.current_streak > 0 && (
+            <> · 🔥 {t("leaderboard.streakDays", { count: row.current_streak, defaultValue_one: "{{count}}-day streak", defaultValue: "{{count}}-day streak" })}</>
+          )}
+        </span>
       </div>
       <span className="lb-stat">{Number(row.chapters_read).toLocaleString()} <span className="lb-stat-label">{t("leaderboard.chapters")}</span></span>
     </div>

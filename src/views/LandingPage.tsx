@@ -217,7 +217,7 @@ export default function LandingPage({ onGetStarted, i18n }: { onGetStarted: () =
             <span>JW Study</span>
           </a>
 
-          <nav className="mr-auto hidden gap-1 md:flex" aria-label="Main navigation">
+          <nav className="mr-auto hidden gap-1 md:flex" aria-label={t("landing.mainNavAria", "Main navigation")}>
             <a href={currentLangCode === "es" ? "/es/songs" : "/songs"} className="rounded-lg px-3 py-1.5 text-sm font-medium text-[var(--lp-muted)] transition-colors duration-150 hover:bg-[var(--lp-pill-bg)] hover:text-[var(--lp-text)]">{t("landing.songsNav")}</a>
             <a href="/blog" className="rounded-lg px-3 py-1.5 text-sm font-medium text-[var(--lp-muted)] transition-colors duration-150 hover:bg-[var(--lp-pill-bg)] hover:text-[var(--lp-text)]">{t("landing.nav.blog")}</a>
             <a href="/about" className="rounded-lg px-3 py-1.5 text-sm font-medium text-[var(--lp-muted)] transition-colors duration-150 hover:bg-[var(--lp-pill-bg)] hover:text-[var(--lp-text)]">{t("landing.nav.about")}</a>
@@ -301,7 +301,7 @@ export default function LandingPage({ onGetStarted, i18n }: { onGetStarted: () =
       </section>
 
       {/* ── App Preview ─────────────────────────────────────────── */}
-      <section className="bg-[var(--lp-bg)] px-6 pb-20 md:px-6 max-md:px-5 max-md:pb-16" aria-label="App preview">
+      <section className="bg-[var(--lp-bg)] px-6 pb-20 md:px-6 max-md:px-5 max-md:pb-16" aria-label={t("landing.appPreviewAria", "App preview")}>
         <div className="mx-auto grid max-w-[1080px] items-center gap-16 md:grid-cols-2 max-md:gap-10 max-md:text-center">
           <div className="flex flex-col gap-4 max-md:items-center">
             <span className="inline-flex w-fit items-center rounded-full bg-[var(--lp-badge-bg)] px-3.5 py-[5px] text-xs font-semibold uppercase tracking-wider text-[var(--lp-badge-text)]">
@@ -712,7 +712,7 @@ export default function LandingPage({ onGetStarted, i18n }: { onGetStarted: () =
             <span className="flex text-brand-500"><BookIcon /></span>
             <span>JW Study</span>
           </div>
-          <nav className="mr-auto flex gap-1 max-md:mr-0" aria-label="Footer links">
+          <nav className="mr-auto flex gap-1 max-md:mr-0" aria-label={t("landing.footerLinksAria", "Footer links")}>
             <a href={currentLangCode === "es" ? "/es/songs" : "/songs"} className="rounded-md px-2.5 py-1 text-[13px] text-[var(--lp-footer-link)] no-underline transition-colors duration-150 hover:bg-white/[0.08] hover:text-white">{t("landing.songsNav")}</a>
             <a href="/blog" className="rounded-md px-2.5 py-1 text-[13px] text-[var(--lp-footer-link)] no-underline transition-colors duration-150 hover:bg-white/[0.08] hover:text-white">{t("landing.nav.blog")}</a>
             <a href="/about" className="rounded-md px-2.5 py-1 text-[13px] text-[var(--lp-footer-link)] no-underline transition-colors duration-150 hover:bg-white/[0.08] hover:text-white">{t("landing.nav.about")}</a>

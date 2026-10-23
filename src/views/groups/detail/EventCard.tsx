@@ -35,7 +35,7 @@ export default function EventCard({ event, isAdmin, groupId }: Props) {
         <div className="grp-event-title-row">
           <h4 className="grp-event-title">{event.title}</h4>
           {isAdmin && (
-            <button className="grp-post-delete" onClick={() => deleteEvent.mutate(event.id, { onError: () => toast.error(t("groups.failedDeleteEvent")) })} aria-label={t("groups.failedDeleteEvent")}>
+            <button className="grp-post-delete" onClick={() => deleteEvent.mutate(event.id, { onError: () => toast.error(t("groups.failedDeleteEvent")) })} aria-label={t("groups.deleteEvent", "Delete event")}>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
             </button>
           )}
@@ -46,7 +46,7 @@ export default function EventCard({ event, isAdmin, groupId }: Props) {
         </div>
         {event.description && <p className="grp-event-desc">{event.description}</p>}
         <div className="grp-event-rsvp">
-          <span className="grp-event-rsvp-count">{event.rsvp_count} going</span>
+          <span className="grp-event-rsvp-count">{t("groups.rsvpGoingCount", "{{count}} going", { count: event.rsvp_count })}</span>
           {!isPast && (
             <div className="grp-rsvp-btns">
               {(["going", "maybe", "not_going"] as const).map(s => (
@@ -55,7 +55,7 @@ export default function EventCard({ event, isAdmin, groupId }: Props) {
                   className={`grp-rsvp-btn${event.my_rsvp === s ? " grp-rsvp-btn--active" : ""}`}
                   onClick={() => handleRsvp(s)}
                 >
-                  {s === "going" ? "Going" : s === "maybe" ? "Maybe" : "Can't go"}
+                  {s === "going" ? t("groups.rsvpGoing", "Going") : s === "maybe" ? t("groups.rsvpMaybe", "Maybe") : t("groups.rsvpCantGo", "Can't go")}
                 </button>
               ))}
             </div>

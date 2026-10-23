@@ -16,6 +16,7 @@ const HIGHLIGHT_COLORS = ["#fef08a", "#bbf7d0", "#bae6fd", "#fbcfe8", "#fed7aa",
  * (which would tear down the selectionchange listener mid-selection).
  */
 function SelectionBubble({ containerRef }: { containerRef: React.RefObject<HTMLDivElement | null> }) {
+  const { t } = useTranslation();
   const [pos, setPos] = useState<{ top: number; left: number } | null>(null);
   const [showHighlightPalette, setShowHighlightPalette] = useState(false);
   const bubbleRef = useRef<HTMLDivElement | null>(null);
@@ -72,17 +73,17 @@ function SelectionBubble({ containerRef }: { containerRef: React.RefObject<HTMLD
         zIndex: 9999,
       }}
     >
-      <button type="button" className="editor-pop__btn" onMouseDown={cmd(() => exec("bold"))} title="Bold (Cmd+B)"><strong>B</strong></button>
-      <button type="button" className="editor-pop__btn" onMouseDown={cmd(() => exec("italic"))} title="Italic (Cmd+I)"><em>I</em></button>
-      <button type="button" className="editor-pop__btn" onMouseDown={cmd(() => exec("underline"))} title="Underline"><span style={{ textDecoration: "underline" }}>U</span></button>
-      <button type="button" className="editor-pop__btn" onMouseDown={cmd(() => exec("strikeThrough"))} title="Strikethrough"><span style={{ textDecoration: "line-through" }}>S</span></button>
+      <button type="button" className="editor-pop__btn" onMouseDown={cmd(() => exec("bold"))} title={t("blog.editorBold", "Bold (Cmd+B)")}><strong>B</strong></button>
+      <button type="button" className="editor-pop__btn" onMouseDown={cmd(() => exec("italic"))} title={t("blog.editorItalic", "Italic (Cmd+I)")}><em>I</em></button>
+      <button type="button" className="editor-pop__btn" onMouseDown={cmd(() => exec("underline"))} title={t("blog.editorUnderline", "Underline")}><span style={{ textDecoration: "underline" }}>U</span></button>
+      <button type="button" className="editor-pop__btn" onMouseDown={cmd(() => exec("strikeThrough"))} title={t("blog.editorStrikethrough", "Strikethrough")}><span style={{ textDecoration: "line-through" }}>S</span></button>
       <span className="editor-pop__sep" />
       <div style={{ position: "relative" }}>
         <button
           type="button"
           className={"editor-pop__btn" + (showHighlightPalette ? " editor-pop__btn--active" : "")}
           onMouseDown={cmd(() => setShowHighlightPalette(v => !v))}
-          title="Highlight"
+          title={t("blog.editorHighlight", "Highlight")}
         >
           <span className="editor-pop__chip-swatch">
             <span>H</span>
@@ -106,7 +107,7 @@ function SelectionBubble({ containerRef }: { containerRef: React.RefObject<HTMLD
               className="editor-pop__clear"
               onMouseDown={(e) => { e.preventDefault(); exec("hiliteColor", "transparent"); setShowHighlightPalette(false); }}
             >
-              Clear highlight
+              {t("editor.clearHighlight", "Clear highlight")}
             </button>
           </div>
         )}
@@ -386,7 +387,7 @@ export default function BlockEditor({ blocks, onChange, onImageUpload }: Props) 
                       className="be-video-iframe"
                       allowFullScreen
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      title="video"
+                      title={t("blockEditor.videoLabel", "Video")}
                     />
                     <button
                       className="be-image-remove"

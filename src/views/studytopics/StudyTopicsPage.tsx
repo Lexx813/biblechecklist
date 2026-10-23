@@ -103,7 +103,7 @@ export default function StudyTopicsPage({ user, navigate, ...sharedNav }) {
               >
                 <h2 className="stp-card-title">{bookName}</h2>
                 <p className="stp-card-subtitle">{theme}</p>
-                <span className="stp-card-arrow">Explore →</span>
+                <span className="stp-card-arrow">{t("studyTopics.explore", "Explore")} →</span>
               </button>
             );
           })}

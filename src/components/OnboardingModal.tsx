@@ -41,19 +41,6 @@ const CHOICES = [
   },
 ];
 
-const PLAN_OPTIONS = [
-  { key: "nwt-1year",     label: "1 Year",        meta: "3–4 chapters/day · finish Dec 31", popular: true },
-  { key: "nwt-2year",     label: "2 Years",        meta: "1–2 chapters/day · low pressure",  popular: false },
-  { key: "chronological", label: "Chronological",  meta: "Events in historical order",       popular: false },
-  { key: "none",          label: "No plan for now", meta: "Read freely at your own pace",    popular: false },
-];
-
-const GOAL_PRESETS = [
-  { value: 1, label: "1", sub: "Easy" },
-  { value: 3, label: "3", sub: "Balanced" },
-  { value: 5, label: "5", sub: "Fast" },
-];
-
 interface User {
   id?: string;
   user_metadata?: { full_name?: string };
@@ -67,6 +54,17 @@ interface Props {
 
 export default function OnboardingModal({ onClose, navigate, user }: Props) {
   const { t } = useTranslation();
+  const PLAN_OPTIONS = [
+    { key: "nwt-1year",     label: t("onboarding.plan1YearLabel", "1 Year"),          meta: t("onboarding.plan1YearMeta", "3–4 chapters/day · finish Dec 31"), popular: true },
+    { key: "nwt-2year",     label: t("onboarding.plan2YearLabel", "2 Years"),         meta: t("onboarding.plan2YearMeta", "1–2 chapters/day · low pressure"),  popular: false },
+    { key: "chronological", label: t("onboarding.planChronoLabel", "Chronological"),  meta: t("onboarding.planChronoMeta", "Events in historical order"),       popular: false },
+    { key: "none",          label: t("onboarding.planNoneLabel", "No plan for now"),  meta: t("onboarding.planNoneMeta", "Read freely at your own pace"),     popular: false },
+  ];
+  const GOAL_PRESETS = [
+    { value: 1, label: "1", sub: t("onboarding.goalEasy", "Easy") },
+    { value: 3, label: "3", sub: t("onboarding.goalBalanced", "Balanced") },
+    { value: 5, label: "5", sub: t("onboarding.goalFast", "Fast") },
+  ];
   const [step, setStep] = useState(0); // 0=intent, 1=plan, 2=goal, 3=invite, 4=ai, 5=done
   const [goalInput, setGoalInput] = useState(3);
   const [inviteStatus, setInviteStatus] = useState<"idle" | "shared" | "copied" | "failed">("idle");
@@ -161,7 +159,7 @@ export default function OnboardingModal({ onClose, navigate, user }: Props) {
                     <div className="onboard-plan-name">{plan.label}</div>
                     <div className="onboard-plan-meta">{plan.meta}</div>
                   </div>
-                  {plan.popular && <span className="onboard-plan-badge">⭐ Popular</span>}
+                  {plan.popular && <span className="onboard-plan-badge">⭐ {t("onboarding.planPopular", "Popular")}</span>}
                 </button>
               ))}
             </div>

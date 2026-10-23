@@ -190,8 +190,8 @@ export function ForumThreadList({ category, user, onSelectThread, onBack, naviga
         </button>
         {discardOpen && (
           <ConfirmModal
-            message="You have unsaved changes in this thread. Discard them and close?"
-            confirmLabel="Discard"
+            message={t("forum.discardThreadConfirm", "You have unsaved changes in this thread. Discard them and close?")}
+            confirmLabel={t("forum.discard", "Discard")}
             onConfirm={() => {
               setDiscardOpen(false);
               setTitle("");
@@ -210,7 +210,7 @@ export function ForumThreadList({ category, user, onSelectThread, onBack, naviga
           placeholder={t("forum.searchPlaceholder")}
           value={search}
           onChange={e => setSearch(e.target.value)}
-          aria-label="Search forum"
+          aria-label={t("forum.searchForumAria", "Search forum")}
         />
       </div>
 
@@ -251,7 +251,7 @@ export function ForumThreadList({ category, user, onSelectThread, onBack, naviga
             value={title}
             onChange={e => setTitle(e.target.value)}
             disabled={createThread.isPending}
-            aria-label="Thread title"
+            aria-label={t("forum.threadTitleAria", "Thread title")}
           />
           <Suspense fallback={<div style={{ height: 120 }} />}>
             <RichTextEditor
@@ -376,7 +376,7 @@ export function ForumCategoryList({ onSelectCategory, onBack, navigate, i18n, us
   const { data: blockedSet = new Set<string>() } = useBlocks(user?.id);
   const { t } = useTranslation();
 
-  useMeta({ title: "Forum", description: "Join community discussions about Bible reading, faith, and spiritual growth." });
+  useMeta({ title: t("forum.breadcrumbForum", "Forum"), description: t("forum.metaDescription", "Join community discussions about Bible reading, faith, and spiritual growth.") });
   const lang = i18n.language.split("-")[0];
 
   const visibleTrending = trending.filter(th => !blockedSet.has(th.author_id));

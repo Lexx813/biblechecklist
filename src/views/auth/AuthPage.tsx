@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useTranslation } from "react-i18next";
+import { useTranslation, Trans } from "react-i18next";
 import { useLogin, useRegister, useResetPassword } from "../../hooks/useAuth";
 import { authApi } from "../../api/auth";
 import { trackSignup, trackLogin } from "../../lib/analytics";
@@ -326,8 +326,14 @@ export default function AuthPage({ onBack, onRegisterSuccess = null, confirmedEm
                   disabled={busy}
                 />
                 <span>
-                  I am <strong>13 years of age or older</strong>. If I am under 18, I have my parent or guardian's permission to use this app and they have read the{" "}
-                  <button type="button" className="auth-policy-link" onClick={() => window.open("/terms", "_blank", "noopener,noreferrer")}>Terms of Service</button>.
+                  <Trans
+                    i18nKey="auth.consentAge"
+                    defaults="I am <bold>13 years of age or older</bold>. If I am under 18, I have my parent or guardian's permission to use this app and they have read the <termsLink>Terms of Service</termsLink>."
+                    components={{
+                      bold: <strong />,
+                      termsLink: <button type="button" className="auth-policy-link" onClick={() => window.open("/terms", "_blank", "noopener,noreferrer")} />,
+                    }}
+                  />
                 </span>
               </label>
               <label className="auth-consent-label">
@@ -339,11 +345,15 @@ export default function AuthPage({ onBack, onRegisterSuccess = null, confirmedEm
                   disabled={busy}
                 />
                 <span>
-                  I agree to the{" "}
-                  <button type="button" className="auth-policy-link" onClick={() => window.open("/terms", "_blank", "noopener,noreferrer")}>Terms of Service</button>
-                  {" "}and{" "}
-                  <button type="button" className="auth-policy-link" onClick={() => window.open("/privacy", "_blank", "noopener,noreferrer")}>Privacy Policy</button>
-                  , including the <strong>Child Safety Policy</strong>.
+                  <Trans
+                    i18nKey="auth.consentTerms"
+                    defaults="I agree to the <termsLink>Terms of Service</termsLink> and <privacyLink>Privacy Policy</privacyLink>, including the <bold>Child Safety Policy</bold>."
+                    components={{
+                      bold: <strong />,
+                      termsLink: <button type="button" className="auth-policy-link" onClick={() => window.open("/terms", "_blank", "noopener,noreferrer")} />,
+                      privacyLink: <button type="button" className="auth-policy-link" onClick={() => window.open("/privacy", "_blank", "noopener,noreferrer")} />,
+                    }}
+                  />
                 </span>
               </label>
             </div>
@@ -365,7 +375,7 @@ export default function AuthPage({ onBack, onRegisterSuccess = null, confirmedEm
           </Button>
         </form>
 
-        <div className="auth-divider"><span>or</span></div>
+        <div className="auth-divider"><span>{t("auth.or", "or")}</span></div>
 
         <div className="auth-social">
           <button
@@ -380,7 +390,7 @@ export default function AuthPage({ onBack, onRegisterSuccess = null, confirmedEm
               <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
               <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
             </svg>
-            {googleBusy ? t("auth.redirecting") : "Continue with Google"}
+            {googleBusy ? t("auth.redirecting") : t("auth.continueWithGoogle", "Continue with Google")}
           </button>
           <button
             type="button"
@@ -391,7 +401,7 @@ export default function AuthPage({ onBack, onRegisterSuccess = null, confirmedEm
             <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
               <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" fill="#1877F2"/>
             </svg>
-            {facebookBusy ? t("auth.redirecting") : "Continue with Facebook"}
+            {facebookBusy ? t("auth.redirecting") : t("auth.continueWithFacebook", "Continue with Facebook")}
           </button>
         </div>
 

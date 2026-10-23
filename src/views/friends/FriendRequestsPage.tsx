@@ -46,7 +46,7 @@ function OutgoingRow({
         <img
           className="freq-avatar freq-avatar--img"
           src={req.recipient.avatar_url}
-          alt={req.recipient.display_name ?? "User"}
+          alt={req.recipient.display_name ?? t("friendReq.user", "User")}
           onClick={() => navigate("publicProfile", { userId: req.to_user_id })}
         />
       ) : (
@@ -58,7 +58,7 @@ function OutgoingRow({
         </div>
       )}
       <div className="freq-card-info">
-        <div className="freq-card-name">{req.recipient?.display_name ?? "Unknown"}</div>
+        <div className="freq-card-name">{req.recipient?.display_name ?? t("friendReq.unknown", "Unknown")}</div>
         <div className="freq-card-time">{t("friendReq.sent")} {timeAgo(req.created_at, t)}</div>
       </div>
       <div className="freq-card-actions">
@@ -130,7 +130,7 @@ export default function FriendRequestsPage({ user, navigate, darkMode, setDarkMo
                   <img
                     className="freq-avatar freq-avatar--img"
                     src={req.sender.avatar_url}
-                    alt={req.sender.display_name ?? "User"}
+                    alt={req.sender.display_name ?? t("friendReq.user", "User")}
                     onClick={() => navigate("publicProfile", { userId: req.from_user_id })}
                   />
                 ) : (
@@ -142,7 +142,7 @@ export default function FriendRequestsPage({ user, navigate, darkMode, setDarkMo
                   </div>
                 )}
                 <div className="freq-card-info">
-                  <div className="freq-card-name">{req.sender?.display_name ?? "Unknown"}</div>
+                  <div className="freq-card-name">{req.sender?.display_name ?? t("friendReq.unknown", "Unknown")}</div>
                   <div className="freq-card-time">{t("friendReq.sent")} {timeAgo(req.created_at, t)}</div>
                 </div>
                 <div className="freq-card-actions">

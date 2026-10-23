@@ -25,6 +25,7 @@ function TranslationsTab({ translations, onChange, primaryLang, postTitle, postE
   postContent: string;
   disabled: boolean;
 }) {
+  const { t } = useTranslation();
   const availableLangs = LANGUAGES.filter(l => l.code !== primaryLang);
   const [activeLang, setActiveLang] = useState<string | null>(null);
   const [generating, setGenerating] = useState(false);
@@ -58,7 +59,7 @@ function TranslationsTab({ translations, onChange, primaryLang, postTitle, postE
 
     try {
       const { data: { session } } = await supabase.auth.getSession();
-      if (!session) throw new Error("Sign in required.");
+      if (!session) throw new Error(t("blogDash.signInRequired", "Sign in required."));
 
       const res = await fetch("/api/translate", {
         method: "POST",
@@ -75,7 +76,7 @@ function TranslationsTab({ translations, onChange, primaryLang, postTitle, postE
         signal: ctrl.signal,
       });
 
-      if (!res.ok) throw new Error(await res.text().catch(() => "Translation failed."));
+      if (!res.ok) throw new Error(await res.text().catch(() => t("blogDash.translationFailedShort", "Translation failed.")));
 
       const reader  = res.body!.getReader();
       const decoder = new TextDecoder();
@@ -106,7 +107,7 @@ function TranslationsTab({ translations, onChange, primaryLang, postTitle, postE
       }
     } catch (err) {
       if ((err as Error).name !== "AbortError") {
-        setGenError((err as Error).message || "Translation failed. Please try again.");
+        setGenError((err as Error).message || t("blogDash.translationFailed", "Translation failed. Please try again."));
       }
     } finally {
       setGenerating(false);
@@ -134,7 +135,7 @@ function TranslationsTab({ translations, onChange, primaryLang, postTitle, postE
       </div>
 
       {!activeLang && (
-        <p className="translations-empty">Select a language above to add or edit a translation.</p>
+        <p className="translations-empty">{t("blogDash.translationsSelectLang", "Select a language above to add or edit a translation.")}</p>
       )}
 
       {activeLang && (
@@ -146,13 +147,13 @@ function TranslationsTab({ translations, onChange, primaryLang, postTitle, postE
               onClick={generate}
               disabled={generating || disabled || !postTitle.trim()}
             >
-              {generating ? "Generating…" : "Generate with AI"}
+              {generating ? t("blogDash.generating", "Generating…") : t("blogDash.generateWithAi", "Generate with AI")}
             </button>
-            {generating && <span className="translations-generating-hint">Translating, fields will fill in as it streams…</span>}
+            {generating && <span className="translations-generating-hint">{t("blogDash.translatingHint", "Translating, fields will fill in as it streams…")}</span>}
           </div>
           {genError && <div className="blog-editor-error">{genError}</div>}
 
-          <label className="blog-editor-label">Title</label>
+          <label className="blog-editor-label">{t("blogDash.translationTitle", "Title")}</label>
           <input
             className="blog-editor-input"
             value={current.title}
@@ -161,7 +162,7 @@ function TranslationsTab({ translations, onChange, primaryLang, postTitle, postE
             maxLength={150}
           />
 
-          <label className="blog-editor-label">Excerpt</label>
+          <label className="blog-editor-label">{t("writer.excerptLabel", "Excerpt")}</label>
           <textarea
             className="blog-editor-textarea blog-editor-textarea--sm"
             value={current.excerpt}
@@ -170,7 +171,7 @@ function TranslationsTab({ translations, onChange, primaryLang, postTitle, postE
             maxLength={300}
           />
 
-          <label className="blog-editor-label">Content</label>
+          <label className="blog-editor-label">{t("blogDash.contentTab", "Content")}</label>
           <Suspense fallback={<div style={{ height: 200 }} />}>
             <RichTextEditor
               key={activeLang}
@@ -187,7 +188,7 @@ function TranslationsTab({ translations, onChange, primaryLang, postTitle, postE
               onClick={removeTranslation}
               disabled={disabled}
             >
-              Remove {LANGUAGES.find(l => l.code === activeLang)?.label} translation
+              {t("blogDash.removeTranslation", "Remove {{lang}} translation", { lang: LANGUAGES.find(l => l.code === activeLang)?.label })}
             </button>
           )}
         </div>
@@ -304,14 +305,14 @@ function PostEditor({ userId, post, onDone }) {
           className={`blog-editor-tab${activeTab === "content" ? " blog-editor-tab--active" : ""}`}
           onClick={() => setActiveTab("content")}
         >
-          Content
+          {t("blogDash.contentTab", "Content")}
         </button>
         <button
           type="button"
           className={`blog-editor-tab${activeTab === "translations" ? " blog-editor-tab--active" : ""}`}
           onClick={() => setActiveTab("translations")}
         >
-          Translations
+          {t("blogDash.translationsTab", "Translations")}
           {Object.keys(form.translations ?? {}).length > 0 && (
             <span className="blog-editor-tab-badge">{Object.keys(form.translations).length}</span>
           )}
@@ -349,7 +350,7 @@ function PostEditor({ userId, post, onDone }) {
               type="button"
               className="textarea-emoji-btn"
               onClick={() => setShowExcerptEmoji(v => !v)}
-              title="Emoji"
+              title={t("editor.emoji", "Emoji")}
               aria-expanded={showExcerptEmoji}
             >😊</button>
             {showExcerptEmoji && (
@@ -360,7 +361,7 @@ function PostEditor({ userId, post, onDone }) {
           <label htmlFor="blog-cover-url" className="blog-editor-label">{t("blogDash.coverLabel")} <span className="blog-editor-hint">{t("blogDash.coverHint")}</span></label>
           <div className="blog-cover-upload-row">
             {form.cover_url && (
-              <img src={form.cover_url} className="blog-cover-preview" alt="cover preview" />
+              <img src={form.cover_url} className="blog-cover-preview" alt={t("blogDash.coverPreviewAlt", "cover preview")} />
             )}
             <div className="blog-cover-controls">
               <input
@@ -466,8 +467,8 @@ function PostEditor({ userId, post, onDone }) {
       )}
       {discardOpen && (
         <ConfirmModal
-          message="You have unsaved changes. Leave anyway?"
-          confirmLabel="Discard"
+          message={t("blogDash.unsavedLeave", "You have unsaved changes. Leave anyway?")}
+          confirmLabel={t("blogDash.discard", "Discard")}
           onConfirm={() => { setDiscardOpen(false); onDone(); }}
           onCancel={() => setDiscardOpen(false)}
         />

@@ -135,7 +135,7 @@ export default function CreatePostModal({ onClose, onSubmit, isPending, userId, 
         {/* Image preview */}
         {imagePreview && (
           <div className="relative px-5 pb-2">
-            <img src={imagePreview} alt="Preview" className="w-full rounded-lg border border-[var(--border)] object-contain" style={{ maxHeight: 260 }} />
+            <img src={imagePreview} alt={t("common.previewAlt", "Preview")} className="w-full rounded-lg border border-[var(--border)] object-contain" style={{ maxHeight: 260 }} />
             <button
               type="button"
               className="absolute right-7 top-2 flex size-7 cursor-pointer items-center justify-center rounded-full border-none bg-black/60 text-white transition-colors hover:bg-black/80"

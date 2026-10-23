@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState, lazy, Suspense, type ReactNode } from "react";
-import { useTranslation } from "react-i18next";
+import { useAdminTranslation } from "./useAdminTranslation";
 import { useUsers } from "../../hooks/useAdmin";
 import { useReports } from "../../hooks/useReports";
 import LoadingSpinner from "../../components/LoadingSpinner";
@@ -135,7 +135,7 @@ export default function AdminPage({ currentUser, currentProfile, onBack, navigat
   const isCurrentUserAdmin = currentProfile?.is_admin;
   const { data: users = [], isLoading: usersLoading } = useUsers();
   const { data: reports = [], isLoading: reportsLoading } = useReports();
-  const { t } = useTranslation();
+  const { t } = useAdminTranslation();
 
   const [tab, setTab] = useState(() => isCurrentUserAdmin ? "users" : "reports");
 

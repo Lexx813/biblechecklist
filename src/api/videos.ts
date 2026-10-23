@@ -1,19 +1,21 @@
 import { supabase } from "../lib/supabase";
 import { generateVideoSlug } from "../utils/videoEmbed";
 import { assertNoPII } from "../lib/pii";
+import i18n from "../i18n";
 
 /** Only allow embeds from trusted video platforms */
 const ALLOWED_EMBED_HOSTS = ["youtube.com", "www.youtube.com", "youtu.be", "www.tiktok.com", "tiktok.com", "rumble.com", "www.rumble.com"];
+class EmbedValidationError extends Error {}
 function validateEmbedUrl(url: string | undefined | null): void {
   if (!url) return;
   try {
     const parsed = new URL(url);
-    if (parsed.protocol !== "https:") throw new Error("Embed URL must use HTTPS.");
+    if (parsed.protocol !== "https:") throw new EmbedValidationError(i18n.t("videos.errEmbedHttps", "Embed URL must use HTTPS."));
     if (!ALLOWED_EMBED_HOSTS.some(h => parsed.hostname === h || parsed.hostname.endsWith("." + h)))
-      throw new Error("Only YouTube, TikTok, and Rumble embed URLs are allowed.");
+      throw new EmbedValidationError(i18n.t("videos.errEmbedHost", "Only YouTube, TikTok, and Rumble embed URLs are allowed."));
   } catch (e) {
-    if (e instanceof Error && e.message.includes("Embed")) throw e;
-    throw new Error("Invalid embed URL.");
+    if (e instanceof EmbedValidationError) throw e;
+    throw new Error(i18n.t("videos.errEmbedInvalid", "Invalid embed URL."));
   }
 }
 
@@ -128,8 +130,8 @@ export const videosApi = {
   uploadFile: async (userId: string, file: File): Promise<string> => {
     const ALLOWED_TYPES: Record<string, string> = { "video/mp4": "mp4", "video/quicktime": "mov", "video/webm": "webm" };
     const MAX_SIZE = 100 * 1024 * 1024; // 100 MB
-    if (!ALLOWED_TYPES[file.type]) throw new Error("Only MP4, MOV, or WebM videos are allowed.");
-    if (file.size > MAX_SIZE) throw new Error("Video must be under 100 MB.");
+    if (!ALLOWED_TYPES[file.type]) throw new Error(i18n.t("videos.errFileType", "Only MP4, MOV, or WebM videos are allowed."));
+    if (file.size > MAX_SIZE) throw new Error(i18n.t("videos.errFileSize", "Video must be under 100 MB."));
     const ext = ALLOWED_TYPES[file.type];
     const path = `${userId}/${Date.now()}.${ext}`;
     const { error } = await supabase.storage

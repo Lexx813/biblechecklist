@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useUploadCover } from "../../hooks/useAdmin";
 import { toast } from "../../lib/toast";
 
@@ -15,6 +16,7 @@ export default function CoverPhoto({
   isOwner,
   onSettingsClick,
 }: Props) {
+  const { t } = useTranslation();
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const upload = useUploadCover(userId);
@@ -31,7 +33,7 @@ export default function CoverPhoto({
     upload.mutate(file, {
       onError: (err: unknown) => {
         toast.error(
-          err instanceof Error ? err.message : "Failed to upload cover photo"
+          err instanceof Error ? err.message : t("profile.errUploadCover", "Failed to upload cover photo")
         );
       },
       onSettled: () => {
@@ -49,7 +51,7 @@ export default function CoverPhoto({
       {displayUrl ? (
         <img
           src={displayUrl}
-          alt="Cover photo"
+          alt={t("profile.coverPhotoAlt", "Cover photo")}
           className="absolute inset-0 h-full w-full object-cover"
         />
       ) : (
@@ -88,7 +90,7 @@ export default function CoverPhoto({
             <button
               onClick={onSettingsClick}
               className="absolute right-3 top-3 z-10 flex size-9 items-center justify-center rounded-full bg-black/35 text-white/85 transition-colors hover:bg-black/55 hover:text-white"
-              aria-label="Settings"
+              aria-label={t("settings.title", "Settings")}
             >
               <svg
                 width="18"
@@ -150,7 +152,7 @@ export default function CoverPhoto({
                 <circle cx="12" cy="13" r="4" />
               </svg>
             )}
-            Edit Cover
+            {t("profile.editCover", "Edit Cover")}
           </button>
 
           {/* Hidden file input */}

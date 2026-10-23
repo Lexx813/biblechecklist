@@ -76,7 +76,7 @@ function AboutMe({ profile, userId, isOwner }: { profile: any; userId: string; i
               placeholder={t("profile.aboutPlaceholder")}
               autoFocus
             />
-            <button type="button" className="textarea-emoji-btn" onClick={() => setShowEmoji(v => !v)} title="Emoji">😊</button>
+            <button type="button" className="textarea-emoji-btn" onClick={() => setShowEmoji(v => !v)} title={t("profile.emoji", "Emoji")}>😊</button>
             {showEmoji && <EmojiPickerPopup onSelect={insertEmoji} onClose={() => setShowEmoji(false)} align="right" />}
           </div>
           <div className="pf-about-footer">

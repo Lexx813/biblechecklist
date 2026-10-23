@@ -116,7 +116,7 @@ export default function MobileTabBar({ navigate, currentPage, userId, isAdmin, i
 
   return (
     <>
-      <nav className={tabBarClassName} aria-label="Main navigation">
+      <nav className={tabBarClassName} aria-label={t("nav.mainNavAria", "Main navigation")}>
         {TAB_ITEMS.map(item => {
           // Messages badge on Feed tab; pending friend requests badge on More tab
           const badge =
@@ -139,7 +139,7 @@ export default function MobileTabBar({ navigate, currentPage, userId, isAdmin, i
               <span className={`${tabIconBaseClassName}${isActive ? ` ${tabIconActiveClassName}` : ""}`}>
                 {item.icon}
                 {badge != null && (
-                  <span className={tabBadgeClassName} aria-label={`${badge > 99 ? "99+" : badge} unread notifications`}>
+                  <span className={tabBadgeClassName} aria-label={t("nav.unreadNotificationsAria", "{{n}} unread notifications", { n: badge > 99 ? "99+" : String(badge) })}>
                     {badge > 99 ? "99+" : badge}
                   </span>
                 )}

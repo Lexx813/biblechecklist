@@ -163,7 +163,7 @@ export default function VerseModal({
           <a
             className="vm-ai-btn"
             href={`/ai?ask=${encodeURIComponent(aiPrompt)}`}
-            aria-label={`Ask AI about ${bookName} ${chapter}`}
+            aria-label={t("verseModal.askAiAria", "Ask AI about {{book}} {{chapter}}", { book: bookName, chapter })}
             onClick={(e) => {
               // For supported languages the floating Companion is mounted on the
               // reading page — open it in-place so the user never leaves their
@@ -215,7 +215,7 @@ export default function VerseModal({
                 <button
                   className={`vm-verse${isRead ? " vm-verse--read" : ""}`}
                   onClick={() => onToggleVerse(v)}
-                  aria-label={`Verse ${v}`}
+                  aria-label={t("verseModal.verseAria", "Verse {{n}}", { n: v })}
                   aria-pressed={isRead}
                 >
                   {v}
@@ -226,7 +226,7 @@ export default function VerseModal({
                   target={isTouchDevice ? undefined : "_blank"}
                   rel={isTouchDevice ? undefined : "noopener noreferrer"}
                   onClick={e => e.stopPropagation()}
-                  aria-label={`Open verse ${v} in JW Library`}
+                  aria-label={t("verseModal.openVerseInJwLibrary", "Open verse {{n}} in JW Library", { n: v })}
                 >
                   <svg width="7" height="7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>

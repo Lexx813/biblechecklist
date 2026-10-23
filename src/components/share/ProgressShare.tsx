@@ -31,7 +31,7 @@ interface Stats {
   longestStreak?: number;
 }
 
-type TFunction = (key: string) => string;
+type TFunction = import("i18next").TFunction;
 
 function draw(canvas: HTMLCanvasElement, stats: Stats, t: TFunction) {
   const dpr = window.devicePixelRatio || 1;
@@ -71,7 +71,7 @@ function draw(canvas: HTMLCanvasElement, stats: Stats, t: TFunction) {
 
   // Name / headline
   const headline = stats.name
-    ? `${stats.name}'s ${t("share.journeyLabel")}`
+    ? t("share.namedJourney", "{{name}}'s {{label}}", { name: stats.name, label: t("share.journeyLabel") })
     : t("share.myJourney");
   ctx.font = "700 24px system-ui, -apple-system, sans-serif";
   ctx.fillStyle = "rgba(255,255,255,0.85)";
@@ -148,7 +148,7 @@ function draw(canvas: HTMLCanvasElement, stats: Stats, t: TFunction) {
     ctx.font = "700 20px system-ui, -apple-system, sans-serif";
     ctx.fillStyle = "#fb923c";
     ctx.textAlign = "center";
-    ctx.fillText(`🔥 ${stats.streak}-day reading streak`, W / 2, 631);
+    ctx.fillText(`🔥 ${t("share.streakLine", "{{count}}-day reading streak", { count: stats.streak })}`, W / 2, 631);
   }
 
   // Divider
@@ -213,7 +213,7 @@ export default function ProgressShare({ stats, onClose, userId }: Props) {
       await navigator.clipboard.writeText(url);
       // Brief visual feedback via button text swap, no toast needed
       const btn = document.getElementById("ps-copy-btn");
-      if (btn) { btn.textContent = "✓ Copied!"; setTimeout(() => { btn.textContent = "🔗 Copy link"; }, 2000); }
+      if (btn) { btn.textContent = `✓ ${t("share.copied", "Copied!")}`; setTimeout(() => { btn.textContent = `🔗 ${t("share.copyLink", "Copy link")}`; }, 2000); }
     } catch { /* clipboard blocked, skip */ }
   };
 
@@ -224,7 +224,7 @@ export default function ProgressShare({ stats, onClose, userId }: Props) {
       if (!blob) return download();
       const file = new File([blob], "bible-progress.png", { type: "image/png" });
       if (navigator.canShare({ files: [file] })) {
-        await navigator.share({ files: [file], title: "My Bible Reading Progress", text: `I've read ${stats.pct}% of the Bible on JW Study! Track yours at jwstudy.org` });
+        await navigator.share({ files: [file], title: t("share.nativeShareTitle", "My Bible Reading Progress"), text: t("share.nativeShareText", "I've read {{pct}}% of the Bible on JW Study! Track yours at jwstudy.org", { pct: stats.pct }) });
       } else {
         download();
       }
@@ -233,10 +233,10 @@ export default function ProgressShare({ stats, onClose, userId }: Props) {
 
   return createPortal(
     <div className="share-overlay" onClick={onClose}>
-      <div className="share-modal" role="dialog" aria-modal="true" aria-label="Share progress" onClick={e => e.stopPropagation()}>
+      <div className="share-modal" role="dialog" aria-modal="true" aria-label={t("share.ariaLabel", "Share progress")} onClick={e => e.stopPropagation()}>
         <div className="share-modal-header">
           <span className="share-modal-title">{t("share.title")}</span>
-          <button className="share-modal-close" onClick={onClose} aria-label="Close">✕</button>
+          <button className="share-modal-close" onClick={onClose} aria-label={t("common.close", "Close")}>✕</button>
         </div>
 
         {/* Tab switcher */}
@@ -245,13 +245,13 @@ export default function ProgressShare({ stats, onClose, userId }: Props) {
             className={`share-tab${tab === "card" ? " share-tab--active" : ""}`}
             onClick={() => setTab("card")}
           >
-            🖼 Progress Card
+            🖼 {t("share.tabCard", "Progress Card")}
           </button>
           <button
             className={`share-tab${tab === "video" ? " share-tab--active" : ""}`}
             onClick={() => setTab("video")}
           >
-            🎬 Animated Video
+            🎬 {t("share.tabVideo", "Animated Video")}
           </button>
         </div>
 
@@ -268,7 +268,7 @@ export default function ProgressShare({ stats, onClose, userId }: Props) {
               ) : null}
               {userId && (
                 <button id="ps-copy-btn" className="share-download-btn" onClick={copyLink}>
-                  🔗 Copy link
+                  🔗 {t("share.copyLink", "Copy link")}
                 </button>
               )}
               <button className="share-download-btn" onClick={download} style={{ background: "rgba(255,255,255,0.08)" }}>

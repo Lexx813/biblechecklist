@@ -1,11 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "../lib/supabase";
+import { localDateStr } from "../lib/localDate";
 
 export function useReadingLeaderboard() {
   return useQuery({
     queryKey: ["leaderboard", "reading"],
     queryFn: async () => {
-      const { data, error } = await supabase.rpc("get_reading_leaderboard", { p_limit: 20 });
+      const { data, error } = await supabase.rpc("get_reading_leaderboard", { p_limit: 20, p_today: localDateStr() });
       if (error) throw new Error(error.message);
       return data ?? [];
     },

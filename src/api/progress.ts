@@ -1,4 +1,5 @@
 import { supabase } from "../lib/supabase";
+import { localDateStr } from "../lib/localDate";
 
 // { [bookIndex: number]: { [chapter: number]: isoString } }
 type ChapterTimestampMap = Record<number, Record<number, string>>;
@@ -37,11 +38,11 @@ export const progressApi = {
   recordReadingDay: async (userId: string): Promise<void> => {
     await supabase
       .from("reading_activity")
-      .upsert({ user_id: userId, activity_date: new Date().toISOString().slice(0, 10) });
+      .upsert({ user_id: userId, activity_date: localDateStr() });
   },
 
   getStreak: async (userId: string): Promise<StreakData> => {
-    const { data, error } = await supabase.rpc("get_reading_streaks", { p_user_id: userId });
+    const { data, error } = await supabase.rpc("get_reading_streaks", { p_user_id: userId, p_today: localDateStr() });
     if (error) throw new Error(error.message);
     return (data as StreakData | null) ?? { current_streak: 0, longest_streak: 0, total_days: 0 };
   },

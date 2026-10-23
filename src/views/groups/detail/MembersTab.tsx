@@ -58,7 +58,7 @@ export default function MembersTab({ groupId, userId, isAdmin, isOwner }: Props)
           <Avatar src={m.avatar_url} name={m.display_name} size={36} />
           <div className="grp-member-info">
             <span className="grp-member-name">{m.display_name || t("groups.unknown")}</span>
-            <span className="grp-member-role">{m.role}</span>
+            <span className="grp-member-role">{m.role === "owner" ? t("groups.owner", "Owner") : m.role === "admin" ? t("groups.admin", "Admin") : t("groups.member", "Member")}</span>
           </div>
           {isAdmin && m.user_id !== userId && m.role !== "owner" && (
             <div className="grp-member-actions">

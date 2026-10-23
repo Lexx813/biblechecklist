@@ -2205,6 +2205,7 @@ export type Database = {
           is_banned: boolean
           is_moderator: boolean
           last_active_at: string | null
+          last_active_date: string | null
           longest_streak: number
           meeting_day_midweek: number | null
           meeting_day_weekend: number | null
@@ -2243,6 +2244,7 @@ export type Database = {
           is_banned?: boolean
           is_moderator?: boolean
           last_active_at?: string | null
+          last_active_date?: string | null
           longest_streak?: number
           meeting_day_midweek?: number | null
           meeting_day_weekend?: number | null
@@ -2281,6 +2283,7 @@ export type Database = {
           is_banned?: boolean
           is_moderator?: boolean
           last_active_at?: string | null
+          last_active_date?: string | null
           longest_streak?: number
           meeting_day_midweek?: number | null
           meeting_day_weekend?: number | null
@@ -4021,11 +4024,12 @@ export type Database = {
         }[]
       }
       get_reading_leaderboard: {
-        Args: { p_limit?: number }
+        Args: { p_limit?: number; p_today?: string }
         Returns: {
           avatar_url: string
           books_complete: number
           chapters_read: number
+          current_streak: number
           display_name: string
           pct: number
           subscription_status: string
@@ -4040,9 +4044,12 @@ export type Database = {
           total_days: number
         }[]
       }
-      get_reading_streaks: { Args: { p_user_id: string }; Returns: Json }
+      get_reading_streaks: {
+        Args: { p_today?: string; p_user_id: string }
+        Returns: Json
+      }
       get_reading_streaks_bulk: {
-        Args: { p_user_ids: string[] }
+        Args: { p_today?: string; p_user_ids: string[] }
         Returns: Json
       }
       get_resend_key: { Args: never; Returns: string }

@@ -79,7 +79,7 @@ function NotesEditor({ value, placeholder, onSave }) {
         placeholder={placeholder}
         value={local}
         onChange={handleChange}
-        aria-label="Meeting notes"
+        aria-label={t("meetingPrep.notesAria", "Meeting notes")}
       />
     </div>
   );
@@ -251,7 +251,7 @@ function WatchtowerTab({ week, prep, onTogglePara, onNoteChange }) {
             key={n}
             className={`mp-para-btn${checkedMap[n] ? " mp-para-btn--done" : ""}`}
             onClick={() => onTogglePara(n)}
-            aria-label={`Paragraph ${n}${checkedMap[n] ? ", done" : ""}`}
+            aria-label={checkedMap[n] ? t("meetingPrep.paragraphAriaDone", "Paragraph {{n}}, done", { n }) : t("meetingPrep.paragraphAria", "Paragraph {{n}}", { n })}
           >
             {n}
           </button>
@@ -308,10 +308,10 @@ function HistoryTab({ userId }) {
             <div className="mp-history-week">{formatWeekLabel(h.week_start)}</div>
             <div className="mp-history-badges">
               <span className={`mp-history-badge ${h.clam_completed ? "mp-history-badge--done" : "mp-history-badge--miss"}`}>
-                {h.clam_completed ? "✓" : "–"} CLAM
+                {h.clam_completed ? "✓" : "–"} {t("meetingPrep.clamAbbr", "CLAM")}
               </span>
               <span className={`mp-history-badge ${h.wt_completed ? "mp-history-badge--done" : "mp-history-badge--miss"}`}>
-                {h.wt_completed ? "✓" : "–"} WT
+                {h.wt_completed ? "✓" : "–"} {t("meetingPrep.wtAbbr", "WT")}
               </span>
             </div>
           </div>
@@ -434,9 +434,9 @@ export default function MeetingPrepPage({ user, navigate, darkMode, setDarkMode,
             {week?.scraped_at && (
               <span
                 className="mp-updated-pill"
-                title={`Last scraped from wol.jw.org: ${new Date(week.scraped_at).toLocaleString()}`}
+                title={t("meetingPrep.lastScraped", "Last scraped from wol.jw.org: {{date}}", { date: new Date(week.scraped_at).toLocaleString() })}
               >
-                Updated {timeAgo(week.scraped_at)}
+                {t("meetingPrep.updatedAgo", "Updated {{time}}", { time: timeAgo(week.scraped_at) })}
               </span>
             )}
           </p>
@@ -453,7 +453,7 @@ export default function MeetingPrepPage({ user, navigate, darkMode, setDarkMode,
             return (
               <>
                 <div className="mp-prog-row">
-                  <span className="mp-prog-label">CLAM</span>
+                  <span className="mp-prog-label">{t("meetingPrep.clamAbbr", "CLAM")}</span>
                   <div className="mp-prog-track">
                     <div className="mp-prog-fill" style={{ width: clamPct + "%" }} />
                   </div>
@@ -464,7 +464,7 @@ export default function MeetingPrepPage({ user, navigate, darkMode, setDarkMode,
                   <div className="mp-prog-track">
                     <div className="mp-prog-fill mp-prog-fill--wt" style={{ width: wtPct + "%" }} />
                   </div>
-                  <span className="mp-prog-count">{wtDoneCount}/{wtTotal} para</span>
+                  <span className="mp-prog-count">{t("meetingPrep.paraCount", "{{done}}/{{total}} para", { done: wtDoneCount, total: wtTotal })}</span>
                 </div>
               </>
             );

@@ -141,8 +141,8 @@ export const FCBubble = memo(function FCBubble({ msg, isMine, allMessages, react
           <button
             className="fc-dots-btn"
             onClick={() => setShowMenu(s => !s)}
-            title="Options"
-            aria-label="Options"
+            title={t("messages.options", "Options")}
+            aria-label={t("messages.options", "Options")}
             aria-expanded={showMenu}
           >⋮</button>
 
@@ -150,26 +150,26 @@ export const FCBubble = memo(function FCBubble({ msg, isMine, allMessages, react
             <div className="fc-action-menu">
               <button ref={reactBtnRef} className="fc-action-menu-item" onClick={() => setShowReactPicker(s => !s)}>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 13s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
-                React
+                {t("messages.react", "React")}
               </button>
               <button className="fc-action-menu-item" onClick={() => { onReply(msg); closeMenu(); }}>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="9 17 4 12 9 7"/><path d="M20 18v-2a4 4 0 0 0-4-4H4"/></svg>
-                Reply
+                {t("messages.reply", "Reply")}
               </button>
               <button className="fc-action-menu-item" onClick={() => { onStar(msg.id); closeMenu(); }}>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill={isStarred ? "#f59e0b" : "none"} stroke={isStarred ? "#f59e0b" : "currentColor"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                {isStarred ? "Unstar" : "Star"}
+                {isStarred ? t("messages.unstar", "Unstar") : t("messages.star", "Star")}
               </button>
               {isMine && !isVerse && !isImage && !isPlan && (
                 <button className="fc-action-menu-item" onClick={() => { setEditing(true); setEditText(msg.content ?? ""); closeMenu(); }}>
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-                  Edit
+                  {t("common.edit", "Edit")}
                 </button>
               )}
               {isMine && (
                 <button className="fc-action-menu-item fc-action-menu-item--danger" onClick={() => { onDelete(msg.id); closeMenu(); }}>
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
-                  Delete
+                  {t("common.delete", "Delete")}
                 </button>
               )}
               {showReactPicker && (

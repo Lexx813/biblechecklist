@@ -40,6 +40,7 @@ function AvatarOverlap({
   userId: string;
   isOwner: boolean;
 }) {
+  const { t } = useTranslation();
   const fileRef = useRef<HTMLInputElement>(null);
   const upload = useUploadAvatar(userId);
   const [preview, setPreview] = useState<string | null>(null);
@@ -79,7 +80,7 @@ function AvatarOverlap({
         type="button"
         className="group relative cursor-pointer rounded-full"
         onClick={() => fileRef.current?.click()}
-        aria-label="Change avatar"
+        aria-label={t("profile.changeAvatar", "Change avatar")}
       >
         {avatarContent}
         {/* Camera overlay on hover */}

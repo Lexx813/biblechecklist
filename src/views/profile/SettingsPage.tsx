@@ -153,7 +153,7 @@ export default function SettingsPage({ user, onBack, navigate, darkMode, setDark
           <div className="st-avatar-row">
             <div className="st-avatar-wrap">
               {avatarUrl
-                ? <img src={avatarUrl} className="st-avatar-img" alt="avatar" />
+                ? <img src={avatarUrl} className="st-avatar-img" alt={t("settings.avatarAlt", "avatar")} />
                 : <div className="st-avatar-placeholder">{displayName[0]?.toUpperCase() ?? "?"}</div>
               }
               {uploadAvatar.isPending && (
@@ -381,7 +381,7 @@ export default function SettingsPage({ user, onBack, navigate, darkMode, setDark
             blockedUsers.map(u => (
               <div key={u.id} className="st-toggle-row">
                 <div className="st-toggle-info">
-                  <span className="st-toggle-label">{u.display_name || "Unknown user"}</span>
+                  <span className="st-toggle-label">{u.display_name || t("settings.unknownUser", "Unknown user")}</span>
                 </div>
                 <Button
                   variant="ghost"
@@ -389,7 +389,7 @@ export default function SettingsPage({ user, onBack, navigate, darkMode, setDark
                   onClick={() => unblockUser.mutate(u.id)}
                   disabled={unblockUser.isPending}
                 >
-                  Unblock
+                  {t("settings.unblock", "Unblock")}
                 </Button>
               </div>
             ))

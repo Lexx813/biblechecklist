@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useLayoutEffect, useRef, useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
+import i18n from "../../i18n";
 import {
   useMessages, useSendMessage, useDeleteMessage, useMarkRead,
   useReactions, useToggleReaction, useEditMessage, useToggleStar,
@@ -152,7 +153,7 @@ export function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentC
           if (cache.has(cacheKey)) return { ...msg, content: cache.get(cacheKey) as string };
           const decrypted = msg.message_type === "text" && sharedKey
             ? await decryptMessage(msg.content ?? "", sharedKey)
-            : msg.content?.startsWith("enc:") ? "[🔒 Encrypted message]" : msg.content;
+            : msg.content?.startsWith("enc:") ? `[🔒 ${i18n.t("messages.encryptedMessage", "Encrypted message")}]` : msg.content;
           cache.set(cacheKey, decrypted ?? "");
           if (cache.size > 500) {
             const firstKey = cache.keys().next().value;

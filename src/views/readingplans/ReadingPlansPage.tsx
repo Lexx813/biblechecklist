@@ -61,6 +61,25 @@ function planStreak(sortedCompletionDayNumbers) {
   return streak;
 }
 
+// ── Localized template labels ─────────────────────────────────────────────────
+// Template data stays English in data/readingPlanTemplates; translate at render.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function tplName(template, t: any): string {
+  if (template.key === "custom") {
+    return template.name === "Custom Plan" ? t("readingPlans.customPlanDefault", "Custom Plan") : template.name;
+  }
+  return t(`readingPlans.templates.${template.key}.name`, template.name);
+}
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function tplDesc(template, t: any): string {
+  if (template.key === "custom") return template.description;
+  return t(`readingPlans.templates.${template.key}.description`, template.description);
+}
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function difficultyLabel(difficulty: string, t: any): string {
+  return t(`readingPlans.difficulty_${difficulty}`, difficulty);
+}
+
 // ── Custom Plan Builder Modal ─────────────────────────────────────────────────
 
 const QUICK_DAY_OPTIONS = [14, 30, 60, 90, 180, 365];
@@ -174,7 +193,7 @@ function CustomPlanModal({ onClose, onCreated }) {
                     className={`rp-book-chip${selectedBooks.has(i) ? " rp-book-chip--on" : ""}`}
                     onClick={() => toggleBook(i)}
                   >
-                    {BOOKS[i].abbr}
+                    {t(`bookAbbrs.${i}`, BOOKS[i].abbr)}
                   </button>
                 ))}
               </div>
@@ -191,7 +210,7 @@ function CustomPlanModal({ onClose, onCreated }) {
                     className={`rp-book-chip${selectedBooks.has(i) ? " rp-book-chip--on" : ""}`}
                     onClick={() => toggleBook(i)}
                   >
-                    {BOOKS[i].abbr}
+                    {t(`bookAbbrs.${i}`, BOOKS[i].abbr)}
                   </button>
                 ))}
               </div>
@@ -208,7 +227,7 @@ function CustomPlanModal({ onClose, onCreated }) {
                 className={`rp-day-option-btn${!useCustomDays && days === d ? " rp-day-option-btn--active" : ""}`}
                 onClick={() => { setDays(d); setUseCustomDays(false); }}
               >
-                {d}d
+                {t("readingPlans.daysShort", "{{count}}d", { count: d })}
               </button>
             ))}
             <button
@@ -229,7 +248,7 @@ function CustomPlanModal({ onClose, onCreated }) {
               value={customDays}
               onChange={e => setCustomDays(e.target.value)}
               placeholder={t("readingPlans.enterDays")}
-              aria-label="Number of days"
+              aria-label={t("readingPlans.numberOfDays", "Number of days")}
             />
           )}
 
@@ -277,12 +296,12 @@ function TemplateCard({ template, enrolled, onEnroll, enrolling, activeChallenge
       <div className="rp-template-icon">{template.icon}</div>
       <div className="rp-template-body">
         <div className="rp-template-header">
-          <h3 className="rp-template-name">{template.name}</h3>
+          <h3 className="rp-template-name">{tplName(template, t)}</h3>
           <span className="rp-difficulty-badge" style={{ color: DIFFICULTY_COLOR[template.difficulty] }}>
-            {template.difficulty}
+            {difficultyLabel(template.difficulty, t)}
           </span>
         </div>
-        <p className="rp-template-desc">{template.description}</p>
+        <p className="rp-template-desc">{tplDesc(template, t)}</p>
         <div className="rp-template-meta">
           <span>📅 {template.totalDays} {t("readingPlans.days")}</span>
           <span>📖 {template.totalChapters} {t("readingPlans.chapters")}</span>
@@ -321,7 +340,7 @@ function ActivePlanCard({ plan, onClick, activeChallengeKeys = new Set() }) {
         <span className="rp-active-icon">{template.icon}</span>
         <div className="rp-active-info">
           <h3 className="rp-active-name">
-            {template.name}
+            {tplName(template, t)}
             {plan.is_paused && <span className="rp-paused-badge">{t("readingPlans.paused")}</span>}
             {activeChallengeKeys.has(plan.template_key) && (
               <span className="rp-challenge-badge">
@@ -350,7 +369,7 @@ function ActivePlanCard({ plan, onClick, activeChallengeKeys = new Set() }) {
         </span>
         <div className="rp-active-footer-right">
           {behind > 3 && !plan.is_paused && (
-            <span className="rp-behind-badge">{behind}d {t("readingPlans.behind")}</span>
+            <span className="rp-behind-badge">{t("readingPlans.daysShort", "{{count}}d", { count: behind })} {t("readingPlans.behind")}</span>
           )}
           <span className="rp-active-done-count">{completedCount}/{template.totalDays} {t("readingPlans.days")}</span>
         </div>
@@ -405,7 +424,7 @@ function PlanAnalytics({ plan, template, completions }) {
         <span className="rp-week-bar-label">{t("readingPlans.last7Days")}</span>
         <div className="rp-week-bar-cells">
           {recentDays.map(d => (
-            <div key={d} className={`rp-week-cell${doneSet.has(d) ? " rp-week-cell--done" : d === currentDay ? " rp-week-cell--today" : ""}`} title={`Day ${d}`} />
+            <div key={d} className={`rp-week-cell${doneSet.has(d) ? " rp-week-cell--done" : d === currentDay ? " rp-week-cell--today" : ""}`} title={t("readingPlans.dayN", "Day {{day}}", { day: d })} />
           ))}
         </div>
       </div>
@@ -524,8 +543,8 @@ function PlanDetail({ plan: initialPlan, allPlans, onBack, navigate, userId }) {
   const visibleDays = showAll ? schedule : schedule.slice(0, currentDay + 6);
 
   function toggleDay(dayNum) {
-    if (doneSet.has(dayNum)) unmarkDay.mutate(dayNum, { onError: () => toast.error("Failed to update reading day.") });
-    else markDay.mutate(dayNum, { onError: () => toast.error("Failed to update reading day.") });
+    if (doneSet.has(dayNum)) unmarkDay.mutate(dayNum, { onError: () => toast.error(t("readingPlans.toastUpdateDayFailed", "Failed to update reading day.")) });
+    else markDay.mutate(dayNum, { onError: () => toast.error(t("readingPlans.toastUpdateDayFailed", "Failed to update reading day.")) });
   }
 
   function handleUnenroll() {
@@ -546,7 +565,7 @@ function PlanDetail({ plan: initialPlan, allPlans, onBack, navigate, userId }) {
           <span className="rp-detail-icon">{template.icon}</span>
           <div>
             <h2 className="rp-detail-name">
-              {template.name}
+              {tplName(template, t)}
               {plan.is_paused && <span className="rp-paused-badge">{t("readingPlans.paused")}</span>}
             </h2>
             <p className="rp-detail-meta">
@@ -556,11 +575,11 @@ function PlanDetail({ plan: initialPlan, allPlans, onBack, navigate, userId }) {
         </div>
         <div className="rp-detail-header-actions">
           {plan.is_paused ? (
-            <button className="rp-pause-btn rp-pause-btn--resume" onClick={() => resume.mutate(plan, { onError: () => toast.error("Failed to resume plan.") })} disabled={resume.isPending}>
+            <button className="rp-pause-btn rp-pause-btn--resume" onClick={() => resume.mutate(plan, { onError: () => toast.error(t("readingPlans.toastResumeFailed", "Failed to resume plan.")) })} disabled={resume.isPending}>
               ▶ {t("readingPlans.resume")}
             </button>
           ) : (
-            <button className="rp-pause-btn" onClick={() => pause.mutate(plan.id, { onError: () => toast.error("Failed to pause plan.") })} disabled={pause.isPending}>
+            <button className="rp-pause-btn" onClick={() => pause.mutate(plan.id, { onError: () => toast.error(t("readingPlans.toastPauseFailed", "Failed to pause plan.")) })} disabled={pause.isPending}>
               ⏸ {t("readingPlans.pause")}
             </button>
           )}
@@ -631,7 +650,7 @@ function PlanDetail({ plan: initialPlan, allPlans, onBack, navigate, userId }) {
           <div className="rp-today-readings">
             {schedule[currentDay - 1].readings.map((r, i) => (
               <a key={i} className="rp-reading-chip" href={wolChapterUrl(r.bookIndex, r.chapter)} target="_blank" rel="noopener noreferrer">
-                {r.bookAbbr} {r.chapter}
+                {t(`bookAbbrs.${r.bookIndex}`, r.bookAbbr)} {r.chapter}
               </a>
             ))}
           </div>
@@ -661,7 +680,7 @@ function PlanDetail({ plan: initialPlan, allPlans, onBack, navigate, userId }) {
         <div className="rp-paused-notice">
           <span>⏸</span>
           <p>{t("readingPlans.pausedNotice")}</p>
-          <button className="rp-pause-btn rp-pause-btn--resume" onClick={() => resume.mutate(plan, { onError: () => toast.error("Failed to resume plan.") })} disabled={resume.isPending}>
+          <button className="rp-pause-btn rp-pause-btn--resume" onClick={() => resume.mutate(plan, { onError: () => toast.error(t("readingPlans.toastResumeFailed", "Failed to resume plan.")) })} disabled={resume.isPending}>
             ▶ {t("readingPlans.resume")}
           </button>
         </div>
@@ -707,7 +726,7 @@ function PlanDetail({ plan: initialPlan, allPlans, onBack, navigate, userId }) {
                     <div className="rp-day-readings">
                       {readings.map((r, i) => (
                         <a key={i} className="rp-reading-chip rp-reading-chip--sm" href={wolChapterUrl(r.bookIndex, r.chapter)} target="_blank" rel="noopener noreferrer">
-                          {r.bookAbbr} {r.chapter}
+                          {t(`bookAbbrs.${r.bookIndex}`, r.bookAbbr)} {r.chapter}
                         </a>
                       ))}
                     </div>
@@ -730,7 +749,7 @@ function PlanDetail({ plan: initialPlan, allPlans, onBack, navigate, userId }) {
 
       {confirmDelete && (
         <ConfirmModal
-          message={`${t("readingPlans.remove")} "${template.name}" ${t("readingPlans.removeConfirmSuffix")}`}
+          message={`${t("readingPlans.remove")} "${tplName(template, t)}" ${t("readingPlans.removeConfirmSuffix")}`}
           onConfirm={handleUnenroll}
           onCancel={() => setConfirmDelete(false)}
         />
