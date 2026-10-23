@@ -1,4 +1,4 @@
-const CACHE = "nwt-v11";
+const CACHE = "nwt-v12";
 const STATIC_EXTENSIONS = /\.(js|css|png|jpg|jpeg|svg|gif|webp|woff2?|ico)$/;
 
 // Precache critical assets on install so repeat visits are instant
@@ -86,18 +86,20 @@ self.addEventListener("fetch", (e) => {
     return;
   }
 
-  // Locale JSON files — stale-while-revalidate (instant from cache, refresh in background)
+  // Locale JSON files — network-first so a deploy's new translations show on
+  // the next load; cached copy only as an offline fallback. URLs carry ?v=
+  // per deploy, so match ignoring the query to keep one entry per language.
   if (url.pathname.startsWith("/locales/")) {
     e.respondWith(
-      caches.open(CACHE).then((cache) =>
-        cache.match(e.request).then((cached) => {
-          const fresh = fetch(e.request).then((res) => {
-            if (res.ok) cache.put(e.request, res.clone());
-            return res;
-          });
-          return cached || fresh;
+      fetch(e.request)
+        .then((res) => {
+          if (res.ok) {
+            const clone = res.clone();
+            caches.open(CACHE).then((cache) => cache.put(url.pathname, clone));
+          }
+          return res;
         })
-      )
+        .catch(() => caches.match(url.pathname))
     );
     return;
   }

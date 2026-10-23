@@ -53,7 +53,7 @@ export default function RootLayout({ children }) {
             English translation is no longer bundled into the initial JS chunk —
             preload it as fetch so i18next's HttpBackend pulls from the disk
             cache instead of blocking on a cold network request. */}
-        <link rel="preload" href="/locales/en/translation.json" as="fetch" type="application/json" crossOrigin="anonymous" />
+        <link rel="preload" href={`/locales/en/translation.json?v=${process.env.NEXT_PUBLIC_LOCALE_VERSION ?? "dev"}`} as="fetch" type="application/json" crossOrigin="anonymous" />
         {/* Apply saved theme before first paint to prevent flash */}
         <script
           dangerouslySetInnerHTML={{

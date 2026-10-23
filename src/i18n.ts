@@ -27,6 +27,9 @@ export const BETA_LANGS: readonly string[] = LANGUAGES.filter(l => l.beta).map(l
 
 const RTL_LANGS = new Set(["ar"]);
 
+// Changes every deploy (next.config.js) so cached translation files are never reused across releases.
+export const LOCALE_VERSION = process.env.NEXT_PUBLIC_LOCALE_VERSION ?? "dev";
+
 i18n
   .use(HttpBackend)
   .use(LanguageDetector)
@@ -53,7 +56,7 @@ i18n
       lookupLocalStorage: "nwt-lang",
     },
     backend: {
-      loadPath: "/locales/{{lng}}/translation.json",
+      loadPath: `/locales/{{lng}}/translation.json?v=${LOCALE_VERSION}`,
       requestOptions: { cache: "force-cache" },
     },
   });

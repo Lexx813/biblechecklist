@@ -16,6 +16,13 @@ const nextConfig = {
   eslint: { ignoreDuringBuilds: false },
   typescript: { ignoreBuildErrors: false },
 
+  // Per-deploy version for /locales/*.json URLs. i18n fetches them with
+  // force-cache and the service worker caches them too, so without a
+  // version in the URL returning visitors keep stale translations forever.
+  env: {
+    NEXT_PUBLIC_LOCALE_VERSION: (process.env.VERCEL_GIT_COMMIT_SHA || String(Date.now())).slice(0, 10),
+  },
+
   // Security: remove X-Powered-By: Next.js response header
   poweredByHeader: false,
 
